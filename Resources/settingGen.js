@@ -6,7 +6,7 @@ class setting {
         this.description = description
     }
 
-    selfAdd(name, value, type, description) {
+    addToDOM(name, value, type, description) {
         this.name = name
         this.value = value
         this.type = type
@@ -18,7 +18,14 @@ class setting {
             throw new Error("Invalid type: " + this.type)
         }
 
-
-
+        if(this.type == 'bool'){
+            let obj = /* html */ `
+            <div class="settingObj" id="${this.value}">
+                
+            </div>
+            `
+        }
     }
 }
+
+window.setting = setting
