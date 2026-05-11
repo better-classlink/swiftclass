@@ -27,11 +27,12 @@ class setting {
 
                 let i = document.createElement('img')
 
-                i.classList.add('boolImage')
-
                 i.src = 'Resources/svg/setting/' + this.value + '.svg'
 
+                i.classList.add('boolImage')
+
                 let d = document.createElement('span')
+
                 d.textContent = this.description
 
                 b.appendChild(t)
