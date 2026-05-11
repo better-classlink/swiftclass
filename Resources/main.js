@@ -2,6 +2,12 @@ window.currentMenu = 'SwiftClass'
 
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+if(localStorage.getItem('swcsettings') == null) localStorage.setItem('swcsettings'
+    , JSON.stringify({
+        'classesEnableNotif': true
+    })
+)
+
 const menu = new RadialMenu({
     parent: document.getElementById('container'),
     size: 200,
