@@ -110,9 +110,6 @@ body {
 .footer {
     background-color: #277ec1d9;
     border-top: 3px solid white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .footerAligner {
