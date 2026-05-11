@@ -1,0 +1,11 @@
+{
+    "title": "Welcome to SwiftClass's Testing Phase!",
+    "body": [
+        "Welcome to SwiftClass!",
+        "This is a test of the news system that lets me easily change the internals.",
+        "Isn't it pretty?",
+        "",
+        "For now, this pretty much summarizes the front page."
+    ],
+    "image": true
+}
