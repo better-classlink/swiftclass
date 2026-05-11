@@ -1,4 +1,4 @@
-class setting {
+class Setting {
     constructor(name, value, type, description) {
         this.name = name
         this.value = value
@@ -27,7 +27,7 @@ class setting {
 
                 let i = document.createElement('img')
 
-                i.src = 'Resources/svg/setting/' + this.value + '.svg'
+                i.src = 'Resources/svg/setting/' + this.value + '.png'
 
                 i.classList.add('boolImage')
 
@@ -54,6 +54,6 @@ class setting {
     }
 }
 
-window.setting = setting
+window.Setting = Setting
 
-// let testSetting = new setting('Example Setting', 'off', 'bool', 'This is a test setting')
+// let testSetting = new Setting('Example Setting', 'off', 'bool', 'This is a test setting')
