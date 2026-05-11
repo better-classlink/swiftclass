@@ -18,20 +18,33 @@ class setting {
             if(document.getElementById(this.value) != null) throw new Error("Duplicate ID: " + this.value)
     try{
             if (this.type == 'bool') {
-                let obj = /* html */ `
-                <button id="${this.value}">
-                    hola buenas
-                </button>
-            `
-                document.getElementById('baseContent').innerHTML += obj
+                let b = document.createElement('div')
+                b.classList.add('boolInteract')
+                b.id = this.value
 
-                document.getElementById(this.value).addEventListener('click', () => {
-                   alert('This setting is not yet implemented!')
-                })
+                let t = document.createElement('span')
+                t.textContent = this.name
 
-                console.log(document.getElementById(this.value)?.onclick)
-                console.log(this.value)
-                console.log('hello?')
+                let i = document.createElement('img')
+
+                i.classList.add('boolImage')
+
+                i.src = 'Resources/svg/setting/' + this.value + '.svg'
+
+                let d = document.createElement('span')
+                d.textContent = this.description
+
+                b.appendChild(t)
+
+                b.appendChild(document.createElement('br'))
+
+                b.appendChild(i)
+
+                b.appendChild(document.createElement('br'))
+
+                b.appendChild(d)
+
+                document.getElementById('baseContent').appendChild(b)
             }
 
     }catch(e){
@@ -42,4 +55,4 @@ class setting {
 
 window.setting = setting
 
-let testSetting = new setting('test', 'off', 'bool', 'This is a test setting')
+// let testSetting = new setting('Example Setting', 'off', 'bool', 'This is a test setting')

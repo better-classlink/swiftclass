@@ -158,3 +158,25 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+
+/* SETTINGS */
+
+.boolInteract {
+    background: #808080;
+    width: fit-content;
+    height: fit-content;
+    padding: 1%;
+    border: #bec1c3;
+    border-radius: 2%;
+    user-select: none;  
+}
+
+.boolImage {
+    transition: all 0.2s ease-in-out;
+}
+
+.boolImage:hover {
+    filter: brightness(120%);
+    cursor: pointer;
+}
