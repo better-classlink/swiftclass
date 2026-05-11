@@ -4,27 +4,25 @@ class setting {
         this.value = value
         this.type = type
         this.description = description
-    }
 
-    addToDOM(name, value, type, description) {
-        this.name = name
-        this.value = value
-        this.type = type
-        this.description = description
+        // adding the setting to the baseContent Element
 
-        // verifying types
+            // verifying types FIRST
 
-        if(!this.type in ['bool', 'dropdown', 'color', 'slider']){
-            throw new Error("Invalid type: " + this.type)
-        }
+            if (!['bool', 'dropdown', 'color', 'slider'].includes(this.type)) {
+                throw new Error("Invalid type: " + this.type)
+            }
 
-        if(this.type == 'bool'){
-            let obj = /* html */ `
+            if (this.type == 'bool') {
+                let obj = /* html */ `
             <div class="settingObj" id="${this.value}">
-                
+                <img src="Resources/svg/setting/${this.value}.svg" class="settingIcon">
             </div>
             `
-        }
+                document.getElementById('baseContent').innerHTML += obj
+
+            }
+
     }
 }
 
