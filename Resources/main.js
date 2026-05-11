@@ -119,13 +119,6 @@ async function loadMenu(){
     baseContent.style.height = String(mainParent.clientHeight / 1.15) + 'px'
     baseContent.style.width = String(mainParent.clientWidth / 1.1) + 'px'
 
-    if(baseContent.style.width > baseContent.style.height){
-        newsImage.style.width = String(baseContent.style.width / 1.5) + 'px'
-    }
-    else{
-        newsImage.style.height = String(baseContent.style.height / 1.5) + 'px'
-        console.log(baseContent.style.height)
-    }
     }catch(e){
         console.warn('dimensions err: ' + e)
     }

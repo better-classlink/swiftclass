@@ -46,10 +46,10 @@ body {
 }
 
 .timeTicker {
-     font-family: Geist;
+    font-family: Geist;
     font-weight: 200;
     color: white;
-    font-size: clamp(1px, 20px, 34px);
+    font-size: clamp(12px, 3vmin, 34px);
     margin: 0px;
 }
 
@@ -60,11 +60,11 @@ body {
    padding: 11px;
 }
 .newsText {
-    font-size: clamp(1px, 20px, 34px);
+    font-size: clamp(12px, 3vmin, 34px);
     margin: 0;
 }
 .newsHeader {
-    font-size: clamp(1px, 36px, 44px);
+    font-size: clamp(12px, 5vmin, 44px);
     margin: 0px;
 }
 
@@ -76,9 +76,8 @@ body {
     right: 0;
     margin-right: 5px;
     margin-bottom: 5px;
-    width: 10px;
-    height: 10px;
-    aspect-ratio: 16 / 9;
+    width: 64vmin;
+    height: 36vmin;
 }
 
 /* News Stuff Ends */
@@ -145,7 +144,7 @@ body {
 }
 
 .footerButtonText{
-    font-size: clamp(1px, 11px, 34px);
+    font-size: clamp(7px, 3vmin, 14px);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -155,4 +154,10 @@ body {
     background-color: #444e9c;
     cursor: pointer;
     text-decoration: underline;
+}
+
+.flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
