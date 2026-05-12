@@ -24,22 +24,32 @@ class Setting {
                 b.classList.add('boolInteract')
                 b.id = this.name
 
-                let t = document.createElement('span')
+                let t = document.createElement('span').classList.add('boolHeader')
+
                 t.textContent = this.name
 
-                let i = document.createElement('img')
+                let i = document.createElement('div')
 
-                i.src = 'Resources/svg/setting/' + this.value + '.png'
+                i.dataset.imgSource = 'Resources/svg/setting/' + this.value + '.png'
 
-                i.classList.add('boolImage')
+                i.classList.add('boolImageContainer')
 
-                i.addEventListener('click', () => {
+                let img = document.createElement('img')
+
+                img.src = i.dataset.imgSource
+
+                i.appendChild(img)
+
+                img.classList.add('boolImage')
+
+                i.addEventListener('click', (event) => {
                     if (this.value == 'off') {
                         this.value = 'on'
-                    } else {
+                    }
+                    else {
                         this.value = 'off'
                     }
-                    i.src = 'Resources/svg/setting/' + this.value + '.png'
+                    event.currentTarget.children[0].src = 'Resources/svg/setting/' + this.value + '.png'
                 });
 
                 let d = document.createElement('span')
@@ -53,8 +63,6 @@ class Setting {
                 b.appendChild(document.createElement('br'))
 
                 b.appendChild(i)
-
-                b.appendChild(document.createElement('br'))
 
                 b.appendChild(d)
             }

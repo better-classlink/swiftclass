@@ -29,6 +29,17 @@ const menu = new RadialMenu({
 
 window.openedStatus = false
 
+window.mousePosition = [0, 0]
+
+document.addEventListener('mousemove', (event) => {
+    window.mousePosition = [event.clientX, event.clientY]
+    console.log(window.mousePosition)
+    if(!window.openedStatus){
+        document.getElementById('container').style.left = String(event.clientX - 500) + 'px'
+        document.getElementById('container').style.top = String(event.clientY - 500) + 'px'
+    }
+})
+
 document.addEventListener("mousedown", (event) => {
     if(event.button == 2 && !window.controlKeyPressed){
         if(!openedStatus){
@@ -96,7 +107,7 @@ async function updateMenus(){
                     break;
                 case 'Settings':
                     document.getElementById('baseContent').replaceChildren()
-                    let testSetting = new Setting('Example Setting', 'off', 'bool', 'This is a test setting')
+                    let testSetting = new Setting('Example Setting', 'off', 'bool', 'This is a test setting This is a test setting This is a test settingThis is a test setting This is a test setting This is a test setting This is a test setting This is a test setting')
                     testSetting.render()
                     break;
                 default:

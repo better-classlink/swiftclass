@@ -174,15 +174,25 @@ body {
     user-select: text;
     pointer-events: auto;  
     z-index: 99;
+    margin: none;
+    font-size: clamp(7px, 3vmin, 14px);
 }
 
 .boolImage {
     pointer-events: auto;
     z-index: 99;
     transition: 0.1s ease;
+    width: 90%;
+    height: 40%;
+    z-index: 9999;
+    margin: none;
 }
 
 .boolImage:hover {
-    transform: scale(1.05);
-    /* transform: scaleX(-1); */
+    transform: scale(1.1);
+}
+
+.boolImageContainer {
+    width: fit-content;
+    height: fit-content;
 }
