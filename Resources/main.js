@@ -106,10 +106,9 @@ async function updateMenus(){
                 }
                     break;
                 case 'Settings':
-                    document.getElementById('baseContent').replaceChildren()
-                    let testSetting = new Setting('Example Setting', 'off', 'bool', 'This is a test setting This is a test setting This is a test settingThis is a test setting This is a test setting This is a test setting This is a test setting This is a test setting')
-                    testSetting.render()
-                    break;
+                    document.getElementById('baseContent').innerHTML = ''
+                    
+                    
                 default:
                     document.getElementById('baseContent').innerHTML = `<h1>${window.currentMenu}</h1><p>Content for ${window.currentMenu} will be added soon!</p>`
                 break;

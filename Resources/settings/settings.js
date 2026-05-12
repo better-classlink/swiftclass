@@ -1,5 +1,5 @@
 class Setting {
-    constructor(name, value, type, description) {
+    constructor(name, value, type, description, header, types) {
         this.name = name
         this.value = value
         this.type = type
@@ -24,7 +24,9 @@ class Setting {
                 b.classList.add('boolInteract')
                 b.id = this.name
 
-                let t = document.createElement('span').classList.add('boolHeader')
+                let t = document.createElement('span')
+                
+                t.classList.add('boolHeader')
 
                 t.textContent = this.name
 

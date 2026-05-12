@@ -1,0 +1,9 @@
+[
+    {
+        "name": "Example Setting",
+        "value": "off",
+        "type": "bool",
+        "description": "This is a test setting",
+        "header": "Stuff 1"
+    }
+]
