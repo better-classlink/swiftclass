@@ -31,12 +31,19 @@ window.openedStatus = false
 
 window.mousePosition = [0, 0]
 
-document.addEventListener("mousedown", (event) => {
-    if(event.button == 2 && !window.controlKeyPressed){
+document.addEventListener('mousemove', (event) => {
+    window.mousePosition = [event.clientX, event.clientY]
+}  );
+
+document.addEventListener("keydown", (event) => {
+    if(event.key === " "){
         if(!openedStatus){
 
-        document.getElementById('container').style.left = String(event.clientX - 100) + 'px'
-        document.getElementById('container').style.top = String(event.clientY - 100) + 'px'
+        console.log("Opening menu")
+        console.log(window.mousePosition)
+
+        document.getElementById('container').style.left = String(window.mousePosition[0] - 100) + 'px'
+        document.getElementById('container').style.top = String(window.mousePosition[1] - 100) + 'px'
 
         menu.open()
 
@@ -101,8 +108,12 @@ async function updateMenus(){
                     let settingsList = await fetch('Resources/settings/list.json')
                     let settingsJSON = await settingsList.json()
                     for(let item of settingsJSON){
-                        
+                        let setting = new Setting(item.name, item.value, item.type, item.description, item.header, item.types)
+                        setting.render()
+                        console.log(setting) 
+                        console.log(item)
                     }
+                    break;
                 default:
                     document.getElementById('baseContent').innerHTML = `<h1>${window.currentMenu}</h1><p>Content for ${window.currentMenu} will be added soon!</p>`
                 break;
@@ -180,7 +191,7 @@ async function loadMenu(){
 }
 
 let buttons = document.querySelectorAll(".footerButton")
-console.log(buttons)
+
 buttons.forEach((element) => {
     element.addEventListener('click', (event) => {
          selfName = event.currentTarget.textContent.trim()
@@ -238,4 +249,4 @@ const baseContent = document.getElementById('baseContent')
     }
     }, 50);
 
-updateMenus().then(() => {console.log("Menu loaded!")})
+updateMenus()

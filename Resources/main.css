@@ -89,6 +89,8 @@ body {
     background-color: #98a3e1;
     width: inherit;
     z-index: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
     /* height: inherit; */
 }
 

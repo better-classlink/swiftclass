@@ -5,5 +5,82 @@
         "type": "bool",
         "description": "This is a test setting",
         "header": "Stuff 1"
+    },
+    {
+        "name": "Example Setting 2",
+        "value": "off",
+        "type": "bool",
+        "description": "This is a test setting",
+        "header": "Stuff 2"
+    },
+        {
+        "name": "Example Se123123tting",
+        "value": "off",
+        "type": "bool",
+        "description": "This is a test setting",
+        "header": "Stuff 1"
+    },
+    {
+        "name": "Example Set112ting 2",
+        "value": "off",
+        "type": "bool",
+        "description": "This is a test setting",
+        "header": "Stuff 2"
+    },
+        {
+        "name": "Example Sett5ing",
+        "value": "off",
+        "type": "bool",
+        "description": "This is a test setting",
+        "header": "Stuff 1"
+    },
+    {
+        "name": "Example Settasding 2",
+        "value": "off",
+        "type": "bool",
+        "description": "This is a test setting",
+        "header": "Stuff 2"
+    },
+        {
+        "name": "Example Settvbing",
+        "value": "off",
+        "type": "bool",
+        "description": "This is a test setting",
+        "header": "Stuff 1"
+    },
+    {
+        "name": "Example Settzxcing 2",
+        "value": "off",
+        "type": "bool",
+        "description": "This is a test setting",
+        "header": "Stuff 2"
+    },
+        {
+        "name": "Example Seqwetting",
+        "value": "off",
+        "type": "bool",
+        "description": "This is a test setting",
+        "header": "Stuff 1"
+    },
+    {
+        "name": "Example Setthging 2",
+        "value": "off",
+        "type": "bool",
+        "description": "This is a test setting",
+        "header": "Stuff 2"
+    },
+        {
+        "name": "Example Sett5555ing",
+        "value": "off",
+        "type": "bool",
+        "description": "This is a test setting",
+        "header": "Stuff 1"
+    },
+    {
+        "name": "Examplaaae Setting 2",
+        "value": "off",
+        "type": "bool",
+        "description": "This is a test setting",
+        "header": "Stuff 2"
     }
 ]

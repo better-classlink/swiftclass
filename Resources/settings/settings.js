@@ -19,6 +19,7 @@ class Setting {
     }
     render(){
             try{
+                console.log("Rendering setting: " + this.name)
             if (this.type == 'bool') {
                 let b = document.createElement('div')
                 b.classList.add('boolInteract')
