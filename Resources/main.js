@@ -31,15 +31,6 @@ window.openedStatus = false
 
 window.mousePosition = [0, 0]
 
-document.addEventListener('mousemove', (event) => {
-    window.mousePosition = [event.clientX, event.clientY]
-    console.log(window.mousePosition)
-    if(!window.openedStatus){
-        document.getElementById('container').style.left = String(event.clientX - 500) + 'px'
-        document.getElementById('container').style.top = String(event.clientY - 500) + 'px'
-    }
-})
-
 document.addEventListener("mousedown", (event) => {
     if(event.button == 2 && !window.controlKeyPressed){
         if(!openedStatus){
@@ -107,8 +98,11 @@ async function updateMenus(){
                     break;
                 case 'Settings':
                     document.getElementById('baseContent').innerHTML = ''
-                    
-                    
+                    let settingsList = await fetch('Resources/settings/list.json')
+                    let settingsJSON = await settingsList.json()
+                    for(let item of settingsJSON){
+                        
+                    }
                 default:
                     document.getElementById('baseContent').innerHTML = `<h1>${window.currentMenu}</h1><p>Content for ${window.currentMenu} will be added soon!</p>`
                 break;
