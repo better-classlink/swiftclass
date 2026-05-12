@@ -33,12 +33,16 @@ window.mousePosition = [0, 0]
 
 document.addEventListener('mousemove', (event) => {
     window.mousePosition = [event.clientX, event.clientY]
-}  );
+    if(!window.openedStatus){
+    document.getElementById('container').style.left = String(window.mousePosition[0] - 1100) + 'px'
+    document.getElementById('container').style.top = String(window.mousePosition[1] - 1100) + 'px'
+    }
+});
 
-document.addEventListener("keydown", (event) => {
-    if(event.key === " "){
+window.addEventListener("keydown", (event) => {
+    if(event.keyCode === 32 && event.target == document.body){
         if(!openedStatus){
-
+        event.preventDefault()
         console.log("Opening menu")
         console.log(window.mousePosition)
 
@@ -56,6 +60,13 @@ document.addEventListener("keydown", (event) => {
     }
 }
 })
+
+window.addEventListener('keydown', function(e) {
+  if (e.keyCode === 32 && e.target === document.body) {
+    e.preventDefault();
+  }
+});
+
 
 async function updateMenus(){
 
