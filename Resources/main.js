@@ -105,13 +105,24 @@ async function updateMenus(){
                     break;
                 case 'Settings':
                     document.getElementById('baseContent').innerHTML = ''
+
                     let settingsList = await fetch('Resources/settings/list.json')
                     let settingsJSON = await settingsList.json()
+                    let allHeaders = []
+                    
+                    let headerContainer = document.createElement('div')
+                    headerContainer.id = 'settingHeaderContainer'
+                    headerContainer.classList.add('settingsHeaderContainer')
+                    document.getElementById('baseContent').appendChild(headerContainer)
+
                     for(let item of settingsJSON){
                         let setting = new Setting(item.name, item.value, item.type, item.description, item.header, item.types)
                         setting.render()
                         console.log(setting) 
                         console.log(item)
+                        if(typeof setting.header != 'undefined' && !allHeaders.includes(setting.header)){
+                            allHeaders.push(setting.header)
+                        }
                     }
                     break;
                 default:
