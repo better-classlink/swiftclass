@@ -3,6 +3,7 @@ div.menuHolder {
     -moz-user-select: none;
     position: relative;
     margin: 10px;
+    z-index: 9999;
 }
 
 svg.icons {

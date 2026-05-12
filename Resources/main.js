@@ -93,10 +93,15 @@ async function updateMenus(){
                 }catch(e){
                     console.warn("News fetch error: " + e.stack)
                 }
-                        break;
-        default:
-            document.getElementById('baseContent').innerHTML = `<h1>${window.currentMenu}</h1><p>Content for ${window.currentMenu} will be added soon!</p>`
-            break;
+                    break;
+                case 'Settings':
+                    document.getElementById('baseContent').replaceChildren()
+                    let testSetting = new Setting('Example Setting', 'off', 'bool', 'This is a test setting')
+                    testSetting.render()
+                    break;
+                default:
+                    document.getElementById('baseContent').innerHTML = `<h1>${window.currentMenu}</h1><p>Content for ${window.currentMenu} will be added soon!</p>`
+                break;
     }
 
     for(let i = 0; i < len;i++){
@@ -229,4 +234,4 @@ const baseContent = document.getElementById('baseContent')
     }
     }, 50);
 
-updateMenus().then(r => (console.log("init complete")))
+updateMenus().then(() => {console.log("Menu loaded!")})

@@ -15,12 +15,14 @@ class Setting {
 
             // verifying there are no duplicates
 
-            if(document.getElementById(this.value) != null) throw new Error("Duplicate ID: " + this.value)
-    try{
+            if(document.getElementById(this.name) != null) throw new Error("Duplicate ID: " + this.name)
+    }
+    render(){
+            try{
             if (this.type == 'bool') {
                 let b = document.createElement('div')
                 b.classList.add('boolInteract')
-                b.id = this.value
+                b.id = this.name
 
                 let t = document.createElement('span')
                 t.textContent = this.name
@@ -31,9 +33,20 @@ class Setting {
 
                 i.classList.add('boolImage')
 
+                i.addEventListener('click', () => {
+                    if (this.value == 'off') {
+                        this.value = 'on'
+                    } else {
+                        this.value = 'off'
+                    }
+                    i.src = 'Resources/svg/setting/' + this.value + '.png'
+                });
+
                 let d = document.createElement('span')
 
                 d.textContent = this.description
+
+                document.getElementById('baseContent').appendChild(b)
 
                 b.appendChild(t)
 
@@ -44,13 +57,12 @@ class Setting {
                 b.appendChild(document.createElement('br'))
 
                 b.appendChild(d)
-
-                document.getElementById('baseContent').appendChild(b)
             }
 
     }catch(e){
         console.warn(e)
     }
+
     }
 }
 
