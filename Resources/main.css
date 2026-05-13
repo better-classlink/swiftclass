@@ -61,7 +61,7 @@ body {
     font-weight: 200;
 }
 .newsText {
-    font-size: clamp(12px, 3vmin, 34px);
+    font-size: clamp(22px, 3vmin, 34px);
     margin: 0;
 }
 .newsHeader {
@@ -98,7 +98,7 @@ body {
     height: 1%;
     width: 100%;
     background-color: #277ec1d9;
-    margin-bottom: 2%;
+    margin-bottom: 0.5%;
     border-top-right-radius: 1000%;
     border-bottom-right-radius: 1000%;
     border-top-left-radius: 50%;

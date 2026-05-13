@@ -2,10 +2,8 @@ window.currentMenu = 'SwiftClass'
 
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-if(localStorage.getItem('swcsettings') == null) localStorage.setItem('swcsettings'
-    , JSON.stringify({
-        'classesEnableNotif': true
-    })
+if(localStorage.getItem('swcsettings') == null) localStorage.setItem('swcsettings',
+    '[]'
 )
 
 const menu = new RadialMenu({
@@ -26,6 +24,7 @@ const menu = new RadialMenu({
     }
   });
 
+window.settingHeaderType = ""
 
 window.openedStatus = false
 
@@ -137,20 +136,55 @@ async function updateMenus(){
                     headerContainer.classList.add('settingsHeaderContainer')
                     document.getElementById('baseContent').appendChild(headerContainer)
 
-                    for(let item of settingsJSON){
-                        let setting = new Setting(item.name, item.value, item.type, item.description, item.header, item.types)
-                        setting.render()
-                        // console.log(setting)
-                        console.log(setting.header)
-                        // console.log(item)
+                    for(let setting of settingsJSON){
                         if(typeof setting.header != 'undefined' && !allHeaders.includes(setting.header)){
                             allHeaders.push(setting.header)
-                            // console.log(setting.header)
                         }
                     }
-                    allHeader.forEach((item) => {
-                            let headerCont = document.getElementById('settingsHeaderContainer')
 
+                    window.settingHeaderType = allHeaders[0]
+
+                    settingsJSON.forEach(element => {
+                        if(element.header == window.settingHeaderType){
+                            let setting = new Setting(element.name, element.value, element.type, element.description, element.header, element.types)
+                            setting.render()
+                        }else{
+                            console.log('not of type')
+                        }
+                    })
+
+                    let headerCont = document.getElementById('settingsHeaderContainer')
+
+                    allHeaders.forEach((item) => {
+                        let header = document.createElement('div')
+
+                        header.classList.add('settingsHeader')
+                        header.textContent = item
+                        header.addEventListener('click', (event)=> {
+
+                            window.settingHeaderType = event.currentTarget.textContent
+                            console.log(window.settingHeaderType)
+
+                            console.log(settingsJSON)
+
+                            let liveChildNodes = document.getElementById('baseContent').childNodes
+                            console.log(liveChildNodes.length)
+                            if(liveChildNodes && liveChildNodes.length > 1) {
+                                while (liveChildNodes.length > 1) {
+                                    liveChildNodes[1].remove()
+                                }
+                            }
+
+                            settingsJSON.forEach(element => {
+                                if(element.header == window.settingHeaderType){
+                                    let setting = new Setting(element.name, element.value, element.type, element.description, element.header, element.types)
+                                    setting.render()
+                                }else{
+                                    console.log('not of type')
+                                }
+                            })
+                        })
+                        headerCont.appendChild(header)
                         }
                     )
                     break;

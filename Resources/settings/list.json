@@ -1,86 +1,146 @@
 [
     {
-        "name": "Example Setting",
-        "value": "off",
+        "header": "Appearance",
+        "name": "Dark Mode",
+        "value": "on",
         "type": "bool",
-        "description": "This is a test setting",
-        "header": "Stuff 1"
+        "description": "Use a darker color palette across the app"
     },
     {
-        "name": "Example Setting 2",
+        "header": "Appearance",
+        "name": "Compact Layout",
         "value": "off",
         "type": "bool",
-        "description": "This is a test setting",
-        "header": "Stuff 2"
-    },
-        {
-        "name": "Example Se123123tting",
-        "value": "off",
-        "type": "bool",
-        "description": "This is a test setting",
-        "header": "Stuff 1"
+        "description": "Reduce spacing and padding throughout the interface"
     },
     {
-        "name": "Example Set112ting 2",
-        "value": "off",
+        "header": "Appearance",
+        "name": "Blur Effects",
+        "value": "on",
         "type": "bool",
-        "description": "This is a test setting",
-        "header": "Stuff 2"
-    },
-        {
-        "name": "Example Sett5ing",
-        "value": "off",
-        "type": "bool",
-        "description": "This is a test setting",
-        "header": "Stuff 1"
+        "description": "Enable translucent panels and background blur"
     },
     {
-        "name": "Example Settasding 2",
-        "value": "off",
+        "header": "Appearance",
+        "name": "Animated UI",
+        "value": "on",
         "type": "bool",
-        "description": "This is a test setting",
-        "header": "Stuff 2"
+        "description": "Play smooth transitions and interface animations"
     },
-        {
-        "name": "Example Settvbing",
-        "value": "off",
+
+    {
+        "header": "Notifications",
+        "name": "Desktop Notifications",
+        "value": "on",
         "type": "bool",
-        "description": "This is a test setting",
-        "header": "Stuff 1"
+        "description": "Show notifications even while the app is minimized"
     },
     {
-        "name": "Example Settzxcing 2",
+        "header": "Notifications",
+        "name": "Notification Sounds",
         "value": "off",
         "type": "bool",
-        "description": "This is a test setting",
-        "header": "Stuff 2"
-    },
-        {
-        "name": "Example Seqwetting",
-        "value": "off",
-        "type": "bool",
-        "description": "This is a test setting",
-        "header": "Stuff 1"
+        "description": "Play a sound when receiving alerts or updates"
     },
     {
-        "name": "Example Setthging 2",
+        "header": "Notifications",
+        "name": "Mentions Only",
         "value": "off",
         "type": "bool",
-        "description": "This is a test setting",
-        "header": "Stuff 2"
-    },
-        {
-        "name": "Example Sett5555ing",
-        "value": "off",
-        "type": "bool",
-        "description": "This is a test setting",
-        "header": "Stuff 1"
+        "description": "Only notify you when directly mentioned"
     },
     {
-        "name": "Examplaaae Setting 2",
+        "header": "Notifications",
+        "name": "Do Not Disturb",
         "value": "off",
         "type": "bool",
-        "description": "This is a test setting",
-        "header": "Stuff 2"
+        "description": "Temporarily silence all notifications"
+    },
+
+    {
+        "header": "Privacy",
+        "name": "Activity Status",
+        "value": "on",
+        "type": "bool",
+        "description": "Allow others to see when you are online"
+    },
+    {
+        "header": "Privacy",
+        "name": "Usage Analytics",
+        "value": "off",
+        "type": "bool",
+        "description": "Share anonymous usage data to improve the app"
+    },
+    {
+        "header": "Privacy",
+        "name": "Friend Requests",
+        "value": "on",
+        "type": "bool",
+        "description": "Allow other users to send friend requests"
+    },
+    {
+        "header": "Privacy",
+        "name": "Read Receipts",
+        "value": "on",
+        "type": "bool",
+        "description": "Let others know when you have viewed messages"
+    },
+
+    {
+        "header": "Audio",
+        "name": "Master Audio",
+        "value": "on",
+        "type": "bool",
+        "description": "Enable all sounds and audio playback"
+    },
+    {
+        "header": "Audio",
+        "name": "Interface Sounds",
+        "value": "on",
+        "type": "bool",
+        "description": "Play clicks and navigation sound effects"
+    },
+    {
+        "header": "Audio",
+        "name": "Background Music",
+        "value": "off",
+        "type": "bool",
+        "description": "Enable ambient music while using the app"
+    },
+    {
+        "header": "Audio",
+        "name": "Spatial Audio",
+        "value": "off",
+        "type": "bool",
+        "description": "Use enhanced directional audio effects"
+    },
+
+    {
+        "header": "Advanced",
+        "name": "Developer Mode",
+        "value": "off",
+        "type": "bool",
+        "description": "Show debugging tools and experimental features"
+    },
+    {
+        "header": "Advanced",
+        "name": "Hardware Acceleration",
+        "value": "on",
+        "type": "bool",
+        "description": "Use GPU acceleration for smoother rendering"
+    },
+    {
+        "header": "Advanced",
+        "name": "Experimental Features",
+        "value": "off",
+        "type": "bool",
+        "description": "Try unfinished features before public release"
+    },
+    {
+        "header": "Advanced",
+        "name": "Verbose Logging",
+        "value": "off",
+        "type": "bool",
+        "description": "Store detailed logs for troubleshooting"
     }
 ]

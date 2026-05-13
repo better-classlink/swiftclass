@@ -47,6 +47,8 @@ class Setting {
 
                 img.classList.add('boolImage')
 
+
+
                 i.addEventListener('click', (event) => {
                     if (this.value == 'off') {
                         this.value = 'on'
