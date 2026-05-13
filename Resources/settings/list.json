@@ -142,5 +142,12 @@
         "value": "off",
         "type": "bool",
         "description": "Store detailed logs for troubleshooting"
+    },
+    {
+        "header": "Optimizations",
+        "name": "Peformance Tweaks",
+        "value": "off",
+        "type": "bool",
+        "description": "Enable optimizations that may improve performance at the cost of stability"
     }
 ]
