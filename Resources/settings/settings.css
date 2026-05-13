@@ -8,7 +8,7 @@
     user-select: text;
     pointer-events: auto;  
     z-index: 99;
-    margin: none;
+    margin: 0;
     font-size: clamp(7px, 3vmin, 14px);
     width: 100%;
 }
@@ -20,7 +20,7 @@
     width: 90%;
     height: 40%;
     z-index: 9999;
-    margin: none;
+    margin: 0;
 }
 
 .boolImage:hover {

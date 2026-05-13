@@ -29,7 +29,7 @@ const menu = new RadialMenu({
 
 window.openedStatus = false
 
-window.mousePosition = [0, 0]
+window.mousePosition = [window.innerWidth / 2, window.innerHeight / 2];
 
 document.addEventListener('mousemove', (event) => {
     window.mousePosition = [event.clientX, event.clientY]
@@ -114,6 +114,17 @@ async function updateMenus(){
                     console.warn("News fetch error: " + e.stack)
                 }
                     break;
+
+
+
+
+
+
+
+
+
+
+
                 case 'Settings':
                     document.getElementById('baseContent').innerHTML = ''
 
@@ -122,24 +133,47 @@ async function updateMenus(){
                     let allHeaders = []
                     
                     let headerContainer = document.createElement('div')
-                    headerContainer.id = 'settingHeaderContainer'
+                    headerContainer.id = 'settingsHeaderContainer'
                     headerContainer.classList.add('settingsHeaderContainer')
                     document.getElementById('baseContent').appendChild(headerContainer)
 
                     for(let item of settingsJSON){
                         let setting = new Setting(item.name, item.value, item.type, item.description, item.header, item.types)
                         setting.render()
-                        console.log(setting) 
-                        console.log(item)
+                        // console.log(setting)
+                        console.log(setting.header)
+                        // console.log(item)
                         if(typeof setting.header != 'undefined' && !allHeaders.includes(setting.header)){
                             allHeaders.push(setting.header)
+                            // console.log(setting.header)
                         }
                     }
+                    allHeader.forEach((item) => {
+                            let headerCont = document.getElementById('settingsHeaderContainer')
+
+                        }
+                    )
                     break;
                 default:
                     document.getElementById('baseContent').innerHTML = `<h1>${window.currentMenu}</h1><p>Content for ${window.currentMenu} will be added soon!</p>`
                 break;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     for(let i = 0; i < len;i++){
         name += window.currentMenu[i]

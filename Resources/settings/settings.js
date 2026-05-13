@@ -4,6 +4,8 @@ class Setting {
         this.value = value
         this.type = type
         this.description = description
+        this.header = header
+        this.types = types
 
         // adding the setting to the baseContent Element
 
@@ -19,7 +21,7 @@ class Setting {
     }
     render(){
             try{
-                console.log("Rendering setting: " + this.name)
+            // console.log("Rendering setting: " + this.name)
             if (this.type == 'bool') {
                 let b = document.createElement('div')
                 b.classList.add('boolInteract')
