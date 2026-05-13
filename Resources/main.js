@@ -1,5 +1,7 @@
 window.currentMenu = 'SwiftClass'
 
+window.denySettingMovement = false
+
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 if(localStorage.getItem('swcsettings') == null) localStorage.setItem('swcsettings',
@@ -38,7 +40,7 @@ document.addEventListener('mousemove', (event) => {
     }
 });
 
-window.addEventListener("keydown", (event) => {
+window.addEventListener("keyup", (event) => {
     if(event.keyCode === 32 && event.target == document.body){
         if(!openedStatus){
         event.preventDefault()
@@ -68,8 +70,6 @@ window.addEventListener('keydown', function(e) {
 
 
 async function updateMenus(){
-
-    let len = window.currentMenu.length;
     
     let name = ''
 
@@ -122,7 +122,7 @@ async function updateMenus(){
 
 
 
-
+                // Settings menu is a bit more complex, it has to fetch the settings list, then create the header buttons based on the unique headers in the settings list, then render the settings of the selected header.
 
                 case 'Settings':
                     document.getElementById('baseContent').innerHTML = ''
@@ -144,9 +144,24 @@ async function updateMenus(){
 
                     window.settingHeaderType = allHeaders[0]
 
-                    settingsJSON.forEach(element => {
+                    window.currentMenu = 'Settings' + ' - ' + window.settingHeaderType
+
+                    let valueType = null
+
+                    let settingsLoad = localStorage.getItem('swcsettings')
+
+                    settingsLoad = JSON.parse(settingsLoad)
+                    console.log('Loaded settings: ')
+                    console.log(settingsLoad)
+
+                    settingsJSON.forEach((element) => {
+                        if(!settingsLoad.includes(element.name)){
+                            settingsLoad.push(element.name)
+                            settingsLoad.push(element.value)
+                            localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
+                        }
                         if(element.header == window.settingHeaderType){
-                            let setting = new Setting(element.name, element.value, element.type, element.description, element.header, element.types)
+                            let setting = new Setting(element.name, settingsLoad[settingsLoad.indexOf(element.name) + 1], element.type, element.description, element.header, element.types)
                             setting.render()
                         }else{
                             console.log('not of type')
@@ -160,11 +175,15 @@ async function updateMenus(){
 
                         header.classList.add('settingsHeader')
                         header.textContent = item
-                        header.addEventListener('click', (event)=> {
+                        header.addEventListener('click', async (event)=> {
+                            if(window.denySettingMovement) return
+                            window.denySettingMovement = true
 
                             window.settingHeaderType = event.currentTarget.textContent
-                            console.log(window.settingHeaderType)
 
+                            window.currentMenu = 'Settings' + ' - ' + window.settingHeaderType
+
+                            console.log(window.settingHeaderType)
                             console.log(settingsJSON)
 
                             let liveChildNodes = document.getElementById('baseContent').childNodes
@@ -175,14 +194,39 @@ async function updateMenus(){
                                 }
                             }
 
-                            settingsJSON.forEach(element => {
-                                if(element.header == window.settingHeaderType){
-                                    let setting = new Setting(element.name, element.value, element.type, element.description, element.header, element.types)
-                                    setting.render()
-                                }else{
-                                    console.log('not of type')
-                                }
-                            })
+                                
+                        let valueType = null
+
+                        let settingsLoad = localStorage.getItem('swcsettings')
+
+                        settingsLoad = JSON.parse(settingsLoad)
+                        console.log('Loaded settings: ')
+                        console.log(settingsLoad)
+
+                        settingsJSON.forEach( async (element) => {
+                            if(!settingsLoad.includes(element.name)){
+                                settingsLoad.push(element.name)
+                                settingsLoad.push(element.value)
+                                localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
+                            }
+                            if(element.header == window.settingHeaderType){
+                                let setting = new Setting(element.name, settingsLoad[settingsLoad.indexOf(element.name) + 1], element.type, element.description, element.header, element.types)
+                                setting.render()
+                            }else{
+                                console.log('not of type')
+                            }
+                        let name = ''
+                        for(let i = 0;i < window.currentMenu.length;i++){
+                            name += window.currentMenu[i]
+
+                            await wait(45)
+
+                            document.getElementById('topHeader').textContent = name
+                        }
+
+                        window.denySettingMovement = false
+
+                        })
                         })
                         headerCont.appendChild(header)
                         }
@@ -208,10 +252,9 @@ async function updateMenus(){
 
 
 
-
-    for(let i = 0; i < len;i++){
+    for(let i = 0; i < window.currentMenu.length;i++){
         name += window.currentMenu[i]
-        
+
         await wait(45)
 
         document.getElementById('topHeader').textContent = name

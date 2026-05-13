@@ -1,11 +1,13 @@
 class Setting {
-    constructor(name, value, type, description, header, types) {
+    constructor(name, value, type, description, header, types, minval, maxval) {
         this.name = name
         this.value = value
         this.type = type
         this.description = description
         this.header = header
         this.types = types
+        this.minval = minval
+        this.maxval = maxval
 
         // adding the setting to the baseContent Element
 
@@ -56,6 +58,15 @@ class Setting {
                     else {
                         this.value = 'off'
                     }
+
+                    let settingsLoad = localStorage.getItem('swcsettings')
+
+                    settingsLoad = JSON.parse(settingsLoad)
+
+                    settingsLoad[settingsLoad.indexOf(this.name) + 1] = this.value
+
+                    localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
+
                     event.currentTarget.children[0].src = 'Resources/svg/setting/' + this.value + '.png'
                 });
 
@@ -70,6 +81,44 @@ class Setting {
                 b.appendChild(document.createElement('br'))
 
                 b.appendChild(i)
+
+                b.appendChild(d)
+            }
+            else if (this.type == 'color') {
+                let b = document.createElement('div')
+                b.classList.add('boolInteract')
+                b.id = this.name
+
+                let t = document.createElement('span')
+                t.classList.add('boolHeader')
+                t.textContent = this.name
+
+                let i = document.createElement('input')
+                i.type = 'color'
+                i.value = this.value
+
+                i.classList.add('colorInput')
+
+                i.addEventListener('input', (event) => {
+                    this.value = event.currentTarget.value
+                    let settingsLoad = localStorage.getItem('swcsettings')
+                    settingsLoad = JSON.parse(settingsLoad)
+                    settingsLoad[settingsLoad.indexOf(this.name) + 1] = this.value
+                    localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
+                });
+
+                let d = document.createElement('span')
+                d.textContent = this.description
+
+                document.getElementById('baseContent').appendChild(b)
+
+                b.appendChild(t)
+
+                b.appendChild(document.createElement('br'))
+
+                b.appendChild(i)
+
+                b.appendChild(document.createElement('br'))
 
                 b.appendChild(d)
             }

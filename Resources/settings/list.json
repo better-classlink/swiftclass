@@ -149,5 +149,12 @@
         "value": "off",
         "type": "bool",
         "description": "Enable optimizations that may improve performance at the cost of stability"
+    },
+    {
+        "header": "Appearance",
+        "name": "Example Color",
+        "value": "#ff0000",
+        "type": "color",
+        "description": "Choose a custom color for the interface"
     }
 ]
