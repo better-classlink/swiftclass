@@ -170,7 +170,7 @@ async function updateMenus(){
                             localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
                         }
                         if(element.header == window.settingHeaderType){
-                            let setting = new Setting(element.name, settingsLoad[settingsLoad.indexOf(element.name) + 1], element.type, element.description, element.header, element.types, String(element.minval), String(element.maxval))
+                            let setting = new Setting(element.name, settingsLoad[settingsLoad.indexOf(element.name) + 1], element.type, element.description, element.header, element.types, String(element.minval), String(element.maxval), element.selectors)
                             setting.render()
                         }else{
                             // console.log('not of type')
@@ -219,7 +219,7 @@ async function updateMenus(){
                                 localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
                             }
                             if(element.header == window.settingHeaderType){
-                                let setting = new Setting(element.name, settingsLoad[settingsLoad.indexOf(element.name) + 1], element.type, element.description, element.header, element.types, element.minval, element.maxval)
+                                let setting = new Setting(element.name, settingsLoad[settingsLoad.indexOf(element.name) + 1], element.type, element.description, element.header, element.types, element.minval, element.maxval, element.selectors)
                                 setting.render()
                             }else{
                                 console.log('not of type')

@@ -1,5 +1,5 @@
 class Setting {
-    constructor(name, value, type, description, header, types, minval, maxval) {
+    constructor(name, value, type, description, header, types, minval, maxval, selectors) {
         this.name = name
         this.value = value
         this.type = type
@@ -8,6 +8,7 @@ class Setting {
         this.types = types
         this.minval = minval
         this.maxval = maxval
+        this.selectors = selectors
 
         // adding the setting to the "baseContent" element
 
@@ -132,6 +133,10 @@ class Setting {
                 t.classList.add('boolHeader')
                 t.textContent = this.name
 
+                let v = document.createElement('span')
+                v.classList.add('valueDisplay')
+                v.textContent = this.value
+
                 let i = document.createElement('input')
                 i.type = 'range'
                 i.value = this.value
@@ -144,6 +149,7 @@ class Setting {
 
                 i.addEventListener('input', (event) => {
                     this.value = event.currentTarget.value
+                    v.textContent = this.value
                     let settingsLoad = localStorage.getItem('swcsettings')
                     settingsLoad = JSON.parse(settingsLoad)
                     settingsLoad[settingsLoad.indexOf(this.name) + 1] = this.value
@@ -155,8 +161,53 @@ class Setting {
 
                 b.appendChild(t)
                 b.appendChild(document.createElement('br'))
+                b.appendChild(v)
+                b.appendChild(document.createElement('br'))
                 b.appendChild(i)
                 b.appendChild(document.createElement('br'))
+                b.appendChild(d)
+
+                document.getElementById('baseContent').appendChild(b)
+            }
+            else if (this.type == 'dropdown') {
+                let b = document.createElement('div')
+                b.classList.add('boolInteract')
+                b.id = this.name
+
+                let t = document.createElement('span')
+                t.classList.add('boolHeader')
+                t.textContent = this.name
+
+                let i = document.createElement('select')
+                i.classList.add('dropdownInput')
+
+                this.selectors.forEach((element) => {
+                    let option = document.createElement('option')
+                    option.value = element
+                    option.textContent = element
+                    i.appendChild(option)
+                });
+
+                i.value = this.valu
+
+                i.addEventListener('change', (event) => {
+                    let settingsLoad = localStorage.getItem('swcsettings')
+                    settingsLoad = JSON.parse(settingsLoad)
+                    settingsLoad[settingsLoad.indexOf(this.name) + 1] = event.currentTarget.value
+                    localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
+                })
+
+                let d = document.createElement('span')
+                d.textContent = this.description
+
+                b.appendChild(t)
+
+                b.appendChild(document.createElement('br'))
+
+                b.appendChild(i)
+
+                b.appendChild(document.createElement('br'))
+
                 b.appendChild(d)
 
                 document.getElementById('baseContent').appendChild(b)

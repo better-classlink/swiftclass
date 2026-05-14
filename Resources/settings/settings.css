@@ -94,3 +94,13 @@
     margin: 0;
     cursor: pointer;
 }
+
+.valueDisplay {
+    font-size: clamp(12px, 2vmin, 18px);
+    font-weight: 10;
+}
+
+.dropdownInput {
+    font-size: clamp(12px, 2vmin, 18px);
+    font-weight: 10;
+}
