@@ -21,6 +21,7 @@ class Setting {
 
             if(document.getElementById(this.name) != null) throw new Error("Duplicate ID: " + this.name)
     }
+
     render(){
             try{
             // console.log("Rendering setting: " + this.name)
@@ -121,6 +122,37 @@ class Setting {
                 b.appendChild(document.createElement('br'))
 
                 b.appendChild(d)
+            }
+            else if (this.type == 'slider'){
+                let b = document.createElement('div')
+                b.classList.add('boolInteract')
+                b.id = this.name
+
+                let t = document.createElement('span')
+                t.classList.add('boolHeader')
+                t.textContent = this.name
+
+                let i = document.createElement('input')
+                i.type = 'range'
+                i.value = this.value
+                i.min = this.minval
+                console.log(this.maxval)
+                console.log(this.minval)
+                i.max = this.maxval
+
+                i.classList.add('sliderInput')
+
+                
+                let d = document.createElement('span')
+                d.textContent = this.description
+
+                b.appendChild(t)
+                b.appendChild(document.createElement('br'))
+                b.appendChild(i)
+                b.appendChild(document.createElement('br'))
+                b.appendChild(d)
+
+                document.getElementById('baseContent').appendChild(b)
             }
 
     }catch(e){

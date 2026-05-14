@@ -156,5 +156,14 @@
         "value": "#ff0000",
         "type": "color",
         "description": "Choose a custom color for the interface"
+    },
+    {
+        "header": "Audio",
+        "name": "Example Volume",
+        "value": 100,
+        "type": "slider",
+        "description": "Set the master volume level",
+        "minval": "0",
+        "maxval": "100"
     }
 ]
