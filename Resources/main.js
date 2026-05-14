@@ -8,6 +8,14 @@ if(localStorage.getItem('swcsettings') == null) localStorage.setItem('swcsetting
     '[]'
 )
 
+window.loadingTips = [
+    "Tip: Use Ctrl + and Ctrl - to zoom and scale!",
+    "Tip: Themes are coming soon!",
+    "Tip: Stay focused. You'll be thankful later!",
+    "Tip: Feel free to report any bugs you find to krienskam@gmail.com!",
+    "Tip: Besides the using buttons at the bottom to move, you can also press Space to open the quick-move menu!",
+]
+
 const menu = new RadialMenu({
     parent: document.getElementById('container'),
     size: 200,
@@ -75,7 +83,7 @@ async function updateMenus(){
 
     switch (window.currentMenu) {
         case 'SwiftClass':
-            document.getElementById('baseContent').innerHTML = ''
+            document.getElementById('baseContent').innerHTML = window.loadingTips[Math.floor(Math.random() * window.loadingTips.length)]
             document.getElementById('baseContent').innerHTML = window.SwiftClassPage
             try{
                 let jsonRequest = await fetch("Resources/News/display.json")
@@ -151,20 +159,21 @@ async function updateMenus(){
                     let settingsLoad = localStorage.getItem('swcsettings')
 
                     settingsLoad = JSON.parse(settingsLoad)
-                    console.log('Loaded settings: ')
-                    console.log(settingsLoad)
+                    // console.log('Loaded settings: ')
+                    // console.log(settingsLoad)
 
                     settingsJSON.forEach((element) => {
+                        console.log(element)
                         if(!settingsLoad.includes(element.name)){
                             settingsLoad.push(element.name)
                             settingsLoad.push(element.value)
                             localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
                         }
                         if(element.header == window.settingHeaderType){
-                            let setting = new Setting(element.name, settingsLoad[settingsLoad.indexOf(element.name) + 1], element.type, element.description, element.header, element.types)
+                            let setting = new Setting(element.name, settingsLoad[settingsLoad.indexOf(element.name) + 1], element.type, element.description, element.header, element.types, String(element.minval), String(element.maxval))
                             setting.render()
                         }else{
-                            console.log('not of type')
+                            // console.log('not of type')
                         }
                     })
 
@@ -210,7 +219,7 @@ async function updateMenus(){
                                 localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
                             }
                             if(element.header == window.settingHeaderType){
-                                let setting = new Setting(element.name, settingsLoad[settingsLoad.indexOf(element.name) + 1], element.type, element.description, element.header, element.types)
+                                let setting = new Setting(element.name, settingsLoad[settingsLoad.indexOf(element.name) + 1], element.type, element.description, element.header, element.types, element.minval, element.maxval)
                                 setting.render()
                             }else{
                                 console.log('not of type')

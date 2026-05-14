@@ -88,8 +88,6 @@
 .sliderInput {
     width: 90%;
     aspect-ratio: 3/1;
-    border: 2px solid rgb(255, 255, 255);
-    border-radius: 2px;
     accent-color: rgb(255, 255, 255);
     background-color: #808080;
     padding: 0;

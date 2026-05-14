@@ -9,7 +9,7 @@ class Setting {
         this.minval = minval
         this.maxval = maxval
 
-        // adding the setting to the baseContent Element
+        // adding the setting to the "baseContent" element
 
             // verifying types FIRST
 
@@ -142,6 +142,13 @@ class Setting {
 
                 i.classList.add('sliderInput')
 
+                i.addEventListener('input', (event) => {
+                    this.value = event.currentTarget.value
+                    let settingsLoad = localStorage.getItem('swcsettings')
+                    settingsLoad = JSON.parse(settingsLoad)
+                    settingsLoad[settingsLoad.indexOf(this.name) + 1] = this.value
+                    localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
+                })
                 
                 let d = document.createElement('span')
                 d.textContent = this.description
