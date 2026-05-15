@@ -36,7 +36,7 @@
         "description": "Show notifications even while the app is minimized"
     },
     {
-        "header": "Notifications",
+        "header": "Notifications 2",
         "name": "Notification Sounds",
         "value": "off",
         "type": "bool",
