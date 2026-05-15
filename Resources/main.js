@@ -244,6 +244,9 @@ async function updateMenus(){
                         }
                     )
                     break;
+                    case 'Links':
+                        
+                    break;
                 default:
                     document.getElementById('baseContent').innerHTML = `<h1>${window.currentMenu}</h1><p>Content for ${window.currentMenu} will be added soon!</p>`
                 break;
