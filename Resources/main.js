@@ -97,7 +97,7 @@ async function updateMenus(){
         case 'SwiftClass':
             document.getElementById('baseContent').innerHTML = window.SwiftClassPage
             try{
-                let jsonRequest = await fetch("Resources/News/display.json")
+                let jsonRequest = await fetch("Resources/news/display.json")
                 let newsJSON = await jsonRequest.json()
                 console.log(newsJSON)
 
@@ -119,7 +119,7 @@ async function updateMenus(){
 
                 if(newsJSON.image){
                     let newsImage = document.createElement('img')
-                    newsImage.src = 'Resources/News/display.png'
+                    newsImage.src = 'Resources/news/display.png'
                     newsImage.classList.add('newsImage')
                     newsImage.id = 'newsImage'
                     let line = document.createElement('div')
@@ -245,7 +245,7 @@ async function updateMenus(){
                     )
                     break;
                     case 'Links':
-                        
+
                     break;
                 default:
                     document.getElementById('baseContent').innerHTML = `<h1>${window.currentMenu}</h1><p>Content for ${window.currentMenu} will be added soon!</p>`
@@ -303,7 +303,7 @@ async function loadMenu(){
     console.log("HI")
 
     try{
-    let jsonRequest = await fetch("Resources/News/display.json")
+    let jsonRequest = await fetch("Resources/news/display.json")
     let newsJSON = await jsonRequest.json()
     console.log(newsJSON)
 
@@ -325,7 +325,7 @@ async function loadMenu(){
 
     if(newsJSON.image){
         let newsImage = document.createElement('img')
-        newsImage.src = 'Resources/News/display.png'
+        newsImage.src = 'Resources/news/display.png'
         newsImage.classList.add('newsImage')
         newsImage.id = 'newsImage'
         let line = document.createElement('div')
