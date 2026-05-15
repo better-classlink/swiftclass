@@ -188,7 +188,7 @@ class Setting {
                     i.appendChild(option)
                 });
 
-                i.value = this.valu
+                i.value = this.value
 
                 i.addEventListener('change', (event) => {
                     let settingsLoad = localStorage.getItem('swcsettings')

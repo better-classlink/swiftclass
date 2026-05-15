@@ -55,8 +55,8 @@ window.addEventListener("keyup", (event) => {
         console.log("Opening menu")
         console.log(window.mousePosition)
 
-        document.getElementById('container').style.left = String(window.mousePosition[0] - 100) + 'px'
-        document.getElementById('container').style.top = String(window.mousePosition[1] - 100) + 'px'
+        document.getElementById('container').style.left = String(window.mousePosition[0] - 110) + 'px'
+        document.getElementById('container').style.top = String(window.mousePosition[1] - 105) + 'px'
 
         menu.open()
 
@@ -76,14 +76,25 @@ window.addEventListener('keydown', function(e) {
   }
 });
 
-
 async function updateMenus(){
     
     let name = ''
+    
+    document.getElementById('baseContent').innerHTML = ''
+
+    let tipText = document.createElement('span')
+    tipText.classList.add('tipText')
+    tipText.id = 'tipText'
+
+    tipText.textContent = window.loadingTips[Math.floor(Math.random() * window.loadingTips.length)]
+
+    document.getElementById('main').appendChild(tipText)
+    document.getElementById('baseContent').style.display = 'none'
+
+    // await wait(500)
 
     switch (window.currentMenu) {
         case 'SwiftClass':
-            document.getElementById('baseContent').innerHTML = window.loadingTips[Math.floor(Math.random() * window.loadingTips.length)]
             document.getElementById('baseContent').innerHTML = window.SwiftClassPage
             try{
                 let jsonRequest = await fetch("Resources/News/display.json")
@@ -122,18 +133,10 @@ async function updateMenus(){
                 }
                     break;
 
-
-
-
-
-
-
-
-
                 // Settings menu is a bit more complex, it has to fetch the settings list, then create the header buttons based on the unique headers in the settings list, then render the settings of the selected header.
 
                 case 'Settings':
-                    document.getElementById('baseContent').innerHTML = ''
+                    // document.getElementById('baseContent').innerHTML = ''
 
                     let settingsList = await fetch('Resources/settings/list.json')
                     let settingsJSON = await settingsList.json()
@@ -259,7 +262,8 @@ async function updateMenus(){
 
 
 
-
+    document.getElementById('tipText')?.remove()
+    document.getElementById('baseContent').style.display = 'block'
 
     for(let i = 0; i < window.currentMenu.length;i++){
         name += window.currentMenu[i]
@@ -268,7 +272,7 @@ async function updateMenus(){
 
         document.getElementById('topHeader').textContent = name
     }
-                    
+        
 }
 
 window.addEventListener('contextmenu', (event) => {
