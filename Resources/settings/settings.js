@@ -12,19 +12,19 @@ class Setting {
 
         // adding the setting to the "baseContent" element
 
-            // verifying types FIRST
+        // verifying types FIRST
 
-            if (!['bool', 'dropdown', 'color', 'slider'].includes(this.type)) {
-                throw new Error("Invalid type: " + this.type)
-            }
+        if (!['bool', 'dropdown', 'color', 'slider'].includes(this.type)) {
+            throw new Error("Invalid type: " + this.type)
+        }
 
-            // verifying there are no duplicates
+        // verifying there are no duplicates
 
-            if(document.getElementById(this.name) != null) throw new Error("Duplicate ID: " + this.name)
+        if (document.getElementById(this.name) != null) throw new Error("Duplicate ID: " + this.name)
     }
 
-    render(){
-            try{
+    render() {
+        try {
             // console.log("Rendering setting: " + this.name)
             if (this.type == 'bool') {
                 let b = document.createElement('div')
@@ -32,7 +32,7 @@ class Setting {
                 b.id = this.name
 
                 let t = document.createElement('span')
-                
+
                 t.classList.add('boolHeader')
 
                 t.textContent = this.name
@@ -52,12 +52,10 @@ class Setting {
                 img.classList.add('boolImage')
 
 
-
                 i.addEventListener('click', (event) => {
                     if (this.value == 'off') {
                         this.value = 'on'
-                    }
-                    else {
+                    } else {
                         this.value = 'off'
                     }
 
@@ -85,8 +83,7 @@ class Setting {
                 b.appendChild(i)
 
                 b.appendChild(d)
-            }
-            else if (this.type == 'color') {
+            } else if (this.type == 'color') {
                 let b = document.createElement('div')
                 b.classList.add('boolInteract')
                 b.id = this.name
@@ -123,8 +120,7 @@ class Setting {
                 b.appendChild(document.createElement('br'))
 
                 b.appendChild(d)
-            }
-            else if (this.type == 'slider'){
+            } else if (this.type == 'slider') {
                 let b = document.createElement('div')
                 b.classList.add('boolInteract')
                 b.id = this.name
@@ -155,7 +151,7 @@ class Setting {
                     settingsLoad[settingsLoad.indexOf(this.name) + 1] = this.value
                     localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
                 })
-                
+
                 let d = document.createElement('span')
                 d.textContent = this.description
 
@@ -168,8 +164,7 @@ class Setting {
                 b.appendChild(d)
 
                 document.getElementById('baseContent').appendChild(b)
-            }
-            else if (this.type == 'dropdown') {
+            } else if (this.type == 'dropdown') {
                 let b = document.createElement('div')
                 b.classList.add('boolInteract')
                 b.id = this.name
@@ -213,9 +208,9 @@ class Setting {
                 document.getElementById('baseContent').appendChild(b)
             }
 
-    }catch(e){
-        console.warn(e)
-    }
+        } catch (e) {
+            console.warn(e)
+        }
 
     }
 }

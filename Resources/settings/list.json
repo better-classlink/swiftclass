@@ -1,181 +1,177 @@
 [
-    {
-        "header": "Appearance",
-        "name": "Dark Mode",
-        "value": "on",
-        "type": "bool",
-        "description": "Use a darker color palette across the app"
-    },
-    {
-        "header": "Appearance",
-        "name": "Compact Layout",
-        "value": "off",
-        "type": "bool",
-        "description": "Reduce spacing and padding throughout the interface"
-    },
-    {
-        "header": "Appearance",
-        "name": "Blur Effects",
-        "value": "on",
-        "type": "bool",
-        "description": "Enable translucent panels and background blur"
-    },
-    {
-        "header": "Appearance",
-        "name": "Animated UI",
-        "value": "on",
-        "type": "bool",
-        "description": "Play smooth transitions and interface animations"
-    },
-
-    {
-        "header": "Notifications",
-        "name": "Desktop Notifications",
-        "value": "on",
-        "type": "bool",
-        "description": "Show notifications even while the app is minimized"
-    },
-    {
-        "header": "Notifications",
-        "name": "Notification Sounds",
-        "value": "off",
-        "type": "bool",
-        "description": "Play a sound when receiving alerts or updates"
-    },
-    {
-        "header": "Notifications",
-        "name": "Mentions Only",
-        "value": "off",
-        "type": "bool",
-        "description": "Only notify you when directly mentioned"
-    },
-    {
-        "header": "Notifications",
-        "name": "Do Not Disturb",
-        "value": "off",
-        "type": "bool",
-        "description": "Temporarily silence all notifications"
-    },
-
-    {
-        "header": "Privacy",
-        "name": "Activity Status",
-        "value": "on",
-        "type": "bool",
-        "description": "Allow others to see when you are online"
-    },
-    {
-        "header": "Privacy",
-        "name": "Usage Analytics",
-        "value": "off",
-        "type": "bool",
-        "description": "Share anonymous usage data to improve the app"
-    },
-    {
-        "header": "Privacy",
-        "name": "Friend Requests",
-        "value": "on",
-        "type": "bool",
-        "description": "Allow other users to send friend requests"
-    },
-    {
-        "header": "Privacy",
-        "name": "Read Receipts",
-        "value": "on",
-        "type": "bool",
-        "description": "Let others know when you have viewed messages"
-    },
-
-    {
-        "header": "Audio",
-        "name": "Master Audio",
-        "value": "on",
-        "type": "bool",
-        "description": "Enable all sounds and audio playback"
-    },
-    {
-        "header": "Audio",
-        "name": "Interface Sounds",
-        "value": "on",
-        "type": "bool",
-        "description": "Play clicks and navigation sound effects"
-    },
-    {
-        "header": "Audio",
-        "name": "Background Music",
-        "value": "off",
-        "type": "bool",
-        "description": "Enable ambient music while using the app"
-    },
-    {
-        "header": "Audio",
-        "name": "Spatial Audio",
-        "value": "off",
-        "type": "bool",
-        "description": "Use enhanced directional audio effects"
-    },
-
-    {
-        "header": "Advanced",
-        "name": "Developer Mode",
-        "value": "off",
-        "type": "bool",
-        "description": "Show debugging tools and experimental features"
-    },
-    {
-        "header": "Advanced",
-        "name": "Hardware Acceleration",
-        "value": "on",
-        "type": "bool",
-        "description": "Use GPU acceleration for smoother rendering"
-    },
-    {
-        "header": "Advanced",
-        "name": "Experimental Features",
-        "value": "off",
-        "type": "bool",
-        "description": "Try unfinished features before public release"
-    },
-    {
-        "header": "Advanced",
-        "name": "Verbose Logging",
-        "value": "off",
-        "type": "bool",
-        "description": "Store detailed logs for troubleshooting"
-    },
-    {
-        "header": "Optimizations",
-        "name": "Peformance Tweaks",
-        "value": "off",
-        "type": "bool",
-        "description": "Enable optimizations that may improve performance at the cost of stability"
-    },
-    {
-        "header": "Appearance",
-        "name": "Example Color",
-        "value": "#ff0000",
-        "type": "color",
-        "description": "Choose a custom color for the interface"
-    },
-    {
-        "header": "Audio",
-        "name": "Example Volume",
-        "value": 100,
-        "type": "slider",
-        "description": "Set the master volume level",
-        "minval": "0",
-        "maxval": "100"
-    },
-    {
-        "header": "Notifications",
-        "name": "Preferred Type",
-        "value": "Banner",
-        "type": "dropdown",
-        "description": "Specify the preferred notification type",
-        "selectors": [
-            "Banner",
-            "Popup",
-            "None"
-        ]
-    }
+  {
+    "header": "Appearance",
+    "name": "Dark Mode",
+    "value": "on",
+    "type": "bool",
+    "description": "Use a darker color palette across the app"
+  },
+  {
+    "header": "Appearance",
+    "name": "Compact Layout",
+    "value": "off",
+    "type": "bool",
+    "description": "Reduce spacing and padding throughout the interface"
+  },
+  {
+    "header": "Appearance",
+    "name": "Blur Effects",
+    "value": "on",
+    "type": "bool",
+    "description": "Enable translucent panels and background blur"
+  },
+  {
+    "header": "Appearance",
+    "name": "Animated UI",
+    "value": "on",
+    "type": "bool",
+    "description": "Play smooth transitions and interface animations"
+  },
+  {
+    "header": "Notifications",
+    "name": "Desktop Notifications",
+    "value": "on",
+    "type": "bool",
+    "description": "Show notifications even while the app is minimized"
+  },
+  {
+    "header": "Notifications",
+    "name": "Notification Sounds",
+    "value": "off",
+    "type": "bool",
+    "description": "Play a sound when receiving alerts or updates"
+  },
+  {
+    "header": "Notifications",
+    "name": "Mentions Only",
+    "value": "off",
+    "type": "bool",
+    "description": "Only notify you when directly mentioned"
+  },
+  {
+    "header": "Notifications",
+    "name": "Do Not Disturb",
+    "value": "off",
+    "type": "bool",
+    "description": "Temporarily silence all notifications"
+  },
+  {
+    "header": "Privacy",
+    "name": "Activity Status",
+    "value": "on",
+    "type": "bool",
+    "description": "Allow others to see when you are online"
+  },
+  {
+    "header": "Privacy",
+    "name": "Usage Analytics",
+    "value": "off",
+    "type": "bool",
+    "description": "Share anonymous usage data to improve the app"
+  },
+  {
+    "header": "Privacy",
+    "name": "Friend Requests",
+    "value": "on",
+    "type": "bool",
+    "description": "Allow other users to send friend requests"
+  },
+  {
+    "header": "Privacy",
+    "name": "Read Receipts",
+    "value": "on",
+    "type": "bool",
+    "description": "Let others know when you have viewed messages"
+  },
+  {
+    "header": "Audio",
+    "name": "Master Audio",
+    "value": "on",
+    "type": "bool",
+    "description": "Enable all sounds and audio playback"
+  },
+  {
+    "header": "Audio",
+    "name": "Interface Sounds",
+    "value": "on",
+    "type": "bool",
+    "description": "Play clicks and navigation sound effects"
+  },
+  {
+    "header": "Audio",
+    "name": "Background Music",
+    "value": "off",
+    "type": "bool",
+    "description": "Enable ambient music while using the app"
+  },
+  {
+    "header": "Audio",
+    "name": "Spatial Audio",
+    "value": "off",
+    "type": "bool",
+    "description": "Use enhanced directional audio effects"
+  },
+  {
+    "header": "Advanced",
+    "name": "Developer Mode",
+    "value": "off",
+    "type": "bool",
+    "description": "Show debugging tools and experimental features"
+  },
+  {
+    "header": "Advanced",
+    "name": "Hardware Acceleration",
+    "value": "on",
+    "type": "bool",
+    "description": "Use GPU acceleration for smoother rendering"
+  },
+  {
+    "header": "Advanced",
+    "name": "Experimental Features",
+    "value": "off",
+    "type": "bool",
+    "description": "Try unfinished features before public release"
+  },
+  {
+    "header": "Advanced",
+    "name": "Verbose Logging",
+    "value": "off",
+    "type": "bool",
+    "description": "Store detailed logs for troubleshooting"
+  },
+  {
+    "header": "Optimizations",
+    "name": "Peformance Tweaks",
+    "value": "off",
+    "type": "bool",
+    "description": "Enable optimizations that may improve performance at the cost of stability"
+  },
+  {
+    "header": "Appearance",
+    "name": "Example Color",
+    "value": "#ff0000",
+    "type": "color",
+    "description": "Choose a custom color for the interface"
+  },
+  {
+    "header": "Audio",
+    "name": "Example Volume",
+    "value": 100,
+    "type": "slider",
+    "description": "Set the master volume level",
+    "minval": "0",
+    "maxval": "100"
+  },
+  {
+    "header": "Notifications",
+    "name": "Preferred Type",
+    "value": "Banner",
+    "type": "dropdown",
+    "description": "Specify the preferred notification type",
+    "selectors": [
+      "Banner",
+      "Popup",
+      "None"
+    ]
+  }
 ]

@@ -7,18 +7,22 @@
     --radialMenuItemBase: #05B4FF90;
     --radialMenuItemHover: #05B4FFAA;
 }
+
 * {
     font-family: Geist;
     box-sizing: border-box;
 }
+
 @font-face {
     font-family: Geist;
     src: url(geist.ttf);
 }
+
 body {
     margin: 0;
     overflow: hidden;
 }
+
 .content {
     width: 100vw;
     height: 100vh;
@@ -27,21 +31,24 @@ body {
     grid-template-columns: auto;
     box-sizing: border-box;
 }
+
 .background {
     background-color: rgb(189, 189, 189);
     z-index: 0;
     border-top: 5px lightblue;
 }
+
 .headerContainer {
     text-align: center;
     background-color: rgb(83, 114, 193);
     border-bottom: 3px solid white;
 }
+
 .topHeader {
     font-family: Geist;
     font-weight: 200;
     color: white;
-    font-size: clamp(1px, 41px, 46px);
+    font-size: clamp(20px, 41px, 46px);
     margin: 0px;
 }
 
@@ -49,7 +56,7 @@ body {
     font-family: Geist;
     font-weight: 200;
     color: white;
-    font-size: clamp(12px, 3vmin, 34px);
+    font-size: clamp(19px, 3vmin, 34px);
     margin: 0px;
 }
 
@@ -60,12 +67,14 @@ body {
     padding: 11px;
     font-weight: 200;
 }
+
 .newsText {
-    font-size: clamp(22px, 3vmin, 34px);
+    font-size: clamp(17px, 3vmin, 34px);
     margin: 0;
 }
+
 .newsHeader {
-    font-size: clamp(12px, 5vmin, 44px);
+    font-size: clamp(22px, 5vmin, 44px);
     margin: 0px;
 }
 
@@ -126,7 +135,7 @@ body {
     border-radius: 6px;
 }
 
-.footerButton{
+.footerButton {
     height: 65%;
     width: 20%;
     background-color: #5e6cd3;
@@ -144,7 +153,7 @@ body {
     min-width: 0;
 }
 
-.footerButtonText{
+.footerButtonText {
     font-size: clamp(7px, 3vmin, 14px);
     white-space: nowrap;
     overflow: hidden;
@@ -163,4 +172,5 @@ body {
     align-items: center;
 }
 
-.tipText {}
+.tipText {
+}
