@@ -35,6 +35,25 @@ class InfoSlides{
         body.textContent = this.slides[this.slideNumber].body
         slidesModal.appendChild(body)
 
+        console.log(this.slides[this.slideNumber].image)
+
+        let image = document.createElement('img')
+        image.id = 'slidesImage'
+        if(this.slides[this.slideNumber].image !== undefined){
+            image.src = this.slides[this.slideNumber].image
+        }else{
+            image.src = 'Resources/info/images/default.png'
+        }
+        image.classList.add('slidesImage')
+        if(this.slides[this.slideNumber].image === undefined){
+          image.style.display = 'none'
+        }
+        else{
+            image.style.display = 'block'
+        }
+        slidesModal.appendChild(image)
+
+
         let baseContainer = document.createElement('div')
         baseContainer.classList.add('slidesContainerForAnotherContainer')
         slidesModal.appendChild(baseContainer)
@@ -61,8 +80,8 @@ class InfoSlides{
         buttonContainer.appendChild(nextButton)
 
         nextButton.addEventListener('click', (event) => {
-            console.log(this.slideNumber)
-            console.log(this.slides.length)
+            // console.log(this.slideNumber)
+            // console.log(this.slides.length)
             if(this.slideNumber < this.slides.length - 1){
                 this.slideNumber++
                 this.updateSlides()
@@ -78,6 +97,21 @@ class InfoSlides{
         })
     }
     updateSlides(){
+        let image = document.getElementById('slidesImage')
+
+        if(this.slides[this.slideNumber].image !== undefined){
+            image.src = this.slides[this.slideNumber].image
+        }else{
+            image.src = 'Resources/info/images/default.png'
+        }
+
+        if(this.slides[this.slideNumber].image === undefined){
+            image.style.display = 'none'
+        }
+        else{
+            image.style.display = 'block'
+        }
+
         document.getElementById('slidesHeader').textContent = this.slides[this.slideNumber].title
         document.getElementById('slidesBody').textContent = this.slides[this.slideNumber].body
     }

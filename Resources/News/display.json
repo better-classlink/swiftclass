@@ -1,11 +1,11 @@
 {
-  "title": "Welcome to SwiftClass's Testing Phase!",
+  "title": "Light as a feather. Swift as a bird.",
   "body": [
-    "Welcome to SwiftClass!",
-    "This is a test of the news system that lets me easily change the internals.",
-    "Isn't it pretty?",
+    "This is SwiftClass.",
+    "SwiftClass is a simple app that displays news, agendas, and links.",
+    "It's a work in progress, so expect bugs and missing features.",
     "",
-    "For now, this pretty much summarizes the front page."
+    "This is the extent of the home page."
   ],
   "image": true
 }

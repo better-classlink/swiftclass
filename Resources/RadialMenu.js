@@ -279,29 +279,6 @@ RadialMenu.prototype.selectDelta = function (indexDelta) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 RadialMenu.prototype.onKeyDown = function (event) {
     var self = this;
-    if (self.currentMenu) {
-        switch (event.key) {
-            case 'Escape':
-            case 'Backspace':
-                self.handleCenterClick();
-                event.preventDefault();
-                break;
-            case 'Enter':
-                self.handleClick();
-                event.preventDefault();
-                break;
-            // case 'ArrowRight':
-            // case 'ArrowUp':
-            //     self.selectDelta(1);
-            //     event.preventDefault();
-            //     break;
-            // case 'ArrowLeft':
-            // case 'ArrowDown':
-            //     self.selectDelta(-1);
-            //     event.preventDefault();
-            //     break;
-        }
-    }
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

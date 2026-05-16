@@ -66,9 +66,17 @@
     justify-content: center;
     text-overflow: ellipsis;
     overflow: hidden;
+    transition: 0.1s ease;
 }
 
 .slidesButton:hover {
     text-decoration: underline;
-    background-color: #c5c5c5;
+    transform: scale(1.1);
+}
+
+.slidesImage {
+    width: 50cqmin;
+    aspect-ratio: 16/9;
+    border-radius: 7px;
+    margin-top: 1%;
 }

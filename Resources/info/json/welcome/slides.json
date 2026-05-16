@@ -1,6 +1,16 @@
 [
   {
-    "title": "Welcome to SwiftClass!",
-    "body": "We're glad you're here! Here's a quick overview of what you can do with SwiftClass. Use the buttons below to navigate through these slides."
+    "title": "Welcome to SwiftClass.",
+    "body": "Light as a feather. Swift as a bird. Welcome to SwiftClass. This slideshow will show you how to use the app."
+  },
+  {
+    "title": "The Radial Menu",
+    "body": "The Radial Menu is the fastest way to navigate through the app. It can be opened by pressing Space at any time. It will appear at the mouse's position, and you can click on any of the buttons to navigate to a different page. It should look like the one below.",
+    "image": "Resources/info/images/welcome/radialmenu.png"
+  },
+  {
+    "title": "The Home Page",
+    "body": "The home page is the starting point of SwiftClass. It's where you can view the latest news. Most of your time will not be spent here, but you can still use the buttons below to navigate to other pages. It should look like the image below.",
+    "image": "Resources/info/images/welcome/homepage.png"
   }
 ]

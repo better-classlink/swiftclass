@@ -1,7 +1,7 @@
 window.currentMenu = 'SwiftClass'
 
 if(localStorage.getItem('swcFirstTime') == null) {
-    localStorage.setItem('swcFirstTime', 'true')
+    // localStorage.setItem('swcFirstTime', 'true')
     let welcomeSlides = new InfoSlides("Resources/info/json/welcome/slides.json")
     welcomeSlides.render()
 }
@@ -221,7 +221,7 @@ async function updateMenus(){
                         console.log('Loaded settings: ')
                         console.log(settingsLoad)
 
-                        settingsJSON.forEach( async (element) => {
+                        settingsJSON.forEach(async (element) => {
                             if(!settingsLoad.includes(element.name)){
                                 settingsLoad.push(element.name)
                                 settingsLoad.push(element.value)
@@ -233,6 +233,8 @@ async function updateMenus(){
                             }else{
                                 console.log('not of type')
                             }
+
+
                         let name = ''
                         for(let i = 0;i < window.currentMenu.length;i++){
                             name += window.currentMenu[i]
@@ -244,6 +246,8 @@ async function updateMenus(){
 
                         window.denySettingMovement = false
 
+                        }).then(() => {
+                            console.log('done')
                         })
                         })
                         headerCont.appendChild(header)
@@ -274,6 +278,8 @@ async function updateMenus(){
     document.getElementById('tipText')?.remove()
     document.getElementById('baseContent').style.display = 'block'
 
+    window.denySettingMovement = true
+
     for(let i = 0; i < window.currentMenu.length;i++){
         name += window.currentMenu[i]
 
@@ -281,6 +287,8 @@ async function updateMenus(){
 
         document.getElementById('topHeader').textContent = name
     }
+
+    window.denySettingMovement = false
         
 }
 

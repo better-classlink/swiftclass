@@ -145,7 +145,7 @@
     },
     {
         "header": "Optimizations",
-        "name": "Peformance Tweaks",
+        "name": "Performance Tweaks",
         "value": "off",
         "type": "bool",
         "description": "Enable optimizations that may improve performance at the cost of stability"
