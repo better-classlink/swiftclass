@@ -290,16 +290,16 @@ RadialMenu.prototype.onKeyDown = function (event) {
                 self.handleClick();
                 event.preventDefault();
                 break;
-            case 'ArrowRight':
-            case 'ArrowUp':
-                self.selectDelta(1);
-                event.preventDefault();
-                break;
-            case 'ArrowLeft':
-            case 'ArrowDown':
-                self.selectDelta(-1);
-                event.preventDefault();
-                break;
+            // case 'ArrowRight':
+            // case 'ArrowUp':
+            //     self.selectDelta(1);
+            //     event.preventDefault();
+            //     break;
+            // case 'ArrowLeft':
+            // case 'ArrowDown':
+            //     self.selectDelta(-1);
+            //     event.preventDefault();
+            //     break;
         }
     }
 };

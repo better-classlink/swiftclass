@@ -1,5 +1,11 @@
 window.currentMenu = 'SwiftClass'
 
+if(localStorage.getItem('swcFirstTime') == null) {
+    localStorage.setItem('swcFirstTime', 'true')
+    let welcomeSlides = new InfoSlides("Resources/info/json/welcome/slides.json")
+    welcomeSlides.render()
+}
+
 window.denySettingMovement = false
 
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
