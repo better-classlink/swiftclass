@@ -1,7 +1,7 @@
 [
   {
     "title": "Welcome to SwiftClass.",
-    "body": "Light as a feather. Swift as a bird. Welcome to SwiftClass. This slideshow will show you how to use the app."
+    "body": "Light as a feather. Swift as a bird. Welcome to SwiftClass. This slideshow will show you how to use the app. \n Click Next to move on."
   },
   {
     "title": "The Radial Menu",
@@ -12,5 +12,10 @@
     "title": "The Home Page",
     "body": "The home page is the starting point of SwiftClass. It's where you can view the latest news. Most of your time will not be spent here, but you can still use the buttons below to navigate to other pages. It should look like the image below.",
     "image": "Resources/info/images/welcome/homepage.png"
+  },
+  {
+    "title": "Settings",
+    "body": "The Settings menu is where you can change how the app works. This includes themes (eventually), visual tweaks, possible performance changes, and notification control.",
+    "image": "Resources/info/images/welcome/settings.png"
   }
 ]

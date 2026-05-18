@@ -75,8 +75,9 @@
 }
 
 .slidesImage {
-    width: 50cqmin;
+    width: 65cqmin;
     aspect-ratio: 16/9;
     border-radius: 7px;
     margin-top: 1%;
+    border: 3px solid #696a8f;
 }

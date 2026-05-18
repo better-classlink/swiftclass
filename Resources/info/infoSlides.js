@@ -64,6 +64,7 @@ class InfoSlides{
 
         let backButton = document.createElement('button')
         backButton.classList.add('slidesButton')
+        backButton.id = "slidesBackButton"
         backButton.textContent = 'Previous'
         buttonContainer.appendChild(backButton)
 
@@ -71,11 +72,13 @@ class InfoSlides{
             if(this.slideNumber > 0){
                 this.slideNumber--
                 this.updateSlides()
+                document.getElementById('slidesNextButton').textContent = 'Next'
             }
         })
 
         let nextButton = document.createElement('button')
         nextButton.classList.add('slidesButton')
+        nextButton.id = "slidesNextButton"
         nextButton.textContent = 'Next'
         buttonContainer.appendChild(nextButton)
 
@@ -101,7 +104,8 @@ class InfoSlides{
 
         if(this.slides[this.slideNumber].image !== undefined){
             image.src = this.slides[this.slideNumber].image
-        }else{
+        }
+        else{
             image.src = 'Resources/info/images/default.png'
         }
 
