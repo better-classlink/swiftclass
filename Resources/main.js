@@ -1,7 +1,7 @@
 window.currentMenu = 'SwiftClass'
 
 if(localStorage.getItem('swcFirstTime') == null) {
-    // localStorage.setItem('swcFirstTime', 'true')
+    localStorage.setItem('swcFirstTime', 'true')
     let welcomeSlides = new InfoSlides("Resources/info/json/welcome/slides.json")
     welcomeSlides.render()
 }
@@ -83,9 +83,10 @@ window.addEventListener('keydown', function(e) {
 });
 
 async function updateMenus(){
-    
-    let name = ''
-    
+
+    typeMenuName()
+    // document.getElementById('topHeader').textContent = ''
+
     document.getElementById('baseContent').innerHTML = ''
 
     let tipText = document.createElement('span')
@@ -194,12 +195,16 @@ async function updateMenus(){
                         header.classList.add('settingsHeader')
                         header.textContent = item
                         header.addEventListener('click', async (event)=> {
-                            if(window.denySettingMovement) return
-                            window.denySettingMovement = true
+                            if(window.denySettingMovement)
+                                {return}
+                
 
                             window.settingHeaderType = event.currentTarget.textContent
 
                             window.currentMenu = 'Settings' + ' - ' + window.settingHeaderType
+
+                            typeMenuName()
+                            // window.denySettingMovement = true
 
                             console.log(window.settingHeaderType)
                             console.log(settingsJSON)
@@ -235,19 +240,17 @@ async function updateMenus(){
                             }
 
 
-                        let name = ''
-                        for(let i = 0;i < window.currentMenu.length;i++){
-                            name += window.currentMenu[i]
+                        // document.getElementById('topHeader').textContent = ''
+                        // for(let i = 0;i < window.currentMenu.length;i++){
+                        //     name += window.currentMenu[i]
 
-                            await wait(45)
+                        //     await wait(45)
 
-                            document.getElementById('topHeader').textContent = name
-                        }
+                        //     document.getElementById('topHeader').textContent = name
+                        // }
 
-                        window.denySettingMovement = false
+                        // window.denySettingMovement = false
 
-                        }).then(() => {
-                            console.log('done')
                         })
                         })
                         headerCont.appendChild(header)
@@ -285,7 +288,7 @@ async function updateMenus(){
 
         await wait(45)
 
-        document.getElementById('topHeader').textContent = name
+        // document.getElementById('topHeader').textContent = name
     }
 
     window.denySettingMovement = false
@@ -355,16 +358,40 @@ async function loadMenu(){
 
 let buttons = document.querySelectorAll(".footerButton")
 
+setInterval(() => {
+    console.log(window.denySettingMovement)
+}, 100);
+
+async function typeMenuName(){
+    window.denySettingMovement = true
+        let name = ''
+        document.getElementById('topHeader').textContent = ''
+        let nameCache = window.currentMenu
+        for(let i = 0;i < nameCache.length;i++){
+            name += nameCache[i]
+            await wait(45)
+            document.getElementById('topHeader').textContent = name
+        }
+        window.denySettingMovement = false
+}
+
 buttons.forEach((element) => {
+    if(window.denySettingMovement) return
     element.addEventListener('click', (event) => {
          selfName = event.currentTarget.textContent.trim()
          if(selfName == 'Home') 
          {
             window.currentMenu = 'SwiftClass'
+            if(!window.denySettingMovement){
+            window.denySettingMovement = true
             updateMenus()
+            }
          }else{
             window.currentMenu = selfName
+            if(!window.denySettingMovement){
+            window.denySettingMovement = true
             updateMenus()
+            }
          }
     })
 })

@@ -28,6 +28,7 @@
 .slidesBody {
     color: #444e9c;
     font-size: clamp(15px, 3vmin, 34px);
+    white-space: pre-wrap;
 }
 
 .slidesContainerForAnotherContainer {
