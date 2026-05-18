@@ -58,8 +58,8 @@ window.addEventListener("keyup", (event) => {
     if(event.keyCode === 32 && event.target == document.body){
         if(!openedStatus){
         event.preventDefault()
-        console.log("Opening menu")
-        console.log(window.mousePosition)
+        // console.log("Opening menu")
+        // console.log(window.mousePosition)
 
         document.getElementById('container').style.left = String(window.mousePosition[0] - 110) + 'px'
         document.getElementById('container').style.top = String(window.mousePosition[1] - 105) + 'px'
@@ -95,8 +95,8 @@ async function updateMenus(){
 
     tipText.textContent = window.loadingTips[Math.floor(Math.random() * window.loadingTips.length)]
 
-    document.getElementById('main').appendChild(tipText)
-    document.getElementById('baseContent').style.display = 'none'
+    // document.getElementById('main').appendChild(tipText)
+    // document.getElementById('baseContent').style.display = 'none'
 
     // await wait(500)
 
@@ -106,7 +106,7 @@ async function updateMenus(){
             try{
                 let jsonRequest = await fetch("Resources/news/display.json")
                 let newsJSON = await jsonRequest.json()
-                console.log(newsJSON)
+                // console.log(newsJSON)
 
                 if('body' in newsJSON)
                 {
@@ -173,7 +173,7 @@ async function updateMenus(){
                     // console.log(settingsLoad)
 
                     settingsJSON.forEach((element) => {
-                        console.log(element)
+                        // console.log(element)
                         if(!settingsLoad.includes(element.name)){
                             settingsLoad.push(element.name)
                             settingsLoad.push(element.value)
@@ -206,11 +206,11 @@ async function updateMenus(){
                             typeMenuName()
                             // window.denySettingMovement = true
 
-                            console.log(window.settingHeaderType)
-                            console.log(settingsJSON)
+                            // console.log(window.settingHeaderType)
+                            // console.log(settingsJSON)
 
                             let liveChildNodes = document.getElementById('baseContent').childNodes
-                            console.log(liveChildNodes.length)
+                            // console.log(liveChildNodes.length)
                             if(liveChildNodes && liveChildNodes.length > 1) {
                                 while (liveChildNodes.length > 1) {
                                     liveChildNodes[1].remove()
@@ -223,8 +223,8 @@ async function updateMenus(){
                         let settingsLoad = localStorage.getItem('swcsettings')
 
                         settingsLoad = JSON.parse(settingsLoad)
-                        console.log('Loaded settings: ')
-                        console.log(settingsLoad)
+                        // console.log('Loaded settings: ')
+                        // console.log(settingsLoad)
 
                         settingsJSON.forEach(async (element) => {
                             if(!settingsLoad.includes(element.name)){
@@ -236,7 +236,7 @@ async function updateMenus(){
                                 let setting = new Setting(element.name, settingsLoad[settingsLoad.indexOf(element.name) + 1], element.type, element.description, element.header, element.types, element.minval, element.maxval, element.selectors)
                                 setting.render()
                             }else{
-                                console.log('not of type')
+                                // console.log('not of type')
                             }
 
 
@@ -278,8 +278,8 @@ async function updateMenus(){
 
 
 
-    document.getElementById('tipText')?.remove()
-    document.getElementById('baseContent').style.display = 'block'
+    // document.getElementById('tipText')?.remove()
+    // document.getElementById('baseContent').style.display = 'block'
 
     window.denySettingMovement = true
 
@@ -317,12 +317,12 @@ async function loadMenu(){
     }, 50);
 
 
-    console.log("HI")
+    // console.log("HI")
 
     try{
     let jsonRequest = await fetch("Resources/news/display.json")
     let newsJSON = await jsonRequest.json()
-    console.log(newsJSON)
+    // console.log(newsJSON)
 
     if('body' in newsJSON)
     {
@@ -365,7 +365,7 @@ setInterval(() => {
 async function typeMenuName(){
     window.denySettingMovement = true
         let name = ''
-        document.getElementById('topHeader').textContent = ''
+        document.getElementById('topHeader').textContent = '...'
         let nameCache = window.currentMenu
         for(let i = 0;i < nameCache.length;i++){
             name += nameCache[i]
