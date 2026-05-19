@@ -1,7 +1,7 @@
 window.currentMenu = 'SwiftClass'
 
 if(localStorage.getItem('swcFirstTime') == null) {
-    localStorage.setItem('swcFirstTime', 'true')
+    // localStorage.setItem('swcFirstTime', 'true')
     let welcomeSlides = new InfoSlides("Resources/info/json/welcome/slides.json")
     welcomeSlides.render()
 }
@@ -54,7 +54,7 @@ document.addEventListener('mousemove', (event) => {
     }
 });
 
-window.addEventListener("keyup", (event) => {
+window.addEventListener("keyup", async (event) => {
     if(event.keyCode === 32 && event.target == document.body){
         if(!openedStatus){
         event.preventDefault()
@@ -71,6 +71,7 @@ window.addEventListener("keyup", (event) => {
     else
     {
         menu.close()
+        await wait(300)
         window.openedStatus = false
     }
 }
@@ -112,10 +113,7 @@ async function updateMenus(){
                 {
                     newsJSON.body.forEach(element => {
                         let p = document.getElementById('newsTickerText')
-                        let t = document.createElement('span')
-                        t.textContent = element
-                        p.appendChild(t)
-                        p.appendChild(document.createElement('br'))
+                        p.innerHTML += element + '<br>'
                     });
                 }
 
@@ -328,10 +326,7 @@ async function loadMenu(){
     {
         newsJSON.body.forEach(element => {
             let p = document.getElementById('newsTickerText')
-            let t = document.createElement('span')
-            t.textContent = element
-            p.appendChild(t)
-            p.appendChild(document.createElement('br'))
+            p.textCotent += element
         });
     }
 

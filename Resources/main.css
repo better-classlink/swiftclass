@@ -69,6 +69,7 @@ body {
 .newsText {
     font-size: clamp(17px, 3vmin, 34px);
     margin: 0;
+    float: left;
 }
 
 .newsHeader {
@@ -79,13 +80,10 @@ body {
 .newsImage {
     border-radius: 7px;
     border: 4px solid #444e9c;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    margin-right: 5px;
-    margin-bottom: 5px;
+    margin-right: auto;
     width: 64vmin;
     height: 36vmin;
+    float: right;
 }
 
 /* News Stuff Ends */
@@ -144,7 +142,7 @@ body {
     padding: 0 9px;
     border-radius: 5px;
     min-width: 0;
-    transition: 0.1s ease;
+    transition: 0.25s ease;
 }
 
 .footerButtonText {

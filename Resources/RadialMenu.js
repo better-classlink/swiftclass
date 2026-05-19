@@ -349,6 +349,8 @@ RadialMenu.prototype.createUseTag = function (x, y, link) {
 RadialMenu.prototype.appendSectorPath = function (startAngleDeg, endAngleDeg, svg, item, index) {
     var self = this;
 
+    // console.log('Radial menu: ' + startAngleDeg + ', ' + endAngleDeg)
+
     var centerPoint = self.getSectorCenter(startAngleDeg, endAngleDeg);
     var translate = {
         x: RadialMenu.numberToString((1 - self.scale) * centerPoint.x),

@@ -18,7 +18,7 @@ svg.menu {
 }
 
 svg.menu.inner {
-    transform: scale(0.66) rotate(-10deg);
+    transform: scale(0.66) rotate(-15deg);
     opacity: 0;
     visibility: hidden;
 }
