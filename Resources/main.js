@@ -54,6 +54,13 @@ document.addEventListener('mousemove', (event) => {
     }
 });
 
+document.addEventListener('click', (event) => {
+    if(window.openedStatus && !document.getElementById('container').contains(event.target)){
+        menu.close()
+        window.openedStatus = false
+    }
+});
+
 window.addEventListener("keyup", async (event) => {
     if(event.keyCode === 32 && event.target == document.body){
         if(!openedStatus){
@@ -295,10 +302,32 @@ async function updateMenus(){
                             contextMenu.style.left = String(window.mousePosition[0] - contextMenu.clientWidth / 2) + 'px'
                             contextMenu.style.top = String(window.mousePosition[1] + contextMenu.clientHeight / 10) + 'px'
                             contextMenu.classList.remove('small')
-                            //////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                        })
+                            let shortTitle = document.createElement('span')
+                            shortTitle.textContent = 'Class Creator'
+                            shortTitle.classList.add('contextTitle')
+                            contextMenu.appendChild(shortTitle)
+
+                            let classNameInput = document.createElement('input')
+                            classNameInput.type = 'text'
+                            classNameInput.id = 'classNameInput'
+                            classNameInput.placeholder = 'Type in the name of your class...'
+                            classNameInput.classList.add('contextInput')
+                            contextMenu.appendChild(classNameInput)
+
+                            contextMenu.appendChild(document.createElement('hr'))
+
+                            let classTeacherInput = document.createElement('input')
+                            classTeacherInput.type = 'text'
+                            classTeacherInput.id = 'classTeacherInput'
+                            classTeacherInput.placeholder = 'Type in the name of your teacher...'
+                            classTeacherInput.classList.add('contextInput')
+                            contextMenu.appendChild(classTeacherInput)  
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
                         document.addEventListener('click', async (event) => {
                             try{
@@ -311,6 +340,7 @@ async function updateMenus(){
                                 console.warn(e)
                             }
                         })
+                    })
                     break;
                 default:
                     document.getElementById('baseContent').innerHTML = `<h1>${window.currentMenu}</h1><p>Content for ${window.currentMenu} will be added soon!</p>`

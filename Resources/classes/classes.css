@@ -53,19 +53,53 @@
 }
 
 .contextMenu.small {
-    transform: scale(0);
+    transform: scale(0.95);
+    opacity: 0;
 }
 
 .contextMenu.large {
-    transform: scale(1.5);
+    transform: scale(1.2);
 }
 
-.settingsCloseButton {
+.contextTitle {
+    font-size: clamp(18px, 2.5vmin, 24px);
+    color: white;
+    font-weight: 500;
+    user-select: none;
+    margin-bottom: 1%;
+    text-align: center;
+    background-color: rgba(96, 101, 237, 0.195);
+    border-radius: 2px;
+}
+
+.classesCloseButton {
     position: absolute;
-    top: 0;
+    bottom: 0;
     right: 0;
     background-color: rgb(123 181 246 / 0.96);
     border: 2px solid rgb(123 181 246 / 0.96);
-    border-radius: 50%;
+    border-radius: 3px;
     padding: 1%;
+    font-size: clamp(18px, 2.5vmin, 24px);
+    width: fit-content;
+    height: fit-content;
+    cursor: pointer;
+    aspect-ratio: 1/1;
+    text-align: center;
+    align-content: center;
+    user-select: none;
+    transition: 0.25s ease;
+}
+
+.classesCloseButton:hover {
+    background-color: rgb(59, 84, 113);
+    border-color: rgb(59, 84, 113);
+}
+
+.contextInput {
+    width: 100%;
+    padding: 1%;
+    margin: 1% 0;
+    border-radius: 5px;
+    border: none;
 }
