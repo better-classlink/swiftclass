@@ -62,9 +62,7 @@
     width: 30%;
     height: 60%;
     border-radius: 7px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
     text-overflow: ellipsis;
     overflow: hidden;
     transition: 0.25s ease;

@@ -16,7 +16,7 @@
 .boolImage {
     pointer-events: auto;
     z-index: 99;
-    transition: 0.1s ease;
+    transition: 0.25s ease;
     width: 40%;
     height: 40%;
     z-index: 9999;
@@ -66,11 +66,13 @@
     font-size: clamp(14px, 2vmin, 24px);
     user-select: none;
     border-radius: 5px;
+    transition: 0.25s ease;
 }
 
 .settingsHeader:hover {
     background-color: rgb(67, 99, 120);
     cursor: pointer;
+    transform: scale(1.1);
     text-decoration: underline;
 }
 

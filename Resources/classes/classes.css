@@ -1,0 +1,71 @@
+.classesHeaderContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    height: fit-content;
+    background-color: rgb(189 189 189);
+    margin-bottom: 2%;
+    border-radius: 5px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.noteText {
+    font-size: clamp(14px, 2vmin, 24px);
+    user-select: none;
+    margin: 1%;
+    white-space: nowrap;
+}
+
+.classButton {
+    background-color: rgb(43, 63, 76);
+    height: 80%;
+    width: fit-content;
+    padding: 1%;
+    margin: 1%;
+    font-size: clamp(14px, 2vmin, 24px);
+    user-select: none;
+    border-radius: 5px;
+    transition: 0.25s ease;
+}
+
+.classButton:hover {
+    background-color: rgb(67, 99, 120);
+    cursor: pointer;
+    transform: scale(1.1);
+    text-decoration: underline;
+}
+
+.contextMenu {
+    position: absolute;
+    background-color: rgb(83 109 165 / 0.76);
+    border: 2px solid rgb(123 181 246 / 0.96);
+    border-radius: 5px;
+    padding: 1%;
+    width: 20%;
+    height: 20%;
+    aspect-ratio: 16/9;
+    transition: 0.25s ease;
+}
+
+.contextMenu.small {
+    transform: scale(0);
+}
+
+.contextMenu.large {
+    transform: scale(1.5);
+}
+
+.settingsCloseButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: rgb(123 181 246 / 0.96);
+    border: 2px solid rgb(123 181 246 / 0.96);
+    border-radius: 50%;
+    padding: 1%;
+}

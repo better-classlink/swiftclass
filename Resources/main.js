@@ -1,7 +1,7 @@
 window.currentMenu = 'SwiftClass'
 
 if(localStorage.getItem('swcFirstTime') == null) {
-    // localStorage.setItem('swcFirstTime', 'true')
+    localStorage.setItem('swcFirstTime', 'true')
     let welcomeSlides = new InfoSlides("Resources/info/json/welcome/slides.json")
     welcomeSlides.render()
 }
@@ -84,8 +84,13 @@ window.addEventListener('keydown', function(e) {
 });
 
 async function updateMenus(){
-
+    console.log("Updating menus")
+    let baseContent = document.getElementById('baseContent')
+    baseContent.classList.add('smallProp')
     typeMenuName()
+
+    await wait(300)
+
     // document.getElementById('topHeader').textContent = ''
 
     document.getElementById('baseContent').innerHTML = ''
@@ -107,6 +112,9 @@ async function updateMenus(){
             try{
                 let jsonRequest = await fetch("Resources/news/display.json")
                 let newsJSON = await jsonRequest.json()
+
+                // let newsJSON = {"title": "example"}
+
                 // console.log(newsJSON)
 
                 if('body' in newsJSON)
@@ -255,8 +263,54 @@ async function updateMenus(){
                         }
                     )
                     break;
-                    case 'Links':
+                    case 'Classes':
+                        let classesList = localStorage.getItem('swcClasses')
+                        if(classesList == null) classesList = '[]'
+                        classesList = JSON.parse(classesList)
 
+                        let classesHeaderContainer = document.createElement('div')
+                        classesHeaderContainer.id = 'classesHeaderContainer'
+                        classesHeaderContainer.classList.add('settingsHeaderContainer')
+                        document.getElementById('baseContent').appendChild(classesHeaderContainer)
+
+                        if(classesList.length == 0){
+                            let noteText = document.createElement('span')
+                            noteText.classList.add('settingsNoteText')
+                            noteText.textContent = 'You have no classes added yet. Click the Add Class button to add one!'
+                            document.getElementById('baseContent').appendChild(noteText)
+                        }
+
+                        let addClassButton = document.createElement('div')
+                        addClassButton.classList.add('classButton')
+                        addClassButton.textContent = 'Add Class'
+                        addClassButton.id = 'addClassButton'
+                        classesHeaderContainer.appendChild(addClassButton)
+
+                        addClassButton.addEventListener('click', async (event) => {
+                            if(document.getElementById('addClassContextMenu') != null) document.getElementById('addClassContextMenu').remove()
+                            let contextMenu = document.createElement('div')
+                            contextMenu.setAttribute('class', 'contextMenu small')
+                            contextMenu.id = 'addClassContextMenu'
+                            document.body.appendChild(contextMenu)
+                            contextMenu.style.left = String(window.mousePosition[0] - contextMenu.clientWidth / 2) + 'px'
+                            contextMenu.style.top = String(window.mousePosition[1] + contextMenu.clientHeight / 10) + 'px'
+                            contextMenu.classList.remove('small')
+                            //////////////////////////////////////////////////
+
+
+                        })
+
+                        document.addEventListener('click', async (event) => {
+                            try{
+                            if(!document.getElementById('addClassContextMenu').contains(event.target) && !document.getElementById('addClassButton').contains(event.target)){
+                                document.getElementById('addClassContextMenu').classList.add('small')
+                                await wait(250)
+                                document.getElementById('addClassContextMenu').remove()
+                                }
+                            }catch(e){
+                                console.warn(e)
+                            }
+                        })
                     break;
                 default:
                     document.getElementById('baseContent').innerHTML = `<h1>${window.currentMenu}</h1><p>Content for ${window.currentMenu} will be added soon!</p>`
@@ -281,16 +335,21 @@ async function updateMenus(){
 
     window.denySettingMovement = true
 
-    for(let i = 0; i < window.currentMenu.length;i++){
-        name += window.currentMenu[i]
-
-        await wait(45)
-
-        // document.getElementById('topHeader').textContent = name
-    }
+    // for(let i = 0; i < window.currentMenu.length;i++){
+    //     name += window.currentMenu[i]
+    //
+    //     await wait(45)
+    //
+    //     // document.getElementById('topHeader').textContent = name
+    // }
 
     window.denySettingMovement = false
-        
+
+    await wait(300)
+
+    baseContent.classList.remove('smallProp')
+
+    console.log("Updated menus")
 }
 
 window.addEventListener('contextmenu', (event) => {
@@ -306,13 +365,13 @@ async function loadMenu(){
     setInterval(() => {
     try{
 
-    baseContent.style.height = String(mainParent.clientHeight / 1.15) + 'px'
-    baseContent.style.width = String(mainParent.clientWidth / 1.1) + 'px'
+    // baseContent.style.height = String(mainParent.clientHeight / 1.15) + 'px'
+    // baseContent.style.width = String(mainParent.clientWidth / 1.1) + 'px'
 
     }catch(e){
         console.warn('dimensions err: ' + e)
     }
-    }, 50);
+    }, 5);
 
 
     // console.log("HI")
@@ -426,12 +485,12 @@ const baseContent = document.getElementById('baseContent')
     setInterval(() => {
     try{
 
-    baseContent.style.height = String(mainParent.clientHeight / 1.15) + 'px'
-    baseContent.style.width = String(mainParent.clientWidth / 1.1) + 'px'
-    
+    // baseContent.style.height = String(mainParent.clientHeight / 1.15) + 'px'
+    // baseContent.style.width = String(mainParent.clientWidth / 1.1) + 'px'
+    //
     }catch(e){
         console.warn('dimensions err: ' + e)
     }
-    }, 50);
+    }, 5);
 
 updateMenus()
