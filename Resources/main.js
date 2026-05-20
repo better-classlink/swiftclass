@@ -92,15 +92,15 @@ window.addEventListener('keydown', function(e) {
 
 async function updateMenus(){
     let baseContent = document.getElementById('baseContent')
-
-    if(baseContent.classList.contains('forceClassesGrid')){
-        baseContent.classList.remove('forceClassesGrid')
-    }
     console.log("Updating menus")
     baseContent.classList.add('smallProp')
     typeMenuName()
 
     await wait(300)
+    
+    if(baseContent.classList.contains('forceClassesGrid')){
+        baseContent.classList.remove('forceClassesGrid')
+    }
 
     // document.getElementById('topHeader').textContent = ''
 
@@ -235,7 +235,6 @@ async function updateMenus(){
                                 }
                             }
 
-                                
                         let valueType = null
 
                         let settingsLoad = localStorage.getItem('swcsettings')
@@ -299,16 +298,18 @@ async function updateMenus(){
 
                         classesStack.appendChild(document.createElement('hr'))
 
-                        classesList.forEach((classObject) => {
+                        classesList.forEach((classObject, index) => {
                             let savedObj = classObject
                             let selectionButton = document.createElement('button')
                             selectionButton.textContent = classObject.name
                             selectionButton.classList.add('buttonStacker')
                             selectionButton.addEventListener('click', (event) => {
-                                if(savedObj.block == null){
+                                if(savedObj.block == ''){
                                     savedObj.block = '1'
                                 }
-                                let visualClass = new Class(savedObj.name, savedObj.teacher, savedObj.link)
+                                console.log(savedObj.link)
+                                let visualClass = new Class(savedObj.name, savedObj.teacher, savedObj.block, savedObj.link, index)
+                                visualClass.render()
                             })
                             classesStack.appendChild(selectionButton)
                             classesStack.appendChild(document.createElement('br'))
@@ -316,13 +317,13 @@ async function updateMenus(){
 
                         // Final Button After Full Stack
                             
-                       let addClassButton = document.createElement('div')
+                       let addClassButton = document.createElement('button')
                        addClassButton.textContent = 'hi'
                     addClassButton.addEventListener('click', classButtonAdder)
 
                     // Final Button After Full Stack
 
-                    addClassButton.classList.add('buttonStacker')
+                    addClassButton.classList.add('addButtonStacker')
                     addClassButton.id = 'addClassButton'
                     addClassButton.textContent = 'Add Class'
                     classesStack.appendChild(addClassButton)
@@ -344,7 +345,8 @@ async function updateMenus(){
 async function classButtonAdder(event) {
     if (document.getElementById('addClassContextMenu') != null) document.getElementById('addClassContextMenu').remove()
     let contextMenu = document.createElement('div')
-    contextMenu.setAttribute('class', 'contextMenu small')
+    contextMenu.classList.add('contextMenu')
+    contextMenu.classList.add('small')
     contextMenu.id = 'addClassContextMenu'
     document.body.appendChild(contextMenu)
     contextMenu.style.left = String(window.mousePosition[0] - contextMenu.clientWidth / 123123) + 'px'
@@ -405,7 +407,7 @@ async function classButtonAdder(event) {
             return
         }
         if (classLink.length == 0) {
-            classLink = null
+            classLink = ''
         }
 
         let newClass = {
@@ -416,7 +418,7 @@ async function classButtonAdder(event) {
         }
 
         let classesList = localStorage.getItem('swcClasses')
-        if (classesList == null) classesList = '[]'
+        if (classesList == '') classesList = '[]'
         classesList = JSON.parse(classesList)
         classesList.push(newClass)
         localStorage.setItem('swcClasses', JSON.stringify(classesList))
