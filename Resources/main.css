@@ -160,7 +160,7 @@ body {
 }
 
 .footerButtonText {
-    font-size: clamp(7px, 3vmin, 14px);
+    font-size: clamp(11px, 3vmin, 18px);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

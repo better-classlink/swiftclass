@@ -21,19 +21,21 @@
     white-space: nowrap;
 }
 
-.classButton {
+.buttonStacker {
     background-color: rgb(43, 63, 76);
-    height: 80%;
+    height: fit-content;
+    color: white;
     width: fit-content;
     padding: 1%;
     margin: 1%;
     font-size: clamp(14px, 2vmin, 24px);
     user-select: none;
     border-radius: 5px;
+    border: transparent;
     transition: 0.25s ease;
 }
 
-.classButton:hover {
+.buttonStacker:hover {
     background-color: rgb(67, 99, 120);
     cursor: pointer;
     transform: scale(1.1);
@@ -46,10 +48,11 @@
     border: 2px solid rgb(123 181 246 / 0.96);
     border-radius: 5px;
     padding: 1%;
-    width: 20%;
-    height: 20%;
+    width: 40%;
+    height: 40%;
     aspect-ratio: 16/9;
     transition: 0.25s ease;
+    overflow-y: auto;
 }
 
 .contextMenu.small {
@@ -60,6 +63,33 @@
 .contextMenu.large {
     transform: scale(1.2);
 }
+
+.contextButton {
+    background-color: rgb(123 181 246 / 0.96);
+    border: 2px solid rgb(123 181 246 / 0.96);
+    border-radius: 3px;
+    padding: 1%;
+    font-size: clamp(14px, 2.5vmin, 24px);
+    width: 15%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: fit-content;
+    cursor: pointer;
+    text-align: center;
+    align-content: center;
+    user-select: none;
+    transition: 0.25s ease;
+}
+
+.contextButton:hover {
+    background-color: rgb(59, 84, 113);
+    border-color: rgb(59, 84, 113);
+    text-decoration: underline;
+    color: white;
+    transform: scale(1.1);
+}
+
+
 
 .contextTitle {
     font-size: clamp(18px, 2.5vmin, 24px);
@@ -102,4 +132,28 @@
     margin: 1% 0;
     border-radius: 5px;
     border: none;
+    font-size: clamp(14px, 2vmin, 24px);
+}
+
+.classesStack {
+    border-radius: 4px;
+    width: fit-content;
+    min-width: 25%;
+    height: 90%;
+    padding: 1%;
+    min-height: 30%;
+    overflow: hidden;
+    overflow-y: auto;
+    background-color: rgba(251, 251, 251, 0.96);
+}
+
+.classesTitle {
+    font-size: clamp(18px, 2.5vmin, 24px);
+    color: rgb(78, 78, 78);
+    font-weight: 500;
+    user-select: none;
+    margin-bottom: 1%;
+    text-align: center;
+    /* background-color: rgba(96, 101, 237, 0.195); */
+    border-radius: 2px;
 }

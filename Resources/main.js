@@ -272,34 +272,41 @@ async function updateMenus(){
                     break;
                     case 'Classes':
                         let classesList = localStorage.getItem('swcClasses')
-                        if(classesList == null) classesList = '[]'
+                        if(classesList == null) localStorage.setItem('swcClasses', '[]')
                         classesList = JSON.parse(classesList)
 
-                        let classesHeaderContainer = document.createElement('div')
-                        classesHeaderContainer.id = 'classesHeaderContainer'
-                        classesHeaderContainer.classList.add('settingsHeaderContainer')
-                        document.getElementById('baseContent').appendChild(classesHeaderContainer)
+                        let classesStack = document.createElement('div')
+                        classesStack.classList.add('classesStack')
+                        baseContent.appendChild(classesStack)
 
-                        if(classesList.length == 0){
-                            let noteText = document.createElement('span')
-                            noteText.classList.add('settingsNoteText')
-                            noteText.textContent = 'You have no classes added yet. Click the Add Class button to add one!'
-                            document.getElementById('baseContent').appendChild(noteText)
-                        }
+                        let classesTitle = document.createElement('span')
+                        classesTitle.textContent = "Your Classes"
+                        classesTitle.classList.add('classesTitle')
+                        
+                        classesStack.appendChild(classesTitle)
 
-                        let addClassButton = document.createElement('div')
-                        addClassButton.classList.add('classButton')
-                        addClassButton.textContent = 'Add Class'
-                        addClassButton.id = 'addClassButton'
-                        classesHeaderContainer.appendChild(addClassButton)
+                        classesStack.appendChild(document.createElement('hr'))
 
+                        classesList.forEach((classObject) => {
+                            let selectionButton = document.createElement('button')
+                            selectionButton.textContent = classObject.name
+                            selectionButton.classList.add('buttonStacker')
+                            classesStack.appendChild(selectionButton)
+                            classesStack.appendChild(document.createElement('br'))
+                            
+                        })
+
+                        // Final Button After Full Stack
+                            
+                       let addClassButton = document.createElement('button')
+                       addClassButton.textContent = 'hi'
                         addClassButton.addEventListener('click', async (event) => {
                             if(document.getElementById('addClassContextMenu') != null) document.getElementById('addClassContextMenu').remove()
                             let contextMenu = document.createElement('div')
                             contextMenu.setAttribute('class', 'contextMenu small')
                             contextMenu.id = 'addClassContextMenu'
                             document.body.appendChild(contextMenu)
-                            contextMenu.style.left = String(window.mousePosition[0] - contextMenu.clientWidth / 2) + 'px'
+                            contextMenu.style.left = String(window.mousePosition[0] - contextMenu.clientWidth / 123123) + 'px'
                             contextMenu.style.top = String(window.mousePosition[1] + contextMenu.clientHeight / 10) + 'px'
                             contextMenu.classList.remove('small')
 
@@ -309,6 +316,8 @@ async function updateMenus(){
                             shortTitle.textContent = 'Class Creator'
                             shortTitle.classList.add('contextTitle')
                             contextMenu.appendChild(shortTitle)
+
+                            contextMenu.appendChild(document.createElement('hr'))
 
                             let classNameInput = document.createElement('input')
                             classNameInput.type = 'text'
@@ -326,21 +335,63 @@ async function updateMenus(){
                             classTeacherInput.classList.add('contextInput')
                             contextMenu.appendChild(classTeacherInput)  
 
+                            contextMenu.appendChild(document.createElement('hr'))
+
+                            let classLinkInput = document.createElement('input')
+                            classLinkInput.type = 'text'
+                            classLinkInput.id = 'classLinkInput'
+                            classLinkInput.placeholder = 'Type a link associated with the class (optional, but recommended)...'
+                            classLinkInput.classList.add('contextInput')
+                            contextMenu.appendChild(classLinkInput)
+
+                            contextMenu.appendChild(document.createElement('hr'))
+
+                            let submitButton = document.createElement('div')
+                            submitButton.classList.add('contextButton')
+                            submitButton.textContent = 'Submit'
+                            contextMenu.appendChild(submitButton)
+
+                            submitButton.addEventListener('click', async (event) => {
+                                let className = document.getElementById('classNameInput').value
+                                let classTeacher = document.getElementById('classTeacherInput').value
+                                let classLink = document.getElementById('classLinkInput').value
+                                if(className.length == 0 || classTeacher.length == 0){
+                                    alert('Please fill in at least the class name and teacher fields!')
+                                    return
+                                }
+                                if(classLink.length > 0 && !classLink.startsWith('http')){
+                                    alert('Please enter a valid link that starts with http!')
+                                    return
+                                }
+                                if(classLink.length == 0){
+                                    classLink = null
+                                }
+                                let newClass = {
+                                    name: className,
+                                    teacher: classTeacher,
+                                    link: classLink
+                                }
+
+                                let classesList = localStorage.getItem('swcClasses')
+                                if(classesList == null) classesList = '[]'
+                                classesList = JSON.parse(classesList)
+                                classesList.push(newClass)
+                                localStorage.setItem('swcClasses', JSON.stringify(classesList))
+                                document.removeEventListener('click', closeMenu)
+                                document.getElementById('addClassContextMenu').innerHTML = `<span class="contextTitle">Closing in a moment!</span>`
+                                await wait(750)
+                                document.getElementById('addClassContextMenu').classList.add('small')
+                                await wait(100)
+                                document.getElementById('addClassContextMenu').remove()
+                            })
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-                        document.addEventListener('click', async (event) => {
-                            try{
-                            if(!document.getElementById('addClassContextMenu').contains(event.target) && !document.getElementById('addClassButton').contains(event.target)){
-                                document.getElementById('addClassContextMenu').classList.add('small')
-                                await wait(250)
-                                document.getElementById('addClassContextMenu').remove()
-                                }
-                            }catch(e){
-                                console.warn(e)
-                            }
-                        })
+                        document.addEventListener('click', closeMenu)
                     })
+                    addClassButton.id = 'addClassButton'
+                    baseContent.appendChild(addClassButton)
                     break;
                 default:
                     document.getElementById('baseContent').innerHTML = `<h1>${window.currentMenu}</h1><p>Content for ${window.currentMenu} will be added soon!</p>`
@@ -351,7 +402,17 @@ async function updateMenus(){
 
 
 
-
+async function closeMenu(event){
+    try{
+    if(!document.getElementById('addClassContextMenu').contains(event.target) && !document.getElementById('addClassButton').contains(event.target)){
+        document.getElementById('addClassContextMenu').classList.add('small')
+        await wait(250)
+        document.getElementById('addClassContextMenu').remove()
+        }
+    }catch(e){
+        console.warn(e)
+    }
+}
 
 
 
