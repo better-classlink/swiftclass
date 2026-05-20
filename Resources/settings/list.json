@@ -1,15 +1,6 @@
 [
     {
         "header": "Class Control",
-        "name": "Number of Classes",
-        "value": "8",
-        "type": "slider",
-        "description": "Control the number of classes that are controlled in the Classes tab.",
-        "minval": "1",
-        "maxval": "15"
-    },
-    {
-        "header": "Class Control",
         "name": "Number of Scheduled Blocks",
         "type": "slider",
         "description": "Sets the number of block types in a block schedule system. If you don't have a block schedule, keep this at 1.",

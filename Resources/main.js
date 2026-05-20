@@ -91,8 +91,12 @@ window.addEventListener('keydown', function(e) {
 });
 
 async function updateMenus(){
-    console.log("Updating menus")
     let baseContent = document.getElementById('baseContent')
+
+    if(baseContent.classList.contains('forceClassesGrid')){
+        baseContent.classList.remove('forceClassesGrid')
+    }
+    console.log("Updating menus")
     baseContent.classList.add('smallProp')
     typeMenuName()
 
@@ -153,10 +157,11 @@ async function updateMenus(){
                 }
                     break;
 
-                // Settings menu is a bit more complex, it has to fetch the settings list, then create the header buttons based on the unique headers in the settings list, then render the settings of the selected header.
+                // The settings menu is a bit more complex. It has to fetch the settings list, then create the header buttons based on the unique headers in the settings list, then render the settings of the selected header.
 
                 case 'Settings':
                     // document.getElementById('baseContent').innerHTML = ''
+
 
                     let settingsList = await fetch('Resources/settings/list.json')
                     let settingsJSON = await settingsList.json()
@@ -270,9 +275,16 @@ async function updateMenus(){
                         }
                     )
                     break;
-                    case 'Classes':
+        case 'Classes':
+                        baseContent.classList.add('forceClassesGrid')
+
                         let classesList = localStorage.getItem('swcClasses')
-                        if(classesList == null) localStorage.setItem('swcClasses', '[]')
+
+                        if(classesList == null){
+                            localStorage.setItem('swcClasses', '[]')
+                        }
+
+                        classesList = localStorage.getItem('swcClasses')
                         classesList = JSON.parse(classesList)
 
                         let classesStack = document.createElement('div')
@@ -288,116 +300,135 @@ async function updateMenus(){
                         classesStack.appendChild(document.createElement('hr'))
 
                         classesList.forEach((classObject) => {
+                            let savedObj = classObject
                             let selectionButton = document.createElement('button')
                             selectionButton.textContent = classObject.name
                             selectionButton.classList.add('buttonStacker')
+                            selectionButton.addEventListener('click', (event) => {
+                                if(savedObj.block == null){
+                                    savedObj.block = '1'
+                                }
+                                let visualClass = new Class(savedObj.name, savedObj.teacher, savedObj.link)
+                            })
                             classesStack.appendChild(selectionButton)
                             classesStack.appendChild(document.createElement('br'))
-                            
                         })
 
                         // Final Button After Full Stack
                             
-                       let addClassButton = document.createElement('button')
+                       let addClassButton = document.createElement('div')
                        addClassButton.textContent = 'hi'
-                        addClassButton.addEventListener('click', async (event) => {
-                            if(document.getElementById('addClassContextMenu') != null) document.getElementById('addClassContextMenu').remove()
-                            let contextMenu = document.createElement('div')
-                            contextMenu.setAttribute('class', 'contextMenu small')
-                            contextMenu.id = 'addClassContextMenu'
-                            document.body.appendChild(contextMenu)
-                            contextMenu.style.left = String(window.mousePosition[0] - contextMenu.clientWidth / 123123) + 'px'
-                            contextMenu.style.top = String(window.mousePosition[1] + contextMenu.clientHeight / 10) + 'px'
-                            contextMenu.classList.remove('small')
+                    addClassButton.addEventListener('click', classButtonAdder)
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    // Final Button After Full Stack
 
-                            let shortTitle = document.createElement('span')
-                            shortTitle.textContent = 'Class Creator'
-                            shortTitle.classList.add('contextTitle')
-                            contextMenu.appendChild(shortTitle)
-
-                            contextMenu.appendChild(document.createElement('hr'))
-
-                            let classNameInput = document.createElement('input')
-                            classNameInput.type = 'text'
-                            classNameInput.id = 'classNameInput'
-                            classNameInput.placeholder = 'Type in the name of your class...'
-                            classNameInput.classList.add('contextInput')
-                            contextMenu.appendChild(classNameInput)
-
-                            contextMenu.appendChild(document.createElement('hr'))
-
-                            let classTeacherInput = document.createElement('input')
-                            classTeacherInput.type = 'text'
-                            classTeacherInput.id = 'classTeacherInput'
-                            classTeacherInput.placeholder = 'Type in the name of your teacher...'
-                            classTeacherInput.classList.add('contextInput')
-                            contextMenu.appendChild(classTeacherInput)  
-
-                            contextMenu.appendChild(document.createElement('hr'))
-
-                            let classLinkInput = document.createElement('input')
-                            classLinkInput.type = 'text'
-                            classLinkInput.id = 'classLinkInput'
-                            classLinkInput.placeholder = 'Type a link associated with the class (optional, but recommended)...'
-                            classLinkInput.classList.add('contextInput')
-                            contextMenu.appendChild(classLinkInput)
-
-                            contextMenu.appendChild(document.createElement('hr'))
-
-                            let submitButton = document.createElement('div')
-                            submitButton.classList.add('contextButton')
-                            submitButton.textContent = 'Submit'
-                            contextMenu.appendChild(submitButton)
-
-                            submitButton.addEventListener('click', async (event) => {
-                                let className = document.getElementById('classNameInput').value
-                                let classTeacher = document.getElementById('classTeacherInput').value
-                                let classLink = document.getElementById('classLinkInput').value
-                                if(className.length == 0 || classTeacher.length == 0){
-                                    alert('Please fill in at least the class name and teacher fields!')
-                                    return
-                                }
-                                if(classLink.length > 0 && !classLink.startsWith('http')){
-                                    alert('Please enter a valid link that starts with http!')
-                                    return
-                                }
-                                if(classLink.length == 0){
-                                    classLink = null
-                                }
-                                let newClass = {
-                                    name: className,
-                                    teacher: classTeacher,
-                                    link: classLink
-                                }
-
-                                let classesList = localStorage.getItem('swcClasses')
-                                if(classesList == null) classesList = '[]'
-                                classesList = JSON.parse(classesList)
-                                classesList.push(newClass)
-                                localStorage.setItem('swcClasses', JSON.stringify(classesList))
-                                document.removeEventListener('click', closeMenu)
-                                document.getElementById('addClassContextMenu').innerHTML = `<span class="contextTitle">Closing in a moment!</span>`
-                                await wait(750)
-                                document.getElementById('addClassContextMenu').classList.add('small')
-                                await wait(100)
-                                document.getElementById('addClassContextMenu').remove()
-                            })
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-                        document.addEventListener('click', closeMenu)
-                    })
+                    addClassButton.classList.add('buttonStacker')
                     addClassButton.id = 'addClassButton'
-                    baseContent.appendChild(addClassButton)
+                    addClassButton.textContent = 'Add Class'
+                    classesStack.appendChild(addClassButton)
+                    document.addEventListener('click', closeMenu)
+
+                    // This was only the beginning of the class menu :p
+
+                    let classesPane = document.createElement('div')
+                    classesPane.classList.add('classesPane')
+                    baseContent.appendChild(classesPane)
+                    classesPane.textContent = 'Click a class on the left to view it. Click the "Add Class" button to add a new class!'
                     break;
                 default:
                     document.getElementById('baseContent').innerHTML = `<h1>${window.currentMenu}</h1><p>Content for ${window.currentMenu} will be added soon!</p>`
                 break;
     }
 
+
+async function classButtonAdder(event) {
+    if (document.getElementById('addClassContextMenu') != null) document.getElementById('addClassContextMenu').remove()
+    let contextMenu = document.createElement('div')
+    contextMenu.setAttribute('class', 'contextMenu small')
+    contextMenu.id = 'addClassContextMenu'
+    document.body.appendChild(contextMenu)
+    contextMenu.style.left = String(window.mousePosition[0] - contextMenu.clientWidth / 123123) + 'px'
+    contextMenu.style.top = String(window.mousePosition[1] + contextMenu.clientHeight / 10) + 'px'
+    contextMenu.classList.remove('small')
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    let shortTitle = document.createElement('span')
+    shortTitle.textContent = 'Class Creator'
+    shortTitle.classList.add('contextTitle')
+    contextMenu.appendChild(shortTitle)
+
+    contextMenu.appendChild(document.createElement('hr'))
+
+    let classNameInput = document.createElement('input')
+    classNameInput.type = 'text'
+    classNameInput.id = 'classNameInput'
+    classNameInput.placeholder = 'Type in the name of your class...'
+    classNameInput.classList.add('contextInput')
+    contextMenu.appendChild(classNameInput)
+
+    contextMenu.appendChild(document.createElement('hr'))
+
+    let classTeacherInput = document.createElement('input')
+    classTeacherInput.type = 'text'
+    classTeacherInput.id = 'classTeacherInput'
+    classTeacherInput.placeholder = 'Type in the name of your teacher...'
+    classTeacherInput.classList.add('contextInput')
+    contextMenu.appendChild(classTeacherInput)
+
+    contextMenu.appendChild(document.createElement('hr'))
+
+    let classLinkInput = document.createElement('input')
+    classLinkInput.type = 'text'
+    classLinkInput.id = 'classLinkInput'
+    classLinkInput.placeholder = 'Type a link associated with the class (optional, but recommended)...'
+    classLinkInput.classList.add('contextInput')
+    contextMenu.appendChild(classLinkInput)
+
+    contextMenu.appendChild(document.createElement('hr'))
+
+    let submitButton = document.createElement('div')
+    submitButton.classList.add('contextButton')
+    submitButton.textContent = 'Submit'
+    contextMenu.appendChild(submitButton)
+
+    submitButton.addEventListener('click', async (event) => {
+        let className = document.getElementById('classNameInput').value
+        let classTeacher = document.getElementById('classTeacherInput').value
+        let classLink = document.getElementById('classLinkInput').value
+        if (className.length == 0 || classTeacher.length == 0) {
+            alert('Please fill in at least the class name and teacher fields!')
+            return
+        }
+        if (classLink.length > 0 && !classLink.startsWith('http')) {
+            alert('Please enter a valid link that starts with http!')
+            return
+        }
+        if (classLink.length == 0) {
+            classLink = null
+        }
+
+        let newClass = {
+            name: className,
+            teacher: classTeacher,
+            link: classLink,
+            block: "1"
+        }
+
+        let classesList = localStorage.getItem('swcClasses')
+        if (classesList == null) classesList = '[]'
+        classesList = JSON.parse(classesList)
+        classesList.push(newClass)
+        localStorage.setItem('swcClasses', JSON.stringify(classesList))
+        document.removeEventListener('click', closeMenu)
+        document.getElementById('addClassContextMenu').innerHTML = `<span class="contextTitle">Closing in a moment!</span>`
+        await wait(750)
+        document.getElementById('addClassContextMenu').classList.add('small')
+        await wait(100)
+        document.getElementById('addClassContextMenu').remove()
+        updateMenus()
+    })
+}
 
 
 

@@ -104,6 +104,12 @@ body {
     /* height: inherit; */
 }
 
+.forceClassesGrid {
+    display: grid;
+    grid-template-columns: 0.4fr 1fr;
+    place-items: center;
+}
+
 .smallProp {
     opacity: 0;
     transform: scale(0.95);
