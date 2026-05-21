@@ -6,17 +6,17 @@
   {
     "title": "The Radial Menu",
     "body": "The Radial Menu is the fastest way to navigate through the app.\nIt can be opened by pressing Space at any time. \nIt will appear at the mouse's position, and you can click on any of the buttons to navigate to a different page. It should look like the one below.\n",
-    "image": "Resources/info/images/welcome/radialmenu.png"
+    "image": "Resources/info/images/SwiftClass/radialmenu.png"
   },
   {
     "title": "The Home Page",
     "body": "The home page is the starting point of SwiftClass.\nIt's where you can view the latest news. Most of your time will not be spent here, but you can still use the buttons below to navigate to other pages. It should look like the image below.",
-    "image": "Resources/info/images/welcome/homepage.png"
+    "image": "Resources/info/images/SwiftClass/homepage.png"
   },
   {
     "title": "The Settings Page",
     "body": "The Settings menu is where you can change how the app works. \nThis includes themes (eventually), visual tweaks, possible performance changes, and notification control.",
-    "image": "Resources/info/images/welcome/settings.png"
+    "image": "Resources/info/images/SwiftClass/settings.png"
   },
   {
     "title": "The Class Page",

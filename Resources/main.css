@@ -47,6 +47,45 @@ body {
     border-bottom: 3px solid white;
 }
 
+
+.openSlidesButton {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(233, 233, 233, 0.96);
+    border: 2px solid rgb(123 181 246 / 0.96);
+    border-radius: 50%;
+    padding: 1%;
+    font-size: clamp(18px, 2.5vmin, 24px);
+    width: 1vmin;
+    min-width: 2%;
+    display: flex;
+    min-height: 2%;
+    margin: 0.5%;
+    font-family: 'Georgia', 'Times New Roman', Times, serif;
+    cursor: pointer;
+    aspect-ratio: 1/1;
+    text-align: center;
+    align-content: center;
+    color: black;
+    user-select: none;
+    transition: 0.25s ease;
+    justify-content: center;
+    align-items: center;
+}
+
+.openSlidesButton:hover {
+    background-color: rgb(59, 84, 113);
+    border-color: rgb(59, 84, 113);
+    transform: scale(1.1);
+}
+
+.openSlidesButton:active {
+    transform: scale(1.1);
+    background-color: rgb(59, 84, 113);
+    border-color: rgb(59, 84, 113);
+}
+
 .topHeader {
     font-weight: 200;
     color: white;
@@ -183,7 +222,4 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.tipText {
 }

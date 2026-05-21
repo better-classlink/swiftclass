@@ -2,7 +2,7 @@ window.currentMenu = 'SwiftClass'
 
 if(localStorage.getItem('swcFirstTime') == null) {
     localStorage.setItem('swcFirstTime', 'true')
-    let welcomeSlides = new InfoSlides("Resources/info/json/welcome/slides.json")
+    let welcomeSlides = new InfoSlides("Resources/info/json/SwiftClass/slides.json")
     welcomeSlides.render()
 }
 
@@ -78,7 +78,7 @@ window.addEventListener("keyup", async (event) => {
     else
     {
         menu.close()
-        await wait(300)
+        await wait(500)
         window.openedStatus = false
     }
 }
@@ -383,7 +383,7 @@ async function classButtonAdder(event) {
     let classLinkInput = document.createElement('input')
     classLinkInput.type = 'text'
     classLinkInput.id = 'classLinkInput'
-    classLinkInput.placeholder = 'Type a link associated with the class (optional, but recommended)...'
+    classLinkInput.placeholder = 'Type a link with the class (optional, but recommended)...'
     classLinkInput.classList.add('contextInput')
     contextMenu.appendChild(classLinkInput)
 
@@ -391,7 +391,7 @@ async function classButtonAdder(event) {
 
     let submitButton = document.createElement('div')
     submitButton.classList.add('contextButton')
-    submitButton.textContent = 'Submit'
+    submitButton.textContent = 'Submit and Reload'
     contextMenu.appendChild(submitButton)
 
     submitButton.addEventListener('click', async (event) => {
@@ -424,7 +424,7 @@ async function classButtonAdder(event) {
         localStorage.setItem('swcClasses', JSON.stringify(classesList))
         document.removeEventListener('click', closeMenu)
         document.getElementById('addClassContextMenu').innerHTML = `<span class="contextTitle">Closing in a moment!</span>`
-        await wait(750)
+        await wait(500)
         document.getElementById('addClassContextMenu').classList.add('small')
         await wait(100)
         document.getElementById('addClassContextMenu').remove()
@@ -474,6 +474,15 @@ async function closeMenu(event){
     baseContent.classList.remove('smallProp')
 
     console.log("Updated menus")
+
+    let slidesOpenButton = document.createElement('div')
+    slidesOpenButton.classList.add('openSlidesButton')
+    slidesOpenButton.textContent = 'i'
+    slidesOpenButton.addEventListener('click', () => {
+        let infoSlides = new InfoSlides("Resources/info/json/" + window.currentMenu + "/slides.json")
+        infoSlides.render()
+    })
+    document.getElementById('baseContent').appendChild(slidesOpenButton)
 }
 
 window.addEventListener('contextmenu', (event) => {

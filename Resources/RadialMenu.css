@@ -26,7 +26,6 @@ svg.menu.inner {
     opacity: 0;
     visibility: hidden;
 }
-
 svg.menu.outer {
     transform: scale(1.15) rotate(10deg);
     opacity: 0;
@@ -39,7 +38,7 @@ svg.menu > g > path {
 
 svg.menu > g.sector > path {
     cursor: pointer;
-    transition: 0.5s;
+    transition: 0.25s;
 }
 
 svg.menu > g.sector > text,
@@ -52,7 +51,7 @@ svg.menu > g.sector > use {
 
 svg.menu > g.sector:hover > path {
     fill: var(--radialMenuItemHover);
-    transform: scale(1.06);
+    /* transform: scale(1.06); */
     /* transform: rotate(-2deg); */
 
 }
