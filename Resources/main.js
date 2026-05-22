@@ -54,9 +54,10 @@ document.addEventListener('mousemove', (event) => {
     }
 });
 
-document.addEventListener('click', (event) => {
+document.addEventListener('click', async (event) => {
     if(window.openedStatus && !document.getElementById('container').contains(event.target)){
         menu.close()
+        await wait(500)
         window.openedStatus = false
     }
 });
@@ -349,8 +350,8 @@ async function classButtonAdder(event) {
     contextMenu.classList.add('small')
     contextMenu.id = 'addClassContextMenu'
     document.body.appendChild(contextMenu)
-    contextMenu.style.left = String(window.mousePosition[0] - contextMenu.clientWidth / 123123) + 'px'
-    contextMenu.style.top = String(window.mousePosition[1] + contextMenu.clientHeight / 10) + 'px'
+    contextMenu.style.left = String(window.innerWidth / 2 - (contextMenu.clientWidth / 2)) + 'px'
+    contextMenu.style.top = String(window.innerHeight / 2 - (contextMenu.clientHeight / 2)) + 'px'
     contextMenu.classList.remove('small')
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -423,8 +424,6 @@ async function classButtonAdder(event) {
         classesList.push(newClass)
         localStorage.setItem('swcClasses', JSON.stringify(classesList))
         document.removeEventListener('click', closeMenu)
-        document.getElementById('addClassContextMenu').innerHTML = `<span class="contextTitle">Closing in a moment!</span>`
-        await wait(500)
         document.getElementById('addClassContextMenu').classList.add('small')
         await wait(100)
         document.getElementById('addClassContextMenu').remove()

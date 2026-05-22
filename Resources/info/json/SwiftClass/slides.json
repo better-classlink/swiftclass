@@ -20,7 +20,7 @@
   },
   {
     "title": "The Class Page",
-    "body": "The Class Page is where you can view all the information about your classes. \nThis includes the schedule, your posted dates, and block-schedule times (if added). You can also view the class's calendar and announcements.",
+    "body": "The Classes Page is where you can view basic info about your classes.\nYou can see your teacher's names, a link associated with the class, and its assigned block. (if used)",
     "image": "Resources/info/images/default.png"
   },
   {
@@ -30,12 +30,12 @@
   },
   {
     "title": "The Agendas Page",
-    "body": "The Agendas Page is where you can view all your upcoming events. \nThey are organized by class and date, so you can easily find what you need. You can also add your own events, and they will be saved to your device",
+    "body": "The Agendas Page is where you can view all your upcoming events. \nThey will be set up by you, and organized based on class and date. After they're set, they'll be saved to your device.",
     "image": "Resources/info/images/default.png"
   },
   {
-    "title": "Additional Tips",
-    "body": "Here are some additional tips to help you get started with SwiftClass. \n In the bottom-left corner of every menu, there will be an \"i\" button. Clicking on it will open a menu with information about the page you're on. \nThis slideshow can be replayed by clicking that button on the home page.",
+    "title": "Very Important Note",
+    "body": "In the bottom-left corner of every menu, there will be an \"i\" button. Clicking on it will open a menu with information about the page you're on. \nThis slideshow can be replayed by clicking that button on the home page.\nWe suggest you start with the Classes page to set up.",
     "image": "Resources/info/images/default.png"
   }
 ]

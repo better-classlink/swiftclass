@@ -27,7 +27,7 @@
     color: white;
     width: fit-content;
     min-width: 40%;
-    padding: 4% 0 4% 0;
+    padding: 4%;
     text-align: center;
     margin: 1%;
     font-size: clamp(17px, 2vmin, 30px);
@@ -111,7 +111,7 @@
     user-select: none;
     margin-bottom: 1%;
     text-align: center;
-    background-color: rgba(96, 101, 237, 0.195);
+    /*background-color: rgba(96, 101, 237, 0.195);*/
     border-radius: 2px;
 }
 
@@ -216,7 +216,7 @@
 }
 
 .classHeader {
-    font-size: clamp(8px, 5vmin, 40px);
+    font-size: clamp(1px, 5vmin, 40px);
     color: rgb(114, 187, 243);
     font-weight: 500;
     user-select: none;
@@ -295,6 +295,7 @@
     min-width: 90%;
     min-height: 90%;
     transition: ease 0.25s;
+    position: relative;
 }
 
 .classGeneric {
@@ -327,6 +328,43 @@
 }
 
 .contextButtonTweak:hover {
+    background-color: rgb(59, 84, 113);
+    /* border-color: rgb(59, 84, 113); */
+    text-decoration: underline;
+    color: white;
+    transform: scale(1.02);
+}
+
+@keyframes warningChange {
+    0% { background-color: #e18080; }
+    50% { background-color: #ff2323; }
+    100% { background-color: #e18080; }
+}
+
+.reloadButton {
+    background-color: rgb(123 181 246 / 0.96);
+    border-radius: 3px;
+    padding: 1%;
+    font-size: clamp(8px, 2.5vmin, 24px);
+    width: fit-content;
+    min-width: 10%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: fit-content;
+    cursor: pointer;
+    text-align: center;
+    align-content: center;
+    user-select: none;
+    transition: 0.25s ease;
+    border: none;
+    position: absolute;
+    margin: 2%;
+    bottom: 0;
+    right: 0;
+    animation: warningChange 1.5s infinite;
+}
+
+.reloadButton:hover {
     background-color: rgb(59, 84, 113);
     /* border-color: rgb(59, 84, 113); */
     text-decoration: underline;

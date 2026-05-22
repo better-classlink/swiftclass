@@ -17,8 +17,8 @@ svg.menu {
     transition-timing-function: ease-out;
     z-index: 99;
     border-radius: 50%;
-    background-color: rgba(18, 27, 94, 0.58);
-    border: 5px solid rgba(2, 5, 27, 0.765);
+    background-color: rgba(18, 27, 94, 0.13);
+    border: 5px solid rgba(2, 5, 27, 0.08);
 }
 
 svg.menu.inner {

@@ -17,6 +17,8 @@ class InfoSlides{
 
         let slidesModal = document.createElement('div')
         slidesModal.classList.add('slidesModal')
+        slidesModal.id = 'slidesModal'
+        slidesModal.classList.add('fading')
         slidesBase.appendChild(slidesModal)
 
         let header = document.createElement('div')
@@ -98,6 +100,8 @@ class InfoSlides{
                 this.closeSlides()
             }
         })
+        await wait(250)
+        slidesModal.classList.remove('fading')
     }
     updateSlides(){
         let image = document.getElementById('slidesImage')
@@ -120,7 +124,10 @@ class InfoSlides{
         document.getElementById('slidesBody').textContent = this.slides[this.slideNumber].body
     }
 
-    closeSlides(){
+    async closeSlides(){
+        document.getElementById('slidesBase').classList.add('fadingNoScale')
+        document.getElementById('slidesModal').classList.add('fading')
+        await wait(250)
         document.getElementById('slidesBase').remove()
     }
 }

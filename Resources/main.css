@@ -28,6 +28,7 @@ body {
     width: 100vw;
     height: 100vh;
     display: grid;
+    background-image: url("https://images.steamusercontent.com/ugc/15780450964920927115/124EC41E3C906E04199A70B342FF6BAE3F71BA4A/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false");
     grid-template-rows: 0.1fr 1fr 0.1fr;
     grid-template-columns: auto;
     box-sizing: border-box;
@@ -35,7 +36,7 @@ body {
 }
 
 .background {
-    background-color: rgb(189, 189, 189);
+    /*background-color: rgb(189, 189, 189);*/
     z-index: 0;
     border-top: 5px lightblue;
     min-height: 0;
@@ -43,8 +44,12 @@ body {
 
 .headerContainer {
     text-align: center;
-    background-color: rgb(83, 114, 193);
+    background-color: rgba(79, 110, 188, 0.33);
     border-bottom: 3px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 
@@ -55,12 +60,12 @@ body {
     background-color: rgba(233, 233, 233, 0.96);
     border: 2px solid rgb(123 181 246 / 0.96);
     border-radius: 50%;
-    padding: 1%;
-    font-size: clamp(18px, 2.5vmin, 24px);
-    width: 1vmin;
-    min-width: 2%;
+    padding: 0.5%;
+    font-size: clamp(11px, 2.5vmin, 24px);
+    /*width: 0.5vmin;*/
+    min-width: fit-content;
     display: flex;
-    min-height: 2%;
+    min-height: fit-content;
     margin: 0.5%;
     font-family: 'Georgia', 'Times New Roman', Times, serif;
     cursor: pointer;
@@ -72,12 +77,13 @@ body {
     transition: 0.25s ease;
     justify-content: center;
     align-items: center;
+    transform-origin: bottom left;
 }
 
 .openSlidesButton:hover {
     background-color: rgb(59, 84, 113);
     border-color: rgb(59, 84, 113);
-    transform: scale(1.1);
+    transform: scale(1.2);
 }
 
 .openSlidesButton:active {
@@ -117,6 +123,7 @@ body {
 .newsHeader {
     font-size: clamp(22px, 5vmin, 44px);
     margin: 0;
+    font-weight: 300;
 }
 
 .newsImage {
@@ -133,7 +140,7 @@ body {
 .baseContent {
     position: relative;
     border-radius: 6px;
-    background-color: #98a3e1;
+    background-color: rgba(151, 156, 193, 0.33);
     width: 95%;
     height: 90%;
     z-index: 0;
@@ -141,6 +148,7 @@ body {
     overflow-x: hidden;
     transition: 0.3s ease;
     /* height: inherit; */
+    border: 3px solid rgba(53, 82, 225, 0.33);
 }
 
 .forceClassesGrid {
@@ -173,7 +181,7 @@ body {
 }
 
 .footer {
-    background-color: #277ec1d9;
+    background-color: rgba(39, 126, 193, 0.1);
     border-top: 3px solid white;
 }
 
@@ -183,7 +191,7 @@ body {
     align-items: center;
     justify-content: space-evenly;
     height: 55%;
-    background-color: #798dff;
+    background-color: rgba(121, 141, 255, 0.2);
     border-radius: 6px;
 }
 

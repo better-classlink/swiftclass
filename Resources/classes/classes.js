@@ -21,11 +21,14 @@ class Class {
         c.classList.add('classInteract')
         c.id = this.name
         let t = document.createElement('span')
+
         t.classList.add('classHeader')
         t.textContent = this.name
+
         let i = document.createElement('span')
         i.classList.add('classTeacher')
-        i.textContent = 'With ' + this.teacher + "."
+
+        i.textContent = 'Taught by ' + this.teacher + "."
         let sector = document.createElement('section')
         c.appendChild(sector)
         sector.appendChild(t)
@@ -40,7 +43,7 @@ class Class {
         if(numBlocks != '1'){
         let blockType = document.createElement('span')
         blockType.classList.add('classGeneric')
-        blockType.textContent = "This class is during Block " + this.block + '.'
+        blockType.textContent = "This class is associated with Block " + this.block + '.'
         c.appendChild(blockType)
         }
 
@@ -101,8 +104,28 @@ class Class {
         let newLink = readWrite[this.personalIndex].link
         let newBlock = readWrite[this.personalIndex].block
 
+        let checkForChanges = function(){
+            let reloadButton = document.createElement('button')
+            reloadButton.textContent = 'Reload for Changes'
+
+            reloadButton.classList.add('reloadButton')
+
+            reloadButton.addEventListener('click', () => {
+                updateMenus()
+            })
+
+            c.appendChild(reloadButton)
+
+            if(!t.textContent.includes('Reload for Changes!')){
+                t.textContent += ' - Reload for Changes!'
+                t.style.color = 'rgb(232,98,98)'
+            }
+        }
+
         nameInput.addEventListener('input', (event) => {
-            newName = event.currentTarget.value
+            readWrite[this.personalIndex].name = event.currentTarget.value
+            localStorage.setItem('swcClasses', JSON.stringify(readWrite))
+            checkForChanges()
         })
 
         settingsMenu.appendChild(document.createElement('hr'))
@@ -123,7 +146,9 @@ class Class {
         teacherInput.style.maxWidth = '50%'
 
         teacherInput.addEventListener('input', (event) => {
-            newTeacher = event.currentTarget.value
+            readWrite[this.personalIndex].teacher = event.currentTarget.value
+            localStorage.setItem('swcClasses', JSON.stringify(readWrite))
+            checkForChanges()
         })
 
         settingsMenu.appendChild(document.createElement('hr'))
@@ -144,7 +169,9 @@ class Class {
         linkInput.style.maxWidth = '50%'
 
         linkInput.addEventListener('input', (event) => {
-            newLink = event.currentTarget.value
+            readWrite[this.personalIndex].link = event.currentTarget.value
+            localStorage.setItem('swcClasses', JSON.stringify(readWrite))
+            checkForChanges()
         })
 
         settingsMenu.appendChild(document.createElement('hr'))
@@ -173,33 +200,19 @@ class Class {
         blockInput.value = this.block
 
         blockInput.addEventListener('change', (event) => {
-            newBlock = event.currentTarget.value
+            readWrite[this.personalIndex].block = event.currentTarget.value
+            localStorage.setItem('swcClasses', JSON.stringify(readWrite))
+            checkForChanges()
         })
 
         // setting storage
 
-        let reloadButton = document.createElement('button')
-        reloadButton.textContent = 'Update and Reload'
-
-        reloadButton.addEventListener('click', (event) => {
-                readWrite[this.personalIndex].name = newName
-                readWrite[this.personalIndex].teacher = newTeacher
-                readWrite[this.personalIndex].link = newLink
-                readWrite[this.personalIndex].block = newBlock
-                console.log(readWrite)
-                localStorage.setItem('swcClasses', JSON.stringify(readWrite))
-                updateMenus()
-            })
-        reloadButton.classList.add('contextButtonTweak')
-
         settingsMenu.appendChild(document.createElement('hr'))
-
-        settingsMenu.appendChild(reloadButton)
 
         let deleteClassButton = document.createElement('button')
         deleteClassButton.textContent = 'Delete Class'
         deleteClassButton.classList.add('contextButtonTweak')
-        deleteClassButton.style.marginLeft = '1%'
+        // deleteClassButton.style.marginLeft = '1%'
         deleteClassButton.style.backgroundColor = 'rgb(200, 75, 75)'
         deleteClassButton.addEventListener('click', (event) => {
             if(!confirm('Are you sure you want to delete this class? This action cannot be undone.')){

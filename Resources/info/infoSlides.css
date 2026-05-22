@@ -9,9 +9,22 @@
     left: 0;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 99999;
+    transition: 0.25s ease;
 }
 
+.fading {
+    transform: scale(0.95);
+    opacity: 0;
+}
+
+.fadingNoScale {
+    /*transform: scale(0.95);*/
+    opacity: 0;
+}
+
+
 .slidesModal {
+    transition: 0.25s ease;
     width: 80%;
     height: 80%;
     background-color: white;
