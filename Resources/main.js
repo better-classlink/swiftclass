@@ -154,7 +154,7 @@ async function updateMenus(){
                 }
 
                 }catch(e){
-                    console.warn("News fetch error: " + e.stack)
+                    console.warn("news fetch error: " + e.stack)
                 }
                     break;
 
@@ -538,7 +538,7 @@ async function loadMenu(){
     }
 
     }catch(e){
-        console.warn("News fetch error: " + e.stack)
+        console.warn("news fetch error: " + e.stack)
     }
 }
 
