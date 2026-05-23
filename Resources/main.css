@@ -28,7 +28,7 @@ body {
     width: 100vw;
     height: 100vh;
     display: grid;
-    background-image: url("https://images.steamusercontent.com/ugc/15780450964920927115/124EC41E3C906E04199A70B342FF6BAE3F71BA4A/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false");
+    background: linear-gradient(207deg, rgb(219, 168, 255) 0%, rgb(183, 196, 255) 100%);
     grid-template-rows: 0.1fr 1fr 0.1fr;
     grid-template-columns: auto;
     box-sizing: border-box;

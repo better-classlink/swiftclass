@@ -2,10 +2,8 @@
   "title": "Light as a feather, swift as a bird.",
   "body": [
     "This is SwiftClass.",
-    "It's a fairly advanced app that displays news, agendas, and links.",
-    "Also, everything is a work in progress, so expect bugs and missing features.",
-    "",
-    "This is the extent of the home page."
+    "It's a dashboard for students with a calendar and link system.",
+    "This page is a work in progress, but it is usable!"
   ],
   "image": true
 }
