@@ -113,11 +113,6 @@ async function updateMenus(){
 
     tipText.textContent = window.loadingTips[Math.floor(Math.random() * window.loadingTips.length)]
 
-    // document.getElementById('main').appendChild(tipText)
-    // document.getElementById('baseContent').style.display = 'none'
-
-    // await wait(500)
-
     switch (window.currentMenu) {
         case 'SwiftClass':
             document.getElementById('baseContent').innerHTML = window.SwiftClassPage
