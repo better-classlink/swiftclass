@@ -157,10 +157,7 @@ async function updateMenus(){
                     console.warn("news fetch error: " + e.stack)
                 }
                     break;
-
-                // The settings menu is a bit more complex. It has to fetch the settings list, then create the header buttons based on the unique headers in the settings list, then render the settings of the selected header.
-
-                case 'Settings':
+        case 'Settings':
                     // document.getElementById('baseContent').innerHTML = ''
 
 
@@ -337,99 +334,14 @@ async function updateMenus(){
                     baseContent.appendChild(classesPane)
                     classesPane.textContent = 'Click a class on the left to view it. Click the "Add Class" button to add a new class!'
                     break;
-                default:
+        case 'Links':
+
+        break;
+        default:
                     document.getElementById('baseContent').innerHTML = `<h1>${window.currentMenu}</h1><p>Content for ${window.currentMenu} will be added soon!</p>`
                 break;
     }
 
-
-async function classButtonAdder(event) {
-    if (document.getElementById('addClassContextMenu') != null) document.getElementById('addClassContextMenu').remove()
-    let contextMenu = document.createElement('div')
-    contextMenu.classList.add('contextMenu')
-    contextMenu.classList.add('small')
-    contextMenu.id = 'addClassContextMenu'
-    document.body.appendChild(contextMenu)
-    contextMenu.style.left = String(window.innerWidth / 2 - (contextMenu.clientWidth / 2)) + 'px'
-    contextMenu.style.top = String(window.innerHeight / 2 - (contextMenu.clientHeight / 2)) + 'px'
-    contextMenu.classList.remove('small')
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    let shortTitle = document.createElement('span')
-    shortTitle.textContent = 'Class Creator'
-    shortTitle.classList.add('contextTitle')
-    contextMenu.appendChild(shortTitle)
-
-    contextMenu.appendChild(document.createElement('hr'))
-
-    let classNameInput = document.createElement('input')
-    classNameInput.type = 'text'
-    classNameInput.id = 'classNameInput'
-    classNameInput.placeholder = 'Type in the name of your class...'
-    classNameInput.classList.add('contextInput')
-    contextMenu.appendChild(classNameInput)
-
-    contextMenu.appendChild(document.createElement('hr'))
-
-    let classTeacherInput = document.createElement('input')
-    classTeacherInput.type = 'text'
-    classTeacherInput.id = 'classTeacherInput'
-    classTeacherInput.placeholder = 'Type in the name of your teacher...'
-    classTeacherInput.classList.add('contextInput')
-    contextMenu.appendChild(classTeacherInput)
-
-    contextMenu.appendChild(document.createElement('hr'))
-
-    let classLinkInput = document.createElement('input')
-    classLinkInput.type = 'text'
-    classLinkInput.id = 'classLinkInput'
-    classLinkInput.placeholder = 'Type a link with the class (optional, but recommended)...'
-    classLinkInput.classList.add('contextInput')
-    contextMenu.appendChild(classLinkInput)
-
-    contextMenu.appendChild(document.createElement('hr'))
-
-    let submitButton = document.createElement('div')
-    submitButton.classList.add('contextButton')
-    submitButton.textContent = 'Submit and Reload'
-    contextMenu.appendChild(submitButton)
-
-    submitButton.addEventListener('click', async (event) => {
-        let className = document.getElementById('classNameInput').value
-        let classTeacher = document.getElementById('classTeacherInput').value
-        let classLink = document.getElementById('classLinkInput').value
-        if (className.length == 0 || classTeacher.length == 0) {
-            alert('Please fill in at least the class name and teacher fields!')
-            return
-        }
-        if (classLink.length > 0 && !classLink.startsWith('http')) {
-            alert('Please enter a valid link that starts with http!')
-            return
-        }
-        if (classLink.length == 0) {
-            classLink = ''
-        }
-
-        let newClass = {
-            name: className,
-            teacher: classTeacher,
-            link: classLink,
-            block: "1"
-        }
-
-        let classesList = localStorage.getItem('swcClasses')
-        if (classesList == '') classesList = '[]'
-        classesList = JSON.parse(classesList)
-        classesList.push(newClass)
-        localStorage.setItem('swcClasses', JSON.stringify(classesList))
-        document.removeEventListener('click', closeMenu)
-        document.getElementById('addClassContextMenu').classList.add('small')
-        await wait(100)
-        document.getElementById('addClassContextMenu').remove()
-        updateMenus()
-    })
-}
 
 
 
@@ -445,26 +357,7 @@ async function closeMenu(event){
         console.warn(e)
     }
 }
-
-
-
-
-
-
-
-
-    // document.getElementById('tipText')?.remove()
-    // document.getElementById('baseContent').style.display = 'block'
-
     window.denySettingMovement = true
-
-    // for(let i = 0; i < window.currentMenu.length;i++){
-    //     name += window.currentMenu[i]
-    //
-    //     await wait(45)
-    //
-    //     // document.getElementById('topHeader').textContent = name
-    // }
 
     window.denySettingMovement = false
 
@@ -490,57 +383,6 @@ window.addEventListener('contextmenu', (event) => {
     }
 });
 
-async function loadMenu(){
-    const baseContent = document.getElementById('baseContent')
-    const mainParent = baseContent.parentElement
-    const newsImage = document.getElementById("newsImage")
-    setInterval(() => {
-    try{
-
-    // baseContent.style.height = String(mainParent.clientHeight / 1.15) + 'px'
-    // baseContent.style.width = String(mainParent.clientWidth / 1.1) + 'px'
-
-    }catch(e){
-        console.warn('dimensions err: ' + e)
-    }
-    }, 5);
-
-
-    // console.log("HI")
-
-    try{
-    let jsonRequest = await fetch("Resources/news/display.json")
-    let newsJSON = await jsonRequest.json()
-    // console.log(newsJSON)
-
-    if('body' in newsJSON)
-    {
-        newsJSON.body.forEach(element => {
-            let p = document.getElementById('newsTickerText')
-            p.textCotent += element
-        });
-    }
-
-    if('title' in newsJSON)
-    {
-        document.getElementById('newsHeader').textContent = newsJSON.title
-    }
-
-    if(newsJSON.image){
-        let newsImage = document.createElement('img')
-        newsImage.src = 'Resources/news/display.png'
-        newsImage.classList.add('newsImage')
-        newsImage.id = 'newsImage'
-        let line = document.createElement('div')
-        line.classList.add('lineBreak')
-        document.getElementById('newsHeader').after(line)
-        document.getElementById('baseContent').appendChild(newsImage)
-    }
-
-    }catch(e){
-        console.warn("news fetch error: " + e.stack)
-    }
-}
 
 let buttons = document.querySelectorAll(".footerButton")
 
@@ -624,5 +466,91 @@ const baseContent = document.getElementById('baseContent')
         console.warn('dimensions err: ' + e)
     }
     }, 5);
+
+async function classButtonAdder(event) {
+    if (document.getElementById('addClassContextMenu') != null) document.getElementById('addClassContextMenu').remove()
+    let contextMenu = document.createElement('div')
+    contextMenu.classList.add('contextMenu')
+    contextMenu.classList.add('small')
+    contextMenu.id = 'addClassContextMenu'
+    document.body.appendChild(contextMenu)
+    contextMenu.style.left = String(window.innerWidth / 2 - (contextMenu.clientWidth / 2)) + 'px'
+    contextMenu.style.top = String(window.innerHeight / 2 - (contextMenu.clientHeight / 2)) + 'px'
+    contextMenu.classList.remove('small')
+
+    let shortTitle = document.createElement('span')
+    shortTitle.textContent = 'Class Creator'
+    shortTitle.classList.add('contextTitle')
+    contextMenu.appendChild(shortTitle)
+
+    contextMenu.appendChild(document.createElement('hr'))
+
+    let classNameInput = document.createElement('input')
+    classNameInput.type = 'text'
+    classNameInput.id = 'classNameInput'
+    classNameInput.placeholder = 'Type in the name of your class...'
+    classNameInput.classList.add('contextInput')
+    contextMenu.appendChild(classNameInput)
+
+    contextMenu.appendChild(document.createElement('hr'))
+
+    let classTeacherInput = document.createElement('input')
+    classTeacherInput.type = 'text'
+    classTeacherInput.id = 'classTeacherInput'
+    classTeacherInput.placeholder = 'Type in the name of your teacher...'
+    classTeacherInput.classList.add('contextInput')
+    contextMenu.appendChild(classTeacherInput)
+
+    contextMenu.appendChild(document.createElement('hr'))
+
+    let classLinkInput = document.createElement('input')
+    classLinkInput.type = 'text'
+    classLinkInput.id = 'classLinkInput'
+    classLinkInput.placeholder = 'Type a link with the class (optional, but recommended)...'
+    classLinkInput.classList.add('contextInput')
+    contextMenu.appendChild(classLinkInput)
+
+    contextMenu.appendChild(document.createElement('hr'))
+
+    let submitButton = document.createElement('div')
+    submitButton.classList.add('contextButton')
+    submitButton.textContent = 'Submit and Reload'
+    contextMenu.appendChild(submitButton)
+
+    submitButton.addEventListener('click', async (event) => {
+        let className = document.getElementById('classNameInput').value
+        let classTeacher = document.getElementById('classTeacherInput').value
+        let classLink = document.getElementById('classLinkInput').value
+        if (className.length == 0 || classTeacher.length == 0) {
+            alert('Please fill in at least the class name and teacher fields!')
+            return
+        }
+        if (classLink.length > 0 && !classLink.startsWith('http')) {
+            alert('Please enter a valid link that starts with http!')
+            return
+        }
+        if (classLink.length == 0) {
+            classLink = ''
+        }
+
+        let newClass = {
+            name: className,
+            teacher: classTeacher,
+            link: classLink,
+            block: "1"
+        }
+
+        let classesList = localStorage.getItem('swcClasses')
+        if (classesList == '') classesList = '[]'
+        classesList = JSON.parse(classesList)
+        classesList.push(newClass)
+        localStorage.setItem('swcClasses', JSON.stringify(classesList))
+        document.removeEventListener('click', closeMenu)
+        document.getElementById('addClassContextMenu').classList.add('small')
+        await wait(100)
+        document.getElementById('addClassContextMenu').remove()
+        updateMenus()
+    })
+}
 
 updateMenus()
