@@ -1,0 +1,92 @@
+.forceLinksGrid {
+    display: grid;
+    grid-template-columns: 0.3fr 1.2fr;
+    place-items: center;
+}
+
+h1 {
+    all: unset;
+}
+
+.linksPane {
+    border-radius: 5px;
+    height: 90%;
+    width: 90%;
+    overflow: hidden;
+    overflow-y: auto;
+    background-color: #e2e5e8;
+    color: black;
+}
+
+.leftPaneHeader {
+    font-size: clamp(18px, 3vmin, 33px);
+    margin-left: 0.5%;
+}
+
+.rightPaneHeader {
+    font-size: clamp(18px, 3vmin, 33px);
+    margin-left: 0.5%;
+}
+
+.linkButtonStacker {
+    background-color: rgb(43, 63, 76);
+    height: fit-content;
+    color: white;
+    width: fit-content;
+    min-width: 40%;
+    padding: 4%;
+    text-align: center;
+    margin: 1%;
+    font-size: clamp(17px, 2vmin, 30px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    user-select: none;
+    border-radius: 5px;
+    border: transparent;
+    transition: 0.25s ease;
+    transform-origin: left;
+}
+
+.linkButtonStacker:hover {
+    background-color: rgb(67, 99, 120);
+    cursor: pointer;
+    transform: scale(1.1);
+    text-decoration: underline;
+}
+
+
+.linkButtonStacker:active {
+    background: linear-gradient(90deg, rgb(131, 155, 243) 0%, rgb(148, 154, 245) 100%);
+}
+
+
+.genericLink {
+    background-color: rgb(43, 63, 76);
+    height: fit-content;
+    color: white;
+    width: fit-content;
+    min-width: 5%;
+    padding: 0.4%;
+    text-align: center;
+    margin: 1%;
+    font-size: clamp(17px, 1.2vmin, 30px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    user-select: none;
+    border-radius: 5px;
+    border: transparent;
+    transition: 0.25s ease;
+    transform-origin: left;
+}
+
+.genericLink:hover {
+    background-color: rgb(67, 99, 120);
+    cursor: pointer;
+    transform: scale(1.1);
+    text-decoration: underline;
+}
+
+
+.genericLink:active {
+    background: linear-gradient(90deg, rgb(131, 155, 243) 0%, rgb(148, 154, 245) 100%);
+}

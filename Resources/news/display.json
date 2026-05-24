@@ -3,7 +3,7 @@
   "body": [
     "This is SwiftClass.",
     "It's a dashboard for students with a calendar and link system.",
-    "Everything is saved on your device. No logins needed."
+    "Everything is saved on your device. <strong>No logins needed.</strong>"
   ],
   "image": true
 }

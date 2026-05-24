@@ -40,24 +40,24 @@ class Class {
         // console.log(allTheSettings)
 
         let numBlocks = getSetting(allTheSettings, 'Number of Scheduled Blocks')
-        if(numBlocks != '1'){
-        let blockType = document.createElement('span')
-        blockType.classList.add('classGeneric')
-        blockType.textContent = "This class is associated with Block " + this.block + '.'
-        c.appendChild(blockType)
+        if (numBlocks != '1') {
+            let blockType = document.createElement('span')
+            blockType.classList.add('classGeneric')
+            blockType.textContent = "This class is associated with Block " + this.block + '.'
+            c.appendChild(blockType)
         }
 
         let breaker = document.createElement('br')
         breaker.style.height = '1.5vmin'
         c.appendChild(breaker)
 
-        if(this.link === ''){
+        if (this.link === '') {
             let note = document.createElement('span')
             note.textContent = 'No link was provided for this class.'
             note.classList.add('noteHeaderText')
             // c.appendChild(document.createElement('br'))
             c.appendChild(note)
-        }else{
+        } else {
             let clickable = document.createElement('a')
             clickable.classList.add('noteHeaderLink')
             clickable.textContent = 'Associated Link'
@@ -104,7 +104,7 @@ class Class {
         let newLink = readWrite[this.personalIndex].link
         let newBlock = readWrite[this.personalIndex].block
 
-        let checkForChanges = function(){
+        let checkForChanges = function () {
             let reloadButton = document.createElement('button')
             reloadButton.textContent = 'Reload for Changes'
 
@@ -116,7 +116,7 @@ class Class {
 
             c.appendChild(reloadButton)
 
-            if(!t.textContent.includes('Reload for Changes!')){
+            if (!t.textContent.includes('Reload for Changes!')) {
                 t.textContent += ' - Reload for Changes!'
                 t.style.color = 'rgb(232,98,98)'
             }
@@ -153,7 +153,7 @@ class Class {
 
         settingsMenu.appendChild(document.createElement('hr'))
 
-          let linkLabel = document.createElement('span')
+        let linkLabel = document.createElement('span')
         linkLabel.classList.add('contextTitle')
         linkLabel.textContent = 'Change associated link:'
         linkLabel.style.backgroundColor = 'transparent'
@@ -176,6 +176,10 @@ class Class {
 
         settingsMenu.appendChild(document.createElement('hr'))
 
+        let numBlocksInt = parseInt(numBlocks)
+
+
+        if(numBlocksInt != 1){
         let blockLabel = document.createElement('span')
         blockLabel.classList.add('contextTitle')
         blockLabel.textContent = 'Change scheduled block:'
@@ -190,8 +194,7 @@ class Class {
         blockInput.style.marginTop = '1%'
         settingsMenu.appendChild(blockInput)
 
-        let numBlocksInt = parseInt(numBlocks)
-        for(let i = 1; i <= numBlocksInt; i++){
+        for (let i = 1; i <= numBlocksInt; i++) {
             let option = document.createElement('option')
             option.value = i
             option.textContent = 'Block ' + i
@@ -208,7 +211,7 @@ class Class {
         // setting storage
 
         settingsMenu.appendChild(document.createElement('hr'))
-
+    }
         let deleteClassButton = document.createElement('button')
         deleteClassButton.textContent = 'Delete Class'
         deleteClassButton.classList.add('contextButtonTweak')
