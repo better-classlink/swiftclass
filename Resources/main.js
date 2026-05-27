@@ -533,7 +533,7 @@ setInterval(() => {
 
     document.getElementById('timeTicker').textContent = completeTime
 
-    document.title = 'SwiftClass - ' + completeTime
+    // document.title = 'SwiftClass - ' + completeTime
 }, 100);
 
 
@@ -721,5 +721,13 @@ async function linkButtonAdder(event) {
     })
 }
 
+let lastURL = location.href
+
+setInterval(async () => {
+    if(location.href != lastURL){
+        lastURL = location.href
+        console.log('URL changed: ' + lastURL)
+    }
+})
 
 updateMenus()
