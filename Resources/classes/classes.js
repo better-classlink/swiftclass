@@ -59,7 +59,7 @@ class Class {
             c.appendChild(note)
         } else {
             let clickable = document.createElement('a')
-            clickable.classList.add('noteHeaderLink')
+            clickable.classList.add('`noteHeaderLink`')
             clickable.textContent = 'Associated Link'
             clickable.addEventListener('click', () => {
                 window.open(this.link)

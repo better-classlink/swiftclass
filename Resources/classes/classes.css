@@ -50,6 +50,7 @@
 
 .buttonStacker:active {
     background: linear-gradient(90deg, rgb(131, 155, 243) 0%, rgb(148, 154, 245) 100%);
+    transform: scale(0.95);
 }
 
 .contextMenu {
@@ -160,7 +161,7 @@
     min-height: 30%;
     overflow: hidden;
     overflow-y: auto;
-    background-color: rgba(192, 201, 231, 0.96);
+    background-color: #e2e5e8;
 }
 
 .classesPane {
@@ -172,7 +173,7 @@
     overflow: hidden;
     overflow-y: hidden;
     color: black;
-    background-color: rgba(192, 201, 231, 0.96);
+    background-color: #e2e5e8;
     display: grid;
     grid-template-rows: 0.6fr 1.4fr;
 }
@@ -213,6 +214,11 @@
     cursor: pointer;
     transform: scale(1.1);
     text-decoration: underline;
+}
+
+.addButtonStacker:active {
+    background: linear-gradient(90deg, rgb(131, 155, 243) 100%);
+    transform: scale(0.95);
 }
 
 .classHeader {
@@ -261,7 +267,6 @@
     padding: 0.25%;
     text-align: center;
     text-overflow: ellipsis;
-    /* background-color: rgba(96, 101, 237, 0.195); */
     border-radius: 2px;
     background-color: rgb(45, 45, 87);
     transition: ease 0.25s; 
@@ -272,6 +277,12 @@
 .noteHeaderLink:hover {
     color: rgb(63, 113, 163);
     background-color: rgb(197, 207, 215);
+    transform: scale(1.1);
+}
+
+.noteHeaderLink:active {
+    transform: scale(0.95);
+    background-color: rgb(59, 84, 113);
 }
 
 .classSettings {

@@ -79,13 +79,20 @@
     text-overflow: ellipsis;
     overflow: hidden;
     transition: 0.25s ease;
+    user-select: none;
 }
 
 .slidesButton:hover {
     text-decoration: underline;
     transform: scale(1.1);
-    background-color: #d3d3d3;
-    color: #6072bc;
+    background-color: #b7c7e1;
+    color: #252e4e;
+}
+
+.slidesButton:active {
+    transform: scale(0.95);
+    background: linear-gradient(180deg, rgba(191, 245, 255, 0.5) 0%, rgba(188, 236, 255, 0.5) 100%);
+    color: white;
 }
 
 .slidesImage {

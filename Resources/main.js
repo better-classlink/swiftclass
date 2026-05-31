@@ -1,3 +1,5 @@
+"use strict";
+
 window.currentMenu = 'SwiftClass'
 
 if(localStorage.getItem('swcFirstTime') == null) {
@@ -145,6 +147,33 @@ window.addEventListener("keyup", async (event) => {
         window.openedStatus = false
     }
 }
+})
+
+window.addEventListener("mouseup", async (event) => {
+    if(event.button == 2){
+        if(!openedStatus){
+            // event.preventDefault()
+            // console.log("Opening menu")
+            // console.log(window.mousePosition)
+
+            window.openedStatus = true
+
+            document.getElementById('container').style.left = String(window.mousePosition[0] - 110) + 'px'
+            document.getElementById('container').style.top = String(window.mousePosition[1] - 105) + 'px'
+
+            menu.open()
+
+            await wait(300)
+
+        }
+        else
+        {
+            menu.close()
+
+            await wait(300)
+            window.openedStatus = false
+        }
+    }
 })
 
 window.addEventListener('keydown', function(e) {
@@ -466,6 +495,11 @@ window.addEventListener('contextmenu', (event) => {
     if(!window.controlKeyPressed){
     event.preventDefault()
     }
+
+    document.querySelectorAll('button')
+        .forEach((ele) => {
+        console.log(ele.id)
+    })
 });
 
 
@@ -491,7 +525,7 @@ async function typeMenuName(){
 buttons.forEach((element) => {
     if(window.denySettingMovement) return
     element.addEventListener('click', (event) => {
-         selfName = event.currentTarget.textContent.trim()
+         let selfName = event.currentTarget.textContent.trim()
          if(selfName == 'Home') 
          {
             window.currentMenu = 'SwiftClass'

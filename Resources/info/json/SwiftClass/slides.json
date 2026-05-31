@@ -5,7 +5,7 @@
   },
   {
     "title": "The Radial Menu",
-    "body": "The Radial Menu is the fastest way to navigate through the app.\nIt can be opened by pressing Space at any time. \nIt will appear at the mouse's position, and you can click on any of the buttons to navigate to a different page. It should look like the one below.\n",
+    "body": "The Radial Menu is the fastest way to navigate through the app.\nIt can be opened by pressing Space or Right Mouse at any time. \nIt will appear at the mouse's position, and you can click on any of the buttons to navigate to a different page. It should look like the one below.\n",
     "image": "Resources/info/images/SwiftClass/radialmenu.png"
   },
   {

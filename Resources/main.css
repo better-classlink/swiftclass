@@ -60,8 +60,8 @@ body {
     background-color: rgba(233, 233, 233, 0.96);
     border: 2px solid rgb(123 181 246 / 0.96);
     border-radius: 50%;
-    padding: 0.5%;
-    font-size: clamp(11px, 2.5vmin, 24px);
+    padding: 0.5em;
+    font-size: clamp(12px, 2vmin, 32px);
     /*width: 0.5vmin;*/
     min-width: fit-content;
     display: flex;
@@ -87,7 +87,7 @@ body {
 }
 
 .openSlidesButton:active {
-    transform: scale(1.1);
+    transform: scale(0.95);
     background-color: rgb(59, 84, 113);
     border-color: rgb(59, 84, 113);
 }
@@ -226,8 +226,20 @@ body {
     transform: scale(1.1);
 }
 
+.footerButton:active {
+    transform: scale(0.95);
+    background-color: rgb(59, 84, 113);
+    border-color: rgb(59, 84, 113);
+}
+
 .flexCenter {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.deny {
+    transform: none !important;
+    opacity: 0.5;
+    cursor: not-allowed !important;
 }
