@@ -18,6 +18,17 @@ if(localStorage.getItem('swcsettings') == null) localStorage.setItem('swcsetting
     '[]'
 )
 
+document.querySelector('.footerButton').classList.add('deny')
+
+function resetAllFooters(){
+    document.querySelectorAll('.footerButton')
+        .forEach(element => {
+            if(element.classList.contains('deny')){
+                element.classList.remove('deny');
+            }
+        })
+}
+
 async function closeMenu(event){
     if(document.getElementById('addClassContextMenu') == null && document.getElementById('addLinkContextMenu') == null) return
     try{
@@ -39,45 +50,6 @@ async function closeMenu(event){
     }
 }
 
-function getAverageColor(img) {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-
-    canvas.width = img.width;
-    canvas.height = img.height;
-
-    ctx.drawImage(img, 0, 0);
-
-    const data = ctx.getImageData(0, 0, img.width, img.height).data;
-
-    let r = 0;
-    let g = 0;
-    let b = 0;
-    let count = 0;
-
-    for (let i = 0; i < data.length; i += 4) {
-        r += data[i];
-        g += data[i + 1];
-        b += data[i + 2];
-        count++;
-    }
-
-    r = Math.round(r / count);
-    g = Math.round(g / count);
-    b = Math.round(b / count);
-
-    return `rgb(${r}, ${g}, ${b})`;
-}
-
-// The above function was written via ChatGPT. While I do not often "vibe-code", certain exceptions may be made.
-
-window.loadingTips = [
-    "Tip: Use Ctrl + and Ctrl - to zoom and scale!",
-    "Tip: Themes are coming soon!",
-    "Tip: Stay focused. You'll be thankful later!",
-    "Tip: Feel free to report any bugs you find to krienskam@gmail.com!",
-    "Tip: Besides the using buttons at the bottom to move, you can also press Space to open the quick-move menu!",
-]
 
 const menu = new RadialMenu({
     parent: document.getElementById('container'),
@@ -91,9 +63,27 @@ const menu = new RadialMenu({
       { id: 'SwiftClass', title: 'Home' },
     ],
     onClick: async function(item) {
-
+    if(window.denySettingMovement) return
       window.currentMenu = item.id
-      updateMenus()
+        if(!window.denySettingMovement){
+            window.denySettingMovement = true
+            updateMenus()
+            resetAllFooters()
+            let prettyHeader = ''
+            if(window.currentMenu == 'SwiftClass'){
+                prettyHeader = 'Home'
+            }else if(window.currentMenu.includes('Settings')){
+                prettyHeader = 'Settings'
+            }
+            else{
+                prettyHeader = window.currentMenu
+            }
+            document.querySelectorAll('.footerButton').forEach(element => {
+                if(element.children[0].textContent == prettyHeader){
+                    element.classList.add('deny')
+                }
+            })
+        }
     }
   });
 
@@ -183,6 +173,19 @@ window.addEventListener('keydown', function(e) {
 });
 
 async function updateMenus(){
+
+    let prettyHeader = ''
+    if(window.currentMenu == 'SwiftClass'){
+        prettyHeader = 'Home'
+    }else if(window.currentMenu.includes('Settings')){
+        prettyHeader = 'Settings'
+    }
+    else{
+        prettyHeader = window.currentMenu
+    }
+
+    document.title = 'SwiftClass - ' + prettyHeader
+
     let baseContent = document.getElementById('baseContent')
     console.log("Updating menus")
     baseContent.classList.add('smallProp')
@@ -199,12 +202,6 @@ async function updateMenus(){
     // document.getElementById('topHeader').textContent = ''
 
     document.getElementById('baseContent').innerHTML = ''
-
-    let tipText = document.createElement('span')
-    tipText.classList.add('tipText')
-    tipText.id = 'tipText'
-
-    tipText.textContent = window.loadingTips[Math.floor(Math.random() * window.loadingTips.length)]
 
     switch (window.currentMenu) {
         case 'SwiftClass':
@@ -297,27 +294,47 @@ async function updateMenus(){
                         header.classList.add('settingsHeader')
                         header.textContent = item
                         header.addEventListener('click', async (event)=> {
-                            if(window.denySettingMovement)
-                                {return}
-                
+
+                            if(window.denySettingMovement || event.currentTarget.classList.contains('deny'))
+                            {return}
 
                             window.settingHeaderType = event.currentTarget.textContent
 
                             window.currentMenu = 'Settings' + ' - ' + window.settingHeaderType
 
                             typeMenuName()
-                            // window.denySettingMovement = true
-
-                            // console.log(window.settingHeaderType)
-                            // console.log(settingsJSON)
 
                             let liveChildNodes = document.getElementById('baseContent').childNodes
-                            // console.log(liveChildNodes.length)
                             if(liveChildNodes && liveChildNodes.length > 1) {
                                 while (liveChildNodes.length > 1) {
                                     liveChildNodes[1].remove()
                                 }
+
                             }
+
+                            let slidesOpenButton = document.createElement('div')
+                            slidesOpenButton.classList.add('openSlidesButton')
+                            slidesOpenButton.textContent = 'i'
+
+                            try {
+
+                                let test = await fetch("./Resources/info/json/" + window.currentMenu + "/slides.json").then(
+                                    () => {
+                                        let testOther = test.json()
+                                    }
+                                )
+
+                            }catch(e){
+                                console.warn(e)
+
+                                slidesOpenButton.classList.add('deny')
+                            }
+
+                            slidesOpenButton.addEventListener('click', (event) => {
+                                if(event.currentTarget.classList.contains('deny')) return
+                                infoSlides.render()
+                            })
+                            document.getElementById('baseContent').appendChild(slidesOpenButton)
 
                         let valueType = null
 
@@ -484,6 +501,21 @@ async function closeMenu(event){
     let slidesOpenButton = document.createElement('div')
     slidesOpenButton.classList.add('openSlidesButton')
     slidesOpenButton.textContent = 'i'
+
+    try {
+
+        let test = await fetch("./Resources/info/json/" + window.currentMenu + "/slides.json").then(
+            (test) => {
+                let testOther = test.json()
+            }
+        )
+
+    }catch(e){
+        console.warn(e)
+
+        slidesOpenButton.classList.add('deny')
+    }
+
     slidesOpenButton.addEventListener('click', () => {
         let infoSlides = new InfoSlides("Resources/info/json/" + window.currentMenu + "/slides.json")
         infoSlides.render()
@@ -533,13 +565,16 @@ buttons.forEach((element) => {
             window.denySettingMovement = true
             updateMenus()
             }
-         }else{
+         }
+         else{
             window.currentMenu = selfName
             if(!window.denySettingMovement){
             window.denySettingMovement = true
             updateMenus()
             }
          }
+         resetAllFooters()
+         event.currentTarget.classList.add('deny')
     })
 })
 

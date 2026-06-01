@@ -48,8 +48,8 @@ class Class {
         }
 
         let breaker = document.createElement('br')
-        breaker.style.height = '1.5vmin'
-        c.appendChild(breaker)
+        // breaker.style.height = '1.5vmin'
+        // c.appendChild(breaker)
 
         if (this.link === '') {
             let note = document.createElement('span')
@@ -59,7 +59,7 @@ class Class {
             c.appendChild(note)
         } else {
             let clickable = document.createElement('a')
-            clickable.classList.add('`noteHeaderLink`')
+            clickable.classList.add('noteHeaderLink')
             clickable.textContent = 'Associated Link'
             clickable.addEventListener('click', () => {
                 window.open(this.link)

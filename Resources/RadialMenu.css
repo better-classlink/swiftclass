@@ -51,19 +51,19 @@ svg.menu > g.sector > use {
 
 svg.menu > g.sector:hover > path {
     fill: var(--radialMenuItemHover);
-     transform: scale(0.95);
+     /*transform: scale(0.95);*/
     /* transform: rotate(-2deg); */
 
 }
 
-svg.menu > g.sector > text {
-    transition: 0.25s;
-    transform-origin: center;
-}
+/*svg.menu > g.sector > text {*/
+/*    transition: 0.25s;*/
+/*    transform-origin: center;*/
+/*}*/
 
-svg.menu > g.sector:hover > text {
-    transform: scale(0.95);
-}
+/*svg.menu > g.sector:hover > text {*/
+/*    transform: scale(0.95);*/
+/*}*/
 
 svg.menu > g.sector.selected > path {
     /*fill: #F9A602D0;*/

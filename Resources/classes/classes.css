@@ -354,7 +354,7 @@
 
 .reloadButton {
     background-color: rgb(123 181 246 / 0.96);
-    border-radius: 3px;
+    border-radius: 5px;
     padding: 1%;
     font-size: clamp(8px, 2.5vmin, 24px);
     width: fit-content;
