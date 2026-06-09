@@ -29,21 +29,10 @@ function resetAllFooters(){
 }
 
 async function closeMenu(event){
-    if(document.getElementById('addClassContextMenu') == null && document.getElementById('addLinkContextMenu') == null) return
     try{
-        if(document.getElementById('addClassContextMenu') != null){
-        if(!document.getElementById('addClassContextMenu').contains(event.target) && !document.getElementById('addClassButton').contains(event.target)){
-            document.getElementById('addClassContextMenu').classList.add('small')
-            await wait(250)
-            document.getElementById('addClassContextMenu').remove()
-        }}
-        else if(document.getElementById('addLinkContextMenu') != null){
-            if(!document.getElementById('addLinkContextMenu').contains(event.target) && !document.getElementById('addNewLinkButton').contains(event.target)){
-                document.getElementById('addLinkContextMenu').classList.add('small')
-                await wait(250)
-                document.getElementById('addLinkContextMenu').remove()
-            }
-        }
+
+    if(document.getElementById('contextMenu') == null) return
+
     }catch(e){
         console.warn(e)
     }
@@ -466,12 +455,14 @@ async function updateMenus() {
                 console.log(types)
             })
 
-            let addNewLinkButton = document.createElement('div')
-            addNewLinkButton.addEventListener('click', linkButtonAdder)
-            addNewLinkButton.id = 'addNewLinkButton'
-            addNewLinkButton.textContent = 'Add New Link'
-            addNewLinkButton.classList.add('genericLink')
-            rightPane.appendChild(addNewLinkButton)
+            let addTypeButton = document.createElement('div')
+            addTypeButton.classList.add('linkButtonStacker')
+            addTypeButton.textContent = 'Add new Type'
+            leftPane.appendChild(addTypeButton)
+            addTypeButton.addEventListener('click', (event) => {
+                linkButtonAdder(event, 'Type')
+            })
+
             break;
         default:
             document.getElementById('baseContent').innerHTML = `<h1>${window.currentMenu}</h1><p>Content for ${window.currentMenu} will be added soon!</p>`
@@ -481,10 +472,10 @@ async function updateMenus() {
 
     async function closeMenu(event) {
         try {
-            if (!document.getElementById('addClassContextMenu').contains(event.target) && !document.getElementById('addClassButton').contains(event.target)) {
-                document.getElementById('addClassContextMenu').classList.add('small')
+            if (!document.getElementById('contextMenu').contains(event.target)) {
+                document.getElementById('contextMenu').classList.add('small')
                 await wait(250)
-                document.getElementById('addClassContextMenu').remove()
+                document.getElementById('contextMenu').remove()
             }
         } catch (e) {
             console.warn(e)
@@ -627,11 +618,11 @@ const baseContent = document.getElementById('baseContent')
     }, 5);
 
 async function classButtonAdder(event) {
-    if (document.getElementById('addClassContextMenu') != null) document.getElementById('addClassContextMenu').remove()
+    if (document.getElementById('contextMenu') != null) document.getElementById('contextMenu').remove()
     let contextMenu = document.createElement('div')
     contextMenu.classList.add('contextMenu')
     contextMenu.classList.add('small')
-    contextMenu.id = 'addClassContextMenu'
+    contextMenu.id = 'contextMenu'
     document.body.appendChild(contextMenu)
     contextMenu.style.left = String(window.innerWidth / 2 - (contextMenu.clientWidth / 2)) + 'px'
     contextMenu.style.top = String(window.innerHeight / 2 - (contextMenu.clientHeight / 2)) + 'px'
@@ -704,26 +695,26 @@ async function classButtonAdder(event) {
         classesList = JSON.parse(classesList)
         classesList.push(newClass)
         localStorage.setItem('swcClasses', JSON.stringify(classesList))
-        document.getElementById('addClassContextMenu').classList.add('small')
+        document.getElementById('contextMenu').classList.add('small')
         await wait(100)
-        document.getElementById('addClassContextMenu').remove()
+        document.getElementById('contextMenu').remove()
         updateMenus()
     })
 }
 
-async function linkButtonAdder(event) {
-    if (document.getElementById('addLinkContextMenu') != null) document.getElementById('addLinkContextMenu').remove()
+async function linkButtonAdder(event, type) {
+    if (document.getElementById('contextMenu') != null) document.getElementById('contextMenu').remove()
     let contextMenu = document.createElement('div')
     contextMenu.classList.add('contextMenu')
     contextMenu.classList.add('small')
-    contextMenu.id = 'addLinkContextMenu'
+    contextMenu.id = 'contextMenu'
     document.body.appendChild(contextMenu)
     contextMenu.style.left = String(window.innerWidth / 2 - (contextMenu.clientWidth / 2)) + 'px'
     contextMenu.style.top = String(window.innerHeight / 2 - (contextMenu.clientHeight / 2)) + 'px'
     contextMenu.classList.remove('small')
 
     let shortTitle = document.createElement('span')
-    shortTitle.textContent = 'Link Creator'
+    shortTitle.textContent = type + ' Creator'
     shortTitle.classList.add('contextTitle')
     contextMenu.appendChild(shortTitle)
 
@@ -732,34 +723,37 @@ async function linkButtonAdder(event) {
     let linkNameInput = document.createElement('input')
     linkNameInput.type = 'text'
     linkNameInput.id = 'linkNameInput'
-    linkNameInput.placeholder = 'Type in the name of your link...'
+    linkNameInput.placeholder = 'Type in the name of your ' + type
     linkNameInput.classList.add('contextInput')
     contextMenu.appendChild(linkNameInput)
 
     contextMenu.appendChild(document.createElement('hr'))
+    if(type == 'link') {
+        let linkTeacherInput = document.createElement('input')
+        linkTeacherInput.type = 'text'
+        linkTeacherInput.id = 'linkTypeInput'
+        linkTeacherInput.placeholder = 'Type in the type of your ' + type
+        linkTeacherInput.classList.add('contextInput')
+        contextMenu.appendChild(linkTeacherInput)
 
-    let linkTeacherInput = document.createElement('input')
-    linkTeacherInput.type = 'text'
-    linkTeacherInput.id = 'linkTypeInput'
-    linkTeacherInput.placeholder = 'Type in the type of your link...'
-    linkTeacherInput.classList.add('contextInput')
-    contextMenu.appendChild(linkTeacherInput)
+        contextMenu.appendChild(document.createElement('hr'))
+        let linkLinkInput = document.createElement('input')
+        linkLinkInput.type = 'text'
+        linkLinkInput.id = 'linkLinkInput'
+        linkLinkInput.placeholder = 'Type in the actual link...'
+        linkLinkInput.classList.add('contextInput')
+        contextMenu.appendChild(linkLinkInput)
+    }
 
+    if(type == 'link'){
     contextMenu.appendChild(document.createElement('hr'))
-
-    let linkLinkInput = document.createElement('input')
-    linkLinkInput.type = 'text'
-    linkLinkInput.id = 'linkLinkInput'
-    linkLinkInput.placeholder = 'Type in the actual link...'
-    linkLinkInput.classList.add('contextInput')
-    contextMenu.appendChild(linkLinkInput)
-
-    contextMenu.appendChild(document.createElement('hr'))
+        }
 
     let submitButton = document.createElement('div')
     submitButton.classList.add('contextButton')
     submitButton.textContent = 'Submit and Reload'
     contextMenu.appendChild(submitButton)
+
 
     submitButton.addEventListener('click', async (event) => {
         let linkName = document.getElementById('linkNameInput').value
@@ -782,15 +776,17 @@ async function linkButtonAdder(event) {
             type: linkType,
             link: linkLink,
         }
+        document.addEventListener('click', closeMenu)
+        document.addEventListener('keydown', closeMenuOnEsc)
 
         let linksList = localStorage.getItem('swclinks')
         if (linksList == '') linksList = '[]'
         linksList = JSON.parse(linksList)
         linksList.push(newlink)
         localStorage.setItem('swclinks', JSON.stringify(linksList))
-        document.getElementById('addLinkContextMenu').classList.add('small')
+        document.getElementById('contextMenu').classList.add('small')
         await wait(100)
-        document.getElementById('addLinkContextMenu').remove()
+        document.getElementById('contextMenu').remove()
         updateMenus()
     })
 }

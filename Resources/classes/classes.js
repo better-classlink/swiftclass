@@ -116,7 +116,7 @@ class Class {
 
             if (!t.textContent.includes('Reload for Changes!')) {
                 t.textContent += ' - Reload for Changes!'
-                t.style.color = 'rgb(232,98,98)'
+                t.style.color = 'rgb(232, 98, 98)'
             }
         }
 
