@@ -1,5 +1,3 @@
-"use strict";
-
 window.currentMenu = 'SwiftClass'
 
 if(localStorage.getItem('swcFirstTime') == null) {
@@ -9,6 +7,7 @@ if(localStorage.getItem('swcFirstTime') == null) {
 }
 
 document.addEventListener('click', closeMenu)
+document.addEventListener('keydown', closeMenuOnEsc)
 
 window.denySettingMovement = false
 
@@ -47,6 +46,12 @@ async function closeMenu(event){
         }
     }catch(e){
         console.warn(e)
+    }
+}
+
+async function closeMenuOnEsc(event){
+    if(event.key == 'Escape'){
+        closeMenu(event)
     }
 }
 
@@ -104,10 +109,6 @@ document.addEventListener('mousemove', (event) => {
 document.addEventListener('click', async (event) => {
     if(window.openedStatus && !document.getElementById('container').contains(event.target)){
         menu.close()
-        window.canInteract = false
-        await wait(500)
-        window.openedStatus = false
-        window.canInteract = true
     }
 });
 
@@ -132,9 +133,6 @@ window.addEventListener("keyup", async (event) => {
     else
     {
         menu.close()
-
-        await wait(300)
-        window.openedStatus = false
     }
 }
 })
@@ -159,9 +157,6 @@ window.addEventListener("mouseup", async (event) => {
         else
         {
             menu.close()
-
-            await wait(300)
-            window.openedStatus = false
         }
     }
 })
@@ -172,15 +167,18 @@ window.addEventListener('keydown', function(e) {
   }
 });
 
-async function updateMenus(){
+async function updateMenus() {
+
+    if(document.getElementById('reloadButton') !== null){
+        document.getElementById('reloadButton').remove()
+    }
 
     let prettyHeader = ''
-    if(window.currentMenu == 'SwiftClass'){
+    if (window.currentMenu == 'SwiftClass') {
         prettyHeader = 'Home'
-    }else if(window.currentMenu.includes('Settings')){
+    } else if (window.currentMenu.includes('Settings')) {
         prettyHeader = 'Settings'
-    }
-    else{
+    } else {
         prettyHeader = window.currentMenu
     }
 
@@ -192,10 +190,10 @@ async function updateMenus(){
     typeMenuName()
 
     await wait(300)
-    
-    if(baseContent.classList.contains('forceClassesGrid')){
+
+    if (baseContent.classList.contains('forceClassesGrid')) {
         baseContent.classList.remove('forceClassesGrid')
-    }else if(baseContent.classList.contains('forceLinksGrid')){
+    } else if (baseContent.classList.contains('forceLinksGrid')) {
         baseContent.classList.remove('forceLinksGrid')
     }
 
@@ -206,7 +204,7 @@ async function updateMenus(){
     switch (window.currentMenu) {
         case 'SwiftClass':
             document.getElementById('baseContent').innerHTML = window.SwiftClassPage
-            try{
+            try {
                 let jsonRequest = await fetch("Resources/news/display.json")
                 let newsJSON = await jsonRequest.json()
 
@@ -214,18 +212,16 @@ async function updateMenus(){
 
                 // console.log(newsJSON)
 
-                if('body' in newsJSON)
-                {
-                        let p = document.getElementById('newsTickerText')
-                        p.innerHTML = newsJSON.body.join('<br>')
+                if ('body' in newsJSON) {
+                    let p = document.getElementById('newsTickerText')
+                    p.innerHTML = newsJSON.body.join('<br>')
                 }
 
-                if('title' in newsJSON)
-                {
+                if ('title' in newsJSON) {
                     document.getElementById('newsHeader').textContent = newsJSON.title
                 }
 
-                if(newsJSON.image){
+                if (newsJSON.image) {
                     let newsImage = document.createElement('img')
                     newsImage.src = 'Resources/news/display.png'
                     newsImage.classList.add('newsImage')
@@ -236,105 +232,106 @@ async function updateMenus(){
                     document.getElementById('baseContent').appendChild(newsImage)
                 }
 
-                }catch(e){
-                    console.warn("news fetch error: " + e.stack)
-                }
-                    break;
+            } catch (e) {
+                console.warn("news fetch error: " + e.stack)
+            }
+            break;
         case 'Settings':
-                    // document.getElementById('baseContent').innerHTML = ''
+            // document.getElementById('baseContent').innerHTML = ''
 
 
-                    let settingsList = await fetch('Resources/settings/list.json')
-                    let settingsJSON = await settingsList.json()
-                    let allHeaders = []
-                    
-                    let headerContainer = document.createElement('div')
-                    headerContainer.id = 'settingsHeaderContainer'
-                    headerContainer.classList.add('settingsHeaderContainer')
-                    document.getElementById('baseContent').appendChild(headerContainer)
+            let settingsList = await fetch('Resources/settings/list.json')
+            let settingsJSON = await settingsList.json()
+            let allHeaders = []
 
-                    for(let setting of settingsJSON){
-                        if(typeof setting.header != 'undefined' && !allHeaders.includes(setting.header)){
-                            allHeaders.push(setting.header)
+            let headerContainer = document.createElement('div')
+            headerContainer.id = 'settingsHeaderContainer'
+            headerContainer.classList.add('settingsHeaderContainer')
+            document.getElementById('baseContent').appendChild(headerContainer)
+
+            for (let setting of settingsJSON) {
+                if (typeof setting.header != 'undefined' && !allHeaders.includes(setting.header)) {
+                    allHeaders.push(setting.header)
+                }
+            }
+
+            window.settingHeaderType = allHeaders[0]
+
+            window.currentMenu = 'Settings' + ' - ' + window.settingHeaderType
+
+            let valueType = null
+
+            let settingsLoad = localStorage.getItem('swcsettings')
+
+            settingsLoad = JSON.parse(settingsLoad)
+            // console.log('Loaded settings: ')
+            // console.log(settingsLoad)
+
+            settingsJSON.forEach((element) => {
+                // console.log(element)
+                if (!settingsLoad.includes(element.name)) {
+                    settingsLoad.push(element.name)
+                    settingsLoad.push(element.value)
+                    localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
+                }
+                if (element.header == window.settingHeaderType) {
+                    let setting = new Setting(element.name, settingsLoad[settingsLoad.indexOf(element.name) + 1], element.type, element.description, element.header, element.types, String(element.minval), String(element.maxval), element.selectors)
+                    setting.render()
+                } else {
+                    // console.log('not of type')
+                }
+            })
+
+            let headerCont = document.getElementById('settingsHeaderContainer')
+
+            allHeaders.forEach((item) => {
+                    let header = document.createElement('div')
+
+                    header.classList.add('settingsHeader')
+                    header.textContent = item
+                    header.addEventListener('click', async (event) => {
+
+                        if (window.denySettingMovement || event.currentTarget.classList.contains('deny')) {
+                            return
                         }
-                    }
 
-                    window.settingHeaderType = allHeaders[0]
+                        window.settingHeaderType = event.currentTarget.textContent
 
-                    window.currentMenu = 'Settings' + ' - ' + window.settingHeaderType
+                        window.currentMenu = 'Settings' + ' - ' + window.settingHeaderType
 
-                    let valueType = null
+                        typeMenuName()
 
-                    let settingsLoad = localStorage.getItem('swcsettings')
+                        let liveChildNodes = document.getElementById('baseContent').childNodes
+                        if (liveChildNodes && liveChildNodes.length > 1) {
+                            while (liveChildNodes.length > 1) {
+                                liveChildNodes[1].remove()
+                            }
 
-                    settingsLoad = JSON.parse(settingsLoad)
-                    // console.log('Loaded settings: ')
-                    // console.log(settingsLoad)
-
-                    settingsJSON.forEach((element) => {
-                        // console.log(element)
-                        if(!settingsLoad.includes(element.name)){
-                            settingsLoad.push(element.name)
-                            settingsLoad.push(element.value)
-                            localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
                         }
-                        if(element.header == window.settingHeaderType){
-                            let setting = new Setting(element.name, settingsLoad[settingsLoad.indexOf(element.name) + 1], element.type, element.description, element.header, element.types, String(element.minval), String(element.maxval), element.selectors)
-                            setting.render()
-                        }else{
-                            // console.log('not of type')
-                        }
-                    })
 
-                    let headerCont = document.getElementById('settingsHeaderContainer')
+                        let slidesOpenButton = document.createElement('div')
+                        slidesOpenButton.classList.add('openSlidesButton')
+                        slidesOpenButton.textContent = 'i'
 
-                    allHeaders.forEach((item) => {
-                        let header = document.createElement('div')
+                        try {
 
-                        header.classList.add('settingsHeader')
-                        header.textContent = item
-                        header.addEventListener('click', async (event)=> {
-
-                            if(window.denySettingMovement || event.currentTarget.classList.contains('deny'))
-                            {return}
-
-                            window.settingHeaderType = event.currentTarget.textContent
-
-                            window.currentMenu = 'Settings' + ' - ' + window.settingHeaderType
-
-                            typeMenuName()
-
-                            let liveChildNodes = document.getElementById('baseContent').childNodes
-                            if(liveChildNodes && liveChildNodes.length > 1) {
-                                while (liveChildNodes.length > 1) {
-                                    liveChildNodes[1].remove()
+                            let test = await fetch("./Resources/info/json/" + window.currentMenu + "/slides.json").then(
+                                () => {
+                                    let testOther = test.json()
                                 }
+                            )
 
-                            }
+                        } catch (e) {
+                            console.warn(e)
 
-                            let slidesOpenButton = document.createElement('div')
-                            slidesOpenButton.classList.add('openSlidesButton')
-                            slidesOpenButton.textContent = 'i'
+                            slidesOpenButton.classList.add('deny')
+                        }
 
-                            try {
-
-                                let test = await fetch("./Resources/info/json/" + window.currentMenu + "/slides.json").then(
-                                    () => {
-                                        let testOther = test.json()
-                                    }
-                                )
-
-                            }catch(e){
-                                console.warn(e)
-
-                                slidesOpenButton.classList.add('deny')
-                            }
-
-                            slidesOpenButton.addEventListener('click', (event) => {
-                                if(event.currentTarget.classList.contains('deny')) return
-                                infoSlides.render()
-                            })
-                            document.getElementById('baseContent').appendChild(slidesOpenButton)
+                        slidesOpenButton.addEventListener('click', (event) => {
+                            if (event.currentTarget.classList.contains('deny')) return
+                            infoSlides.render()
+                        })
+                        document.getElementById('baseContent').appendChild(slidesOpenButton)
 
                         let valueType = null
 
@@ -345,82 +342,90 @@ async function updateMenus(){
                         // console.log(settingsLoad)
 
                         settingsJSON.forEach(async (element) => {
-                            if(!settingsLoad.includes(element.name)){
+                            if (!settingsLoad.includes(element.name)) {
                                 settingsLoad.push(element.name)
                                 settingsLoad.push(element.value)
                                 localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
                             }
-                            if(element.header == window.settingHeaderType){
+                            if (element.header == window.settingHeaderType) {
                                 let setting = new Setting(element.name, settingsLoad[settingsLoad.indexOf(element.name) + 1], element.type, element.description, element.header, element.types, element.minval, element.maxval, element.selectors)
                                 setting.render()
                             }
 
                         })
-                        })
-                        headerCont.appendChild(header)
-                        }
-                    )
-                    break;
+                    })
+                    headerCont.appendChild(header)
+                }
+            )
+            break;
         case 'Classes':
-                        baseContent.classList.add('forceClassesGrid')
+            baseContent.classList.add('forceClassesGrid')
 
-                        let classesList = localStorage.getItem('swcClasses')
+            let classesList = localStorage.getItem('swcClasses')
 
-                        if(classesList == null){
-                            localStorage.setItem('swcClasses', '[{"name":"Example Class","teacher":"SwiftClass Developers","link":"","block":"1"}]')
-                        }
+            if (classesList == null) {
+                localStorage.setItem('swcClasses', '[{"name":"Example Class","teacher":"SwiftClass Developers","link":"","block":"1"}]')
+            }
 
-                        classesList = localStorage.getItem('swcClasses')
-                        classesList = JSON.parse(classesList)
+            classesList = localStorage.getItem('swcClasses')
+            classesList = JSON.parse(classesList)
 
-                        let classesStack = document.createElement('div')
-                        classesStack.classList.add('classesStack')
-                        baseContent.appendChild(classesStack)
+            let classesStack = document.createElement('div')
+            classesStack.classList.add('classesStack')
+            baseContent.appendChild(classesStack)
 
-                        let classesTitle = document.createElement('span')
-                        classesTitle.textContent = "Your Classes"
-                        classesTitle.classList.add('classesTitle')
-                        
-                        classesStack.appendChild(classesTitle)
+            let classesTitle = document.createElement('span')
+            classesTitle.textContent = "Your Classes"
+            classesTitle.classList.add('classesTitle')
 
-                        classesStack.appendChild(document.createElement('hr'))
+            classesStack.appendChild(classesTitle)
 
-                        classesList.forEach((classObject, index) => {
-                            let savedObj = classObject
-                            let selectionButton = document.createElement('div')
-                            selectionButton.textContent = classObject.name
-                            selectionButton.classList.add('buttonStacker')
-                            selectionButton.addEventListener('click', (event) => {
-                                if(savedObj.block == ''){
-                                    savedObj.block = '1'
-                                }
-                                console.log(savedObj.link)
-                                let visualClass = new Class(savedObj.name, savedObj.teacher, savedObj.block, savedObj.link, index)
-                                visualClass.render()
-                            })
-                            classesStack.appendChild(selectionButton)
-                            // classesStack.appendChild(document.createElement('br'))
-                        })
+            classesStack.appendChild(document.createElement('hr'))
 
-                        // Final Button After Full Stack
-                            
-                    let addClassButton = document.createElement('div')
-                    addClassButton.addEventListener('click', classButtonAdder)
+            classesList.forEach((classObject, index) => {
+                let savedObj = classObject
+                let selectionButton = document.createElement('div')
+                selectionButton.textContent = classObject.name
+                selectionButton.classList.add('buttonStacker')
+                selectionButton.addEventListener('click', (event) => {
+                    if (savedObj.block == '') {
+                        savedObj.block = '1'
+                    }
+                    console.log(savedObj.link)
+                    let visualClass = new Class(savedObj.name, savedObj.teacher, savedObj.block, savedObj.link, index)
+                    visualClass.render()
+                })
+                classesStack.appendChild(selectionButton)
 
-                    // Final Button After Full Stack
+                if(savedObj.link != ''){
+                    let linkButton = document.createElement('div')
+                    linkButton.classList.add('buttonStacker')
+                    linkButton.classList.add('smallButton')
+                    linkButton.textContent = 'Link'
+                    classesStack.appendChild(linkButton)
+                }
+                // classesStack.appendChild(document.createElement('br'))
+            })
 
-                    addClassButton.classList.add('addButtonStacker')
-                    addClassButton.id = 'addClassButton'
-                    addClassButton.textContent = 'Add Class'
-                    classesStack.appendChild(addClassButton)
+            // Final Button After Full Stack
 
-                    let classesPane = document.createElement('div')
-                    classesPane.classList.add('classesPane')
-                    baseContent.appendChild(classesPane)
-                    classesPane.textContent = 'Click a class on the left to view it. Click the "Add Class" button to add a new class!'
-                    break;
+            let addClassButton = document.createElement('div')
+            addClassButton.addEventListener('click', classButtonAdder)
+
+            // Final Button After Full Stack
+
+            addClassButton.classList.add('addButtonStacker')
+            addClassButton.id = 'addClassButton'
+            addClassButton.textContent = 'Add Class'
+            classesStack.appendChild(addClassButton)
+
+            let classesPane = document.createElement('div')
+            classesPane.classList.add('classesPane')
+            baseContent.appendChild(classesPane)
+            classesPane.textContent = 'Click a class on the left to view it. Click the "Add Class" button to add a new class!'
+            break;
         case 'Links':
-            if(localStorage.getItem('swclinks') == null){
+            if (localStorage.getItem('swclinks') == null) {
                 localStorage.setItem('swclinks', JSON.stringify([]))
             }
             baseContent.classList.add('forceLinksGrid')
@@ -455,7 +460,7 @@ async function updateMenus(){
 
             let linksJSON = JSON.parse(localStorage.getItem('swclinks'))
             linksJSON.forEach(async (element) => {
-                if(!types.includes(element.type)){
+                if (!types.includes(element.type)) {
                     types.push(element.type)
                 }
                 console.log(types)
@@ -467,27 +472,25 @@ async function updateMenus(){
             addNewLinkButton.textContent = 'Add New Link'
             addNewLinkButton.classList.add('genericLink')
             rightPane.appendChild(addNewLinkButton)
-        break;
+            break;
         default:
             document.getElementById('baseContent').innerHTML = `<h1>${window.currentMenu}</h1><p>Content for ${window.currentMenu} will be added soon!</p>`
-        break;
+            break;
     }
 
 
-
-
-
-async function closeMenu(event){
-    try{
-    if(!document.getElementById('addClassContextMenu').contains(event.target) && !document.getElementById('addClassButton').contains(event.target)){
-        document.getElementById('addClassContextMenu').classList.add('small')
-        await wait(250)
-        document.getElementById('addClassContextMenu').remove()
+    async function closeMenu(event) {
+        try {
+            if (!document.getElementById('addClassContextMenu').contains(event.target) && !document.getElementById('addClassButton').contains(event.target)) {
+                document.getElementById('addClassContextMenu').classList.add('small')
+                await wait(250)
+                document.getElementById('addClassContextMenu').remove()
+            }
+        } catch (e) {
+            console.warn(e)
         }
-    }catch(e){
-        console.warn(e)
     }
-}
+
     window.denySettingMovement = true
 
     window.denySettingMovement = false
@@ -510,16 +513,17 @@ async function closeMenu(event){
             }
         )
 
-    }catch(e){
+    } catch (e) {
         console.warn(e)
 
         slidesOpenButton.classList.add('deny')
     }
-
-    slidesOpenButton.addEventListener('click', () => {
-        let infoSlides = new InfoSlides("Resources/info/json/" + window.currentMenu + "/slides.json")
-        infoSlides.render()
-    })
+    if (!slidesOpenButton.classList.contains(('deny'))) {
+        slidesOpenButton.addEventListener('click', () => {
+            let infoSlides = new InfoSlides("Resources/info/json/" + window.currentMenu + "/slides.json")
+            infoSlides.render()
+        })
+    }
     document.getElementById('baseContent').appendChild(slidesOpenButton)
 }
 
@@ -557,6 +561,7 @@ async function typeMenuName(){
 buttons.forEach((element) => {
     if(window.denySettingMovement) return
     element.addEventListener('click', (event) => {
+        if(event.currentTarget.classList.contains('deny')) return
          let selfName = event.currentTarget.textContent.trim()
          if(selfName == 'Home') 
          {

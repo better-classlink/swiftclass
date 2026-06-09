@@ -40,6 +40,13 @@
     transform-origin: left;
 }
 
+.smallButton {
+    font-size: clamp(12px, 1.1vmin, 24px); !important;
+    min-width: 20%; !important;
+    padding: 2%; !important;
+    position: relative;
+}
+
 .buttonStacker:hover {
     background-color: rgb(67, 99, 120);
     cursor: pointer;
@@ -175,7 +182,7 @@
     color: black;
     background-color: #e2e5e8;
     display: grid;
-    grid-template-rows: 0.6fr 1.4fr;
+    grid-template-rows: 1fr 1.4fr;
 }
 
 .classesTitle {
@@ -286,12 +293,13 @@
 }
 
 .classSettings {
+    place-self: center;
     position: relative;
     background-color: rgb(215, 215, 215);
     padding: 1%;
     border-radius: 4px;
     border: 3px solid rgb(175, 175, 175);
-    place-self: center;
+    /*place-self: center;*/
     width: 90%;
     height: 90%;
     overflow-y: auto;
@@ -302,11 +310,13 @@
     padding: 1%;
     border-radius: 4px;
     border: 3px solid rgb(229, 229, 229);
-    place-self: center;
-    min-width: 90%;
-    min-height: 90%;
+    /*place-self: center;*/
+    width: 90%;
+    height: 90%;
+    border: 3px solid rgb(175, 175, 175);
     transition: ease 0.25s;
-    position: relative;
+    place-self: center;
+    overflow-y: auto;
 }
 
 .classGeneric {
@@ -317,6 +327,7 @@
     margin-bottom: 2%;
     text-align: center;
     text-overflow: ellipsis;
+    /*display: inline-block;*/
     /* background-color: rgba(96, 101, 237, 0.195); */
 }
 
@@ -341,21 +352,22 @@
 .contextButtonTweak:hover {
     background-color: rgb(59, 84, 113);
     /* border-color: rgb(59, 84, 113); */
-    text-decoration: underline;
-    color: white;
+    text-decoration: underline; !important;
+    color: white; !important;
     transform: scale(1.02);
 }
 
 @keyframes warningChange {
-    0% { background-color: #e18080; }
-    50% { background-color: #ff2323; }
-    100% { background-color: #e18080; }
+    0% { background-color: #e18080; color: white; text-decoration: underline}
+    50% { background-color: #ff2323; color: white; text-decoration: underline}
+    100% { background-color: #e18080; color: white; text-decoration: underline}
 }
 
 .reloadButton {
     background-color: rgb(123 181 246 / 0.96);
-    border-radius: 5px;
+    border-radius: 3px;
     padding: 1%;
+    margin-left: 1%;
     font-size: clamp(8px, 2.5vmin, 24px);
     width: fit-content;
     min-width: 10%;
@@ -368,17 +380,15 @@
     user-select: none;
     transition: 0.25s ease;
     border: none;
-    position: absolute;
-    margin: 2%;
-    bottom: 0;
-    right: 0;
+    /*position: absolute;*/
+    /*z-index: 99999;*/
     animation: warningChange 1.5s infinite;
 }
 
 .reloadButton:hover {
     background-color: rgb(59, 84, 113);
     /* border-color: rgb(59, 84, 113); */
-    text-decoration: underline;
-    color: white;
+    text-decoration: underline; !important;
+    color: white; !important;
     transform: scale(1.02);
 }

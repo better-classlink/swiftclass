@@ -58,11 +58,12 @@ body {
     bottom: 0;
     left: 0;
     background-color: rgba(233, 233, 233, 0.96);
-    border: 2px solid rgb(123 181 246 / 0.96);
+    border: 2px solid rgb(189 220 248 / 0.96);
     border-radius: 50%;
     padding: 0.5em;
     font-size: clamp(12px, 2vmin, 32px);
-    /*width: 0.5vmin;*/
+    width: 0.4vmin;
+    height: 0.4vmin;
     min-width: fit-content;
     display: flex;
     min-height: fit-content;
@@ -83,6 +84,7 @@ body {
 .openSlidesButton:hover {
     background-color: rgb(59, 84, 113);
     border-color: rgb(59, 84, 113);
+    color: white;
     transform: scale(1.2);
 }
 

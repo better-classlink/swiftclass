@@ -45,28 +45,14 @@ class Class {
             blockType.classList.add('classGeneric')
             blockType.textContent = "This class is associated with Block " + this.block + '.'
             c.appendChild(blockType)
+            c.appendChild(document.createElement('br'))
         }
 
         let breaker = document.createElement('br')
         // breaker.style.height = '1.5vmin'
         // c.appendChild(breaker)
 
-        if (this.link === '') {
-            let note = document.createElement('span')
-            note.textContent = 'No link was provided for this class.'
-            note.classList.add('noteHeaderText')
-            // c.appendChild(document.createElement('br'))
-            c.appendChild(note)
-        } else {
-            let clickable = document.createElement('a')
-            clickable.classList.add('noteHeaderLink')
-            clickable.textContent = 'Associated Link'
-            clickable.addEventListener('click', () => {
-                window.open(this.link)
-            })
-            // c.appendChild(document.createElement('br'))
-            c.appendChild(clickable)
-        }
+
         console.log(this.personalIndex)
         classesPane.innerHTML = ''
         classesPane.appendChild(c)
@@ -79,6 +65,13 @@ class Class {
         settingsHeader.textContent = 'Class Settings'
         settingsHeader.classList.add('classHeader')
         settingsMenu.appendChild(settingsHeader)
+
+        let settingsNote = document.createElement('span')
+        settingsNote.classList.add('classGeneric')
+        settingsMenu.appendChild(document.createElement('br'))
+        settingsNote.textContent = 'Scroll Down.'
+        settingsMenu.appendChild(settingsNote)
+
         settingsMenu.appendChild(document.createElement('hr'))
 
         let nameLabel = document.createElement('span')
@@ -105,16 +98,21 @@ class Class {
         let newBlock = readWrite[this.personalIndex].block
 
         let checkForChanges = function () {
+            if(document.getElementById('reloadButton') !== null) return
             let reloadButton = document.createElement('button')
             reloadButton.textContent = 'Reload for Changes'
 
             reloadButton.classList.add('reloadButton')
+            reloadButton.id = 'reloadButton'
 
             reloadButton.addEventListener('click', () => {
                 updateMenus()
             })
 
-            c.appendChild(reloadButton)
+            reloadButton.style.left = String(window.mousePosition[0]) + 'px'
+            reloadButton.style.top = String(window.mousePosition[1]) + 'px'
+
+            settingsMenu.appendChild(reloadButton)
 
             if (!t.textContent.includes('Reload for Changes!')) {
                 t.textContent += ' - Reload for Changes!'
@@ -141,7 +139,7 @@ class Class {
         let teacherInput = document.createElement('input')
         teacherInput.classList.add('contextInput')
         settingsMenu.appendChild(teacherInput)
-        teacherInput.placeholder = 'Change the name of the class'
+        teacherInput.placeholder = 'Change the teacher\'s name'
         teacherInput.value = this.teacher
         teacherInput.style.maxWidth = '50%'
 
