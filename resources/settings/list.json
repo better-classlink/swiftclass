@@ -1,0 +1,231 @@
+[
+    {
+        "header": "Class Control",
+        "name": "Number of Scheduled Blocks",
+        "type": "slider",
+        "description": "Sets the number of block types in a block schedule system. If you don't have a block schedule, keep this at 1.",
+        "minval": "1",
+        "maxval": "15",
+        "value": "1"
+    },
+    {
+        "name": "Dark Mode",
+        "value": "on",
+        "type": "bool",
+        "description": "Enables dark theme.",
+        "header": "Appearance",
+        "types": "",
+        "minval": null,
+        "maxval": null,
+        "selectors": []
+    },
+    {
+        "name": "Accent Color",
+        "value": "#3B82F6",
+        "type": "color",
+        "description": "Main UI accent color.",
+        "header": "Appearance",
+        "types": "",
+        "minval": null,
+        "maxval": null,
+        "selectors": []
+    },
+    {
+        "name": "UI Scale",
+        "value": 125,
+        "type": "slider",
+        "description": "Controls interface scaling percentage.",
+        "header": "Appearance",
+        "types": "",
+        "minval": 50,
+        "maxval": 200,
+        "selectors": []
+    },
+    {
+        "name": "Language",
+        "value": "English",
+        "type": "dropdown",
+        "description": "Application language.",
+        "header": "General",
+        "types": "",
+        "minval": null,
+        "maxval": null,
+        "selectors": ["English", "French", "Spanish", "German"]
+    },
+    {
+        "name": "Auto Save",
+        "value": "off",
+        "type": "bool",
+        "description": "Automatically saves changes.",
+        "header": "General",
+        "types": "",
+        "minval": null,
+        "maxval": null,
+        "selectors": []
+    },
+    {
+        "name": "Save Interval",
+        "value": 10,
+        "type": "slider",
+        "description": "Minutes between automatic saves.",
+        "header": "General",
+        "types": "",
+        "minval": 1,
+        "maxval": 60,
+        "selectors": []
+    },
+    {
+        "name": "Notification Color",
+        "value": "#FFAA00",
+        "type": "color",
+        "description": "Color used for notifications.",
+        "header": "Notifications",
+        "types": "",
+        "minval": null,
+        "maxval": null,
+        "selectors": []
+    },
+    {
+        "name": "Notification Volume",
+        "value": 75,
+        "type": "slider",
+        "description": "Notification sound volume.",
+        "header": "Notifications",
+        "types": "",
+        "minval": 0,
+        "maxval": 100,
+        "selectors": []
+    },
+    {
+        "name": "Notification Style",
+        "value": "Banner",
+        "type": "dropdown",
+        "description": "Display style for alerts.",
+        "header": "Notifications",
+        "types": "",
+        "minval": null,
+        "maxval": null,
+        "selectors": ["Banner", "Toast", "Modal"]
+    },
+    {
+        "name": "Enable Logging",
+        "value": "on",
+        "type": "bool",
+        "description": "Records application events.",
+        "header": "Advanced",
+        "types": "",
+        "minval": null,
+        "maxval": null,
+        "selectors": []
+    },
+    {
+        "name": "Log Level",
+        "value": "Info",
+        "type": "dropdown",
+        "description": "Amount of information written to logs.",
+        "header": "Advanced",
+        "types": "",
+        "minval": null,
+        "maxval": null,
+        "selectors": ["Debug", "Info", "Warning", "Error"]
+    },
+    {
+        "name": "Cache Size",
+        "value": 512,
+        "type": "slider",
+        "description": "Maximum cache size in MB.",
+        "header": "Advanced",
+        "types": "",
+        "minval": 64,
+        "maxval": 4096,
+        "selectors": []
+    },
+    {
+        "name": "Background Color",
+        "value": "#202020",
+        "type": "color",
+        "description": "Primary background color.",
+        "header": "Appearance",
+        "types": "",
+        "minval": null,
+        "maxval": null,
+        "selectors": []
+    },
+    {
+        "name": "Compact Mode",
+        "value": "off",
+        "type": "bool",
+        "description": "Reduces spacing in the interface.",
+        "header": "Appearance",
+        "types": "",
+        "minval": null,
+        "maxval": null,
+        "selectors": []
+    },
+    {
+        "name": "Theme",
+        "value": "System",
+        "type": "dropdown",
+        "description": "Preferred application theme.",
+        "header": "Appearance",
+        "types": "",
+        "minval": null,
+        "maxval": null,
+        "selectors": ["Light", "Dark", "System"]
+    },
+    {
+        "name": "Animation Speed",
+        "value": 150,
+        "type": "slider",
+        "description": "UI animation duration in milliseconds.",
+        "header": "Appearance",
+        "types": "",
+        "minval": 0,
+        "maxval": 1000,
+        "selectors": []
+    },
+    {
+        "name": "Error Color",
+        "value": "#FF4444",
+        "type": "color",
+        "description": "Color used for error messages.",
+        "header": "Appearance",
+        "types": "",
+        "minval": null,
+        "maxval": null,
+        "selectors": []
+    },
+    {
+        "name": "Telemetry",
+        "value": "on",
+        "type": "bool",
+        "description": "Sends anonymous usage statistics.",
+        "header": "Privacy",
+        "types": "",
+        "minval": null,
+        "maxval": null,
+        "selectors": []
+    },
+    {
+        "name": "Privacy Level",
+        "value": "Balanced",
+        "type": "dropdown",
+        "description": "Controls data collection behavior.",
+        "header": "Privacy",
+        "types": "",
+        "minval": null,
+        "maxval": null,
+        "selectors": ["Minimal", "Balanced", "Full"]
+    },
+    {
+        "name": "History Length",
+        "value": 100,
+        "type": "slider",
+        "description": "Maximum number of recent entries retained.",
+        "header": "Privacy",
+        "types": "",
+        "minval": 10,
+        "maxval": 1000,
+        "selectors": []
+    }
+]

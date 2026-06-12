@@ -2,7 +2,7 @@ window.currentMenu = 'SwiftClass'
 
 if(localStorage.getItem('swcFirstTime') == null) {
     localStorage.setItem('swcFirstTime', 'true')
-    let welcomeSlides = new InfoSlides("Resources/info/json/SwiftClass/slides.json")
+    let welcomeSlides = new InfoSlides("resources/info/json/SwiftClass/slides.json")
     welcomeSlides.render()
 }
 
@@ -30,9 +30,11 @@ function resetAllFooters(){
 
 async function closeMenu(event){
     try{
-
     if(document.getElementById('contextMenu') == null) return
-
+    if(document.querySelector('.contextMenuOpen').contains(event.target)) return
+        document.getElementById('contextMenu').classList.add('close')
+        await wait(300)
+        document.getElementById('contextMenu').remove()
     }catch(e){
         console.warn(e)
     }
@@ -212,7 +214,7 @@ async function updateMenus() {
 
                 if (newsJSON.image) {
                     let newsImage = document.createElement('img')
-                    newsImage.src = 'Resources/news/display.png'
+                    newsImage.src = 'resources/news/display.png'
                     newsImage.classList.add('newsImage')
                     newsImage.id = 'newsImage'
                     let line = document.createElement('div')
@@ -399,6 +401,7 @@ async function updateMenus() {
             // Final Button After Full Stack
 
             let addClassButton = document.createElement('div')
+            addClassButton.classList.add('contextMenuOpen')
             addClassButton.addEventListener('click', classButtonAdder)
 
             // Final Button After Full Stack
@@ -457,6 +460,7 @@ async function updateMenus() {
 
             let addTypeButton = document.createElement('div')
             addTypeButton.classList.add('linkButtonStacker')
+            addTypeButton.classList.add('contextMenuOpen')
             addTypeButton.textContent = 'Add new Type'
             leftPane.appendChild(addTypeButton)
             addTypeButton.addEventListener('click', (event) => {
@@ -470,17 +474,6 @@ async function updateMenus() {
     }
 
 
-    async function closeMenu(event) {
-        try {
-            if (!document.getElementById('contextMenu').contains(event.target)) {
-                document.getElementById('contextMenu').classList.add('small')
-                await wait(250)
-                document.getElementById('contextMenu').remove()
-            }
-        } catch (e) {
-            console.warn(e)
-        }
-    }
 
     window.denySettingMovement = true
 
@@ -511,7 +504,7 @@ async function updateMenus() {
     }
     if (!slidesOpenButton.classList.contains(('deny'))) {
         slidesOpenButton.addEventListener('click', () => {
-            let infoSlides = new InfoSlides("Resources/info/json/" + window.currentMenu + "/slides.json")
+            let infoSlides = new InfoSlides("resources/info/json/" + window.currentMenu + "/slides.json")
             infoSlides.render()
         })
     }
@@ -604,7 +597,7 @@ setInterval(() => {
 
 window.SwiftClassPage = document.getElementById('baseContent').innerHTML
 
-const baseContent = document.getElementById('baseContent')
+// const baseContent = document.getElementById('baseContent')
     const mainParent = baseContent.parentElement
     setInterval(() => {
     try{

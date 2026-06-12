@@ -39,7 +39,7 @@ class Setting {
 
                 let i = document.createElement('div')
 
-                i.dataset.imgSource = 'Resources/svg/setting/' + this.value + '.png'
+                i.dataset.imgSource = 'resources/svg/setting/' + this.value + '.png'
 
                 i.classList.add('boolImageContainer')
 
@@ -67,7 +67,7 @@ class Setting {
 
                     localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
 
-                    event.currentTarget.children[0].src = 'Resources/svg/setting/' + this.value + '.png'
+                    event.currentTarget.children[0].src = 'resources/svg/setting/' + this.value + '.png'
                 });
 
                 let d = document.createElement('span')

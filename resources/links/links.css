@@ -4,10 +4,6 @@
     place-items: center;
 }
 
-h1 {
-    all: unset;
-}
-
 .linksPane {
     border-radius: 5px;
     height: 90%;

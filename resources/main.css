@@ -10,18 +10,28 @@
 
 * {
     font-family: Geist, sans-serif;
+    font-weight: 500;
     box-sizing: border-box;
 }
 
-@font-face {
-    font-family: Geist;
-    src: url(geist.ttf);
+h1 {
+    all: unset;
+}
+
+strong {
+    font-weight: 500;
 }
 
 body {
     margin: 0;
     overflow: hidden;
     height: 100vh;
+    user-select: none;
+    --webkit-user-select: none;
+}
+
+div {
+    user-select: none;
 }
 
 .content {
@@ -95,14 +105,14 @@ body {
 }
 
 .topHeader {
-    font-weight: 200;
+    font-weight: 450;
     color: white;
     font-size: clamp(20px, 41px, 46px);
     margin: 0;
 }
 
 .timeTicker {
-    font-weight: 200;
+    font-weight: 500;
     color: white;
     font-size: clamp(19px, 3vmin, 34px);
     margin: 0;
@@ -125,7 +135,7 @@ body {
 .newsHeader {
     font-size: clamp(22px, 5vmin, 44px);
     margin: 0;
-    font-weight: 300;
+    font-weight: 450;
 }
 
 .newsImage {

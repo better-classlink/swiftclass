@@ -86,4 +86,5 @@ svg.menu > g.center > text,
 svg.menu > g.center > use {
     cursor: pointer;
     fill: white;
+    text-shadow: 1px 1px 0 #000000A0;
 }

@@ -44,7 +44,7 @@ class InfoSlides{
         if(this.slides[this.slideNumber].image !== undefined){
             image.src = this.slides[this.slideNumber].image
         }else{
-            image.src = 'Resources/info/images/default.png'
+            image.src = 'resources/info/images/default.png'
         }
         image.classList.add('slidesImage')
         if(this.slides[this.slideNumber].image === undefined){
@@ -110,7 +110,7 @@ class InfoSlides{
             image.src = this.slides[this.slideNumber].image
         }
         else{
-            image.src = 'Resources/info/images/default.png'
+            image.src = 'resources/info/images/default.png'
         }
 
         if(this.slides[this.slideNumber].image === undefined){
