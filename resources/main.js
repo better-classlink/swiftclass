@@ -1,17 +1,54 @@
 window.currentMenu = 'SwiftClass'
 
+function randint(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+async function quickWrap() {
+    let settingsList = await fetch('Resources/settings/list.json')
+    let settingsJSON = await settingsList.json()
+    let allHeaders = []
+
+    let headerContainer = document.createElement('div')
+    headerContainer.id = 'settingsHeaderContainer'
+    headerContainer.classList.add('settingsHeaderContainer')
+    document.getElementById('baseContent').appendChild(headerContainer)
+
+    for (let setting of settingsJSON) {
+        if (typeof setting.header != 'undefined' && !allHeaders.includes(setting.header)) {
+            allHeaders.push(setting.header)
+        }
+    }
+
+    let settingsLoad = localStorage.getItem('swcsettings')
+
+    settingsLoad = JSON.parse(settingsLoad)
+    // console.log('Loaded settings: ')
+    // console.log(settingsLoad)
+
+    console.log(settingsJSON)
+
+    settingsJSON.forEach((element) => {
+        // console.log(element)
+        if (!settingsLoad.includes(element.name)) {
+            settingsLoad.push(element.name)
+            settingsLoad.push(element.value)
+            localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
+        }
+    })
+}
+
+quickWrap()
+
+const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 if(localStorage.getItem('swcFirstTime') == null) {
     localStorage.setItem('swcFirstTime', 'true')
     let welcomeSlides = new InfoSlides("resources/info/json/SwiftClass/slides.json")
     welcomeSlides.render()
 }
 
-document.addEventListener('click', closeMenu)
-document.addEventListener('keydown', closeMenuOnEsc)
-
 window.denySettingMovement = false
-
-const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 if(localStorage.getItem('swcsettings') == null) localStorage.setItem('swcsettings',
     '[]'
@@ -29,15 +66,9 @@ function resetAllFooters(){
 }
 
 async function closeMenu(event){
-    try{
-    if(document.getElementById('contextMenu') == null) return
-    if(document.querySelector('.contextMenuOpen').contains(event.target)) return
-        document.getElementById('contextMenu').classList.add('close')
+        document.getElementById('contextMenu').classList.add('small')
         await wait(300)
         document.getElementById('contextMenu').remove()
-    }catch(e){
-        console.warn(e)
-    }
 }
 
 async function closeMenuOnEsc(event){
@@ -46,6 +77,19 @@ async function closeMenuOnEsc(event){
     }
 }
 
+async function closeMenuOnMouse(event){
+    let contextMenu = document.getElementById('contextMenu')
+    let openers = document.querySelectorAll('.contextMenuOpen')
+
+    if(contextMenu == null) return
+    if(contextMenu.contains(event.target)) return
+
+    if(event.target.classList.contains('contextMenuOpen')){
+        return
+    }
+
+    closeMenu(event)
+}
 
 const menu = new RadialMenu({
     parent: document.getElementById('container'),
@@ -159,6 +203,31 @@ window.addEventListener('keydown', function(e) {
 });
 
 async function updateMenus() {
+    let visitedMenus = JSON.parse(localStorage.getItem('visitedMenus'))
+
+    if(visitedMenus == null){
+        visitedMenus = []
+        localStorage.setItem('visitedMenus', JSON.stringify(visitedMenus))
+    }
+
+    if(!visitedMenus.includes(window.currentMenu)){
+        if(!window.currentMenu.includes('-')) {
+            visitedMenus.push(window.currentMenu)
+            localStorage.setItem('visitedMenus', JSON.stringify(visitedMenus))
+            console.log("New menu visited: " + window.currentMenu)
+            // play info slides
+        }else{
+            if(!window.currentMenu.includes('Settings')){
+                visitedMenus.push('Settings')
+                localStorage.setItem('visitedMenus', JSON.stringify(visitedMenus))
+                console.log("New menu visited: Settings")
+            }
+        }
+    }
+
+    if(document.querySelector('.openSlidesButton') != null){
+        document.querySelector('.openSlidesButton').remove()
+    }
 
     if(document.getElementById('reloadButton') !== null){
         document.getElementById('reloadButton').remove()
@@ -322,7 +391,7 @@ async function updateMenus() {
                             if (event.currentTarget.classList.contains('deny')) return
                             infoSlides.render()
                         })
-                        document.getElementById('baseContent').appendChild(slidesOpenButton)
+                        document.getElementById('main').appendChild(slidesOpenButton)
 
                         let valueType = null
 
@@ -350,71 +419,8 @@ async function updateMenus() {
             )
             break;
         case 'Classes':
-            baseContent.classList.add('forceClassesGrid')
-
-            let classesList = localStorage.getItem('swcClasses')
-
-            if (classesList == null) {
-                localStorage.setItem('swcClasses', '[{"name":"Example Class","teacher":"SwiftClass Developers","link":"","block":"1"}]')
-            }
-
-            classesList = localStorage.getItem('swcClasses')
-            classesList = JSON.parse(classesList)
-
-            let classesStack = document.createElement('div')
-            classesStack.classList.add('classesStack')
-            baseContent.appendChild(classesStack)
-
-            let classesTitle = document.createElement('span')
-            classesTitle.textContent = "Your Classes"
-            classesTitle.classList.add('classesTitle')
-
-            classesStack.appendChild(classesTitle)
-
-            classesStack.appendChild(document.createElement('hr'))
-
-            classesList.forEach((classObject, index) => {
-                let savedObj = classObject
-                let selectionButton = document.createElement('div')
-                selectionButton.textContent = classObject.name
-                selectionButton.classList.add('buttonStacker')
-                selectionButton.addEventListener('click', (event) => {
-                    if (savedObj.block == '') {
-                        savedObj.block = '1'
-                    }
-                    console.log(savedObj.link)
-                    let visualClass = new Class(savedObj.name, savedObj.teacher, savedObj.block, savedObj.link, index)
-                    visualClass.render()
-                })
-                classesStack.appendChild(selectionButton)
-
-                if(savedObj.link != ''){
-                    let linkButton = document.createElement('div')
-                    linkButton.classList.add('buttonStacker')
-                    linkButton.classList.add('smallButton')
-                    linkButton.textContent = 'Link'
-                    classesStack.appendChild(linkButton)
-                }
-                // classesStack.appendChild(document.createElement('br'))
-            })
-
-            // Final Button After Full Stack
-
-            let addClassButton = document.createElement('div')
-            addClassButton.classList.add('contextMenuOpen')
-            addClassButton.addEventListener('click', classButtonAdder)
-
-            // Final Button After Full Stack
-
-            addClassButton.classList.add('addButtonStacker')
-            addClassButton.id = 'addClassButton'
-            addClassButton.textContent = 'Add Class'
-            classesStack.appendChild(addClassButton)
-
-            let classesPane = document.createElement('div')
-            classesPane.classList.add('classesPane')
-            baseContent.appendChild(classesPane)
-            classesPane.textContent = 'Click a class on the left to view it. Click the "Add Class" button to add a new class!'
+            classGen()
+            // i put everything in the one js file. >:D
             break;
         case 'Links':
             if (localStorage.getItem('swclinks') == null) {
@@ -466,7 +472,6 @@ async function updateMenus() {
             addTypeButton.addEventListener('click', (event) => {
                 linkButtonAdder(event, 'Type')
             })
-
             break;
         default:
             document.getElementById('baseContent').innerHTML = `<h1>${window.currentMenu}</h1><p>Content for ${window.currentMenu} will be added soon!</p>`
@@ -508,7 +513,14 @@ async function updateMenus() {
             infoSlides.render()
         })
     }
-    document.getElementById('baseContent').appendChild(slidesOpenButton)
+    document.getElementById('main').appendChild(slidesOpenButton)
+
+    // annoying webkit thing
+
+    await wait(5)
+    slidesOpenButton.style.transform = 'scale(0.7)'
+    await wait(5)
+    slidesOpenButton.style.transform = 'none'
 }
 
 window.addEventListener('contextmenu', (event) => {
@@ -526,7 +538,7 @@ window.addEventListener('contextmenu', (event) => {
 let buttons = document.querySelectorAll(".footerButton")
 
 setInterval(() => {
-    console.log(window.denySettingMovement)
+    // console.log(window.denySettingMovement)
 }, 100);
 
 async function typeMenuName(){
@@ -547,7 +559,7 @@ buttons.forEach((element) => {
     element.addEventListener('click', (event) => {
         if(event.currentTarget.classList.contains('deny')) return
          let selfName = event.currentTarget.textContent.trim()
-         if(selfName == 'Home') 
+         if(selfName == 'Home')
          {
             window.currentMenu = 'SwiftClass'
             if(!window.denySettingMovement){
@@ -610,179 +622,6 @@ window.SwiftClassPage = document.getElementById('baseContent').innerHTML
     }
     }, 5);
 
-async function classButtonAdder(event) {
-    if (document.getElementById('contextMenu') != null) document.getElementById('contextMenu').remove()
-    let contextMenu = document.createElement('div')
-    contextMenu.classList.add('contextMenu')
-    contextMenu.classList.add('small')
-    contextMenu.id = 'contextMenu'
-    document.body.appendChild(contextMenu)
-    contextMenu.style.left = String(window.innerWidth / 2 - (contextMenu.clientWidth / 2)) + 'px'
-    contextMenu.style.top = String(window.innerHeight / 2 - (contextMenu.clientHeight / 2)) + 'px'
-    contextMenu.classList.remove('small')
-
-    let shortTitle = document.createElement('span')
-    shortTitle.textContent = 'Class Creator'
-    shortTitle.classList.add('contextTitle')
-    contextMenu.appendChild(shortTitle)
-
-    contextMenu.appendChild(document.createElement('hr'))
-
-    let classNameInput = document.createElement('input')
-    classNameInput.type = 'text'
-    classNameInput.id = 'classNameInput'
-    classNameInput.placeholder = 'Type in the name of your class...'
-    classNameInput.classList.add('contextInput')
-    contextMenu.appendChild(classNameInput)
-
-    contextMenu.appendChild(document.createElement('hr'))
-
-    let classTeacherInput = document.createElement('input')
-    classTeacherInput.type = 'text'
-    classTeacherInput.id = 'classTeacherInput'
-    classTeacherInput.placeholder = 'Type in the name of your teacher...'
-    classTeacherInput.classList.add('contextInput')
-    contextMenu.appendChild(classTeacherInput)
-
-    contextMenu.appendChild(document.createElement('hr'))
-
-    let classLinkInput = document.createElement('input')
-    classLinkInput.type = 'text'
-    classLinkInput.id = 'classLinkInput'
-    classLinkInput.placeholder = 'Type a link with the class (optional, but recommended)...'
-    classLinkInput.classList.add('contextInput')
-    contextMenu.appendChild(classLinkInput)
-
-    contextMenu.appendChild(document.createElement('hr'))
-
-    let submitButton = document.createElement('div')
-    submitButton.classList.add('contextButton')
-    submitButton.textContent = 'Submit and Reload'
-    contextMenu.appendChild(submitButton)
-
-    submitButton.addEventListener('click', async (event) => {
-        let className = document.getElementById('classNameInput').value
-        let classTeacher = document.getElementById('classTeacherInput').value
-        let classLink = document.getElementById('classLinkInput').value
-        if (className.length == 0 || classTeacher.length == 0) {
-            alert('Please fill in at least the class name and teacher fields!')
-            return
-        }
-        if (classLink.length > 0 && !classLink.startsWith('http')) {
-            alert('Please enter a valid link that starts with http!')
-            return
-        }
-        if (classLink.length == 0) {
-            classLink = ''
-        }
-
-        let newClass = {
-            name: className,
-            teacher: classTeacher,
-            link: classLink,
-            block: "1"
-        }
-
-        let classesList = localStorage.getItem('swcClasses')
-        if (classesList == '') classesList = '[]'
-        classesList = JSON.parse(classesList)
-        classesList.push(newClass)
-        localStorage.setItem('swcClasses', JSON.stringify(classesList))
-        document.getElementById('contextMenu').classList.add('small')
-        await wait(100)
-        document.getElementById('contextMenu').remove()
-        updateMenus()
-    })
-}
-
-async function linkButtonAdder(event, type) {
-    if (document.getElementById('contextMenu') != null) document.getElementById('contextMenu').remove()
-    let contextMenu = document.createElement('div')
-    contextMenu.classList.add('contextMenu')
-    contextMenu.classList.add('small')
-    contextMenu.id = 'contextMenu'
-    document.body.appendChild(contextMenu)
-    contextMenu.style.left = String(window.innerWidth / 2 - (contextMenu.clientWidth / 2)) + 'px'
-    contextMenu.style.top = String(window.innerHeight / 2 - (contextMenu.clientHeight / 2)) + 'px'
-    contextMenu.classList.remove('small')
-
-    let shortTitle = document.createElement('span')
-    shortTitle.textContent = type + ' Creator'
-    shortTitle.classList.add('contextTitle')
-    contextMenu.appendChild(shortTitle)
-
-    contextMenu.appendChild(document.createElement('hr'))
-
-    let linkNameInput = document.createElement('input')
-    linkNameInput.type = 'text'
-    linkNameInput.id = 'linkNameInput'
-    linkNameInput.placeholder = 'Type in the name of your ' + type
-    linkNameInput.classList.add('contextInput')
-    contextMenu.appendChild(linkNameInput)
-
-    contextMenu.appendChild(document.createElement('hr'))
-    if(type == 'link') {
-        let linkTeacherInput = document.createElement('input')
-        linkTeacherInput.type = 'text'
-        linkTeacherInput.id = 'linkTypeInput'
-        linkTeacherInput.placeholder = 'Type in the type of your ' + type
-        linkTeacherInput.classList.add('contextInput')
-        contextMenu.appendChild(linkTeacherInput)
-
-        contextMenu.appendChild(document.createElement('hr'))
-        let linkLinkInput = document.createElement('input')
-        linkLinkInput.type = 'text'
-        linkLinkInput.id = 'linkLinkInput'
-        linkLinkInput.placeholder = 'Type in the actual link...'
-        linkLinkInput.classList.add('contextInput')
-        contextMenu.appendChild(linkLinkInput)
-    }
-
-    if(type == 'link'){
-    contextMenu.appendChild(document.createElement('hr'))
-        }
-
-    let submitButton = document.createElement('div')
-    submitButton.classList.add('contextButton')
-    submitButton.textContent = 'Submit and Reload'
-    contextMenu.appendChild(submitButton)
-
-
-    submitButton.addEventListener('click', async (event) => {
-        let linkName = document.getElementById('linkNameInput').value
-        let linkType = document.getElementById('linkTypeInput').value
-        let linkLink = document.getElementById('linkLinkInput').value
-        if (linkName.length == 0 || linkType.length == 0 || linkLink.length == 0) {
-            alert('Please fill in all fields!')
-            return
-        }
-        if (linkLink.length > 0 && !linkLink.startsWith('http')) {
-            alert('Please enter a valid link that starts with http!')
-            return
-        }
-        if (linkLink.length == 0) {
-            linkLink = ''
-        }
-
-        let newlink = {
-            name: linkName,
-            type: linkType,
-            link: linkLink,
-        }
-        document.addEventListener('click', closeMenu)
-        document.addEventListener('keydown', closeMenuOnEsc)
-
-        let linksList = localStorage.getItem('swclinks')
-        if (linksList == '') linksList = '[]'
-        linksList = JSON.parse(linksList)
-        linksList.push(newlink)
-        localStorage.setItem('swclinks', JSON.stringify(linksList))
-        document.getElementById('contextMenu').classList.add('small')
-        await wait(100)
-        document.getElementById('contextMenu').remove()
-        updateMenus()
-    })
-}
 
 let lastURL = location.href
 

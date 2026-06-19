@@ -1,232 +1,137 @@
-function getSetting(list, itemName){
-    return (list[list.indexOf(itemName) + 1])
-}
-
-function br(){
-    return document.createElement('br')
-}
-
-class Class {
-    constructor(name, teacher, block, link, personalIndex) {
-        this.name = name
-        this.teacher = teacher
-        this.block = block
-        this.link = link
-        this.personalIndex = personalIndex
+function classGen(){
+    if(localStorage.getItem('swcClasses') == null){
+        localStorage.setItem('swcClasses', JSON.stringify([
+            {
+                "name": "Example Class",
+                "teacher": "SwiftClass Developers",
+                "color": "#FFFFFF",
+                "link": "https://swiftclass.app",
+                "block": "1"
+            }
+        ]))
     }
 
-    render() {
-        let allTheSettings = JSON.parse(localStorage.getItem('swcsettings'))
-        let c = document.createElement('div')
-        c.classList.add('classInteract')
-        c.id = this.name
-        let t = document.createElement('span')
+    let classes = JSON.parse(localStorage.getItem('swcClasses'))
 
-        t.classList.add('classHeader')
-        t.textContent = this.name
+    let classPanes = []
 
-        let i = document.createElement('span')
-        i.classList.add('classTeacher')
+    classes.forEach( (c, index) => {
+        let pane = document.createElement('div')
+        pane.classList.add('classPane')
+        classPanes.push(pane)
 
-        i.textContent = 'Taught by ' + this.teacher + "."
-        let sector = document.createElement('section')
-        c.appendChild(sector)
-        sector.appendChild(t)
-        sector.appendChild(document.createElement('br'))
-        sector.appendChild(i)
-        c.appendChild(document.createElement('hr'))
-        let classesPane = document.querySelectorAll('.classesPane')[0]
+        pane.style.maxHeight = String(32) + '%'
+        pane.style.maxWidth = String(35) + '%'
 
-        // console.log(allTheSettings)
+        pane.style.backgroundColor = c.color + "5A"
 
-        let numBlocks = getSetting(allTheSettings, 'Number of Scheduled Blocks')
-        if (numBlocks != '1') {
-            let blockType = document.createElement('span')
-            blockType.classList.add('classGeneric')
-            blockType.textContent = "This class is associated with Block " + this.block + '.'
-            c.appendChild(blockType)
-            c.appendChild(document.createElement('br'))
-        }
+        let classHeader = document.createElement('h1')
+        classHeader.classList.add('classHeader')
+        classHeader.textContent = c.name
+        pane.appendChild(classHeader)
 
-        let breaker = document.createElement('br')
-        // breaker.style.height = '1.5vmin'
-        // c.appendChild(breaker)
+        pane.appendChild(document.createElement('br'))
 
+        let teacher = document.createElement('h2')
+        teacher.classList.add('classSubHeader')
+        teacher.textContent = "Taught by " + c.teacher
+        pane.appendChild(teacher)
 
-        console.log(this.personalIndex)
-        classesPane.innerHTML = ''
-        classesPane.appendChild(c)
+        let hr = document.createElement('hr')
+        hr.classList.add('breakerBar')
+        pane.appendChild(hr)
 
-        let settingsMenu = document.createElement('div')
-        settingsMenu.classList.add('classSettings')
-        classesPane.appendChild(settingsMenu)
-
-        let settingsHeader = document.createElement('span')
-        settingsHeader.textContent = 'Class Settings'
-        settingsHeader.classList.add('classHeader')
-        settingsMenu.appendChild(settingsHeader)
-
-        let settingsNote = document.createElement('span')
-        settingsNote.classList.add('classGeneric')
-        settingsMenu.appendChild(document.createElement('br'))
-        settingsNote.textContent = 'Scroll Down.'
-        settingsMenu.appendChild(settingsNote)
-
-        settingsMenu.appendChild(document.createElement('hr'))
-
-        let nameLabel = document.createElement('span')
-        nameLabel.classList.add('contextTitle')
-        nameLabel.textContent = 'Change class name:'
-        nameLabel.style.backgroundColor = 'transparent'
-        nameLabel.style.color = 'black'
-        settingsMenu.appendChild(nameLabel)
-        settingsMenu.appendChild(br())
+        let classLink = document.createElement('div')
+        classLink.classList.add('classButton')
+        classLink.textContent = 'Jump to Link'
+        classLink.addEventListener('click', (event) => {
+            window.open(c.link)
+        })
+        pane.appendChild(classLink)
 
 
-        let nameInput = document.createElement('input')
-        nameInput.classList.add('contextInput')
-        settingsMenu.appendChild(nameInput)
-        nameInput.placeholder = 'Change the name of the class'
-        nameInput.value = this.name
-        nameInput.style.maxWidth = '50%'
+        let classSettings = document.createElement('div')
+        classSettings.classList.add('classButton')
+        classSettings.classList.add('contextMenuOpen')
+        classSettings.textContent = 'Settings'
+        classSettings.addEventListener('click', (event) => {
+            let grabbedSettings = getResultsFromContextMenu([
+                    'name',
+                    'teacher',
+                    'link',
+                    'color',
+                    'block'
+                ],
+                'Class Settings',
+                [
+                    c.name,
+                    c.teacher,
+                    c.link,
+                    c.color,
+                    c.block
+                ])
 
-        let readWrite = JSON.parse(localStorage.getItem('swcClasses'))
-
-        let newName = readWrite[this.personalIndex].name
-        let newTeacher = readWrite[this.personalIndex].teacher
-        let newLink = readWrite[this.personalIndex].link
-        let newBlock = readWrite[this.personalIndex].block
-
-        let checkForChanges = function () {
-            if(document.getElementById('reloadButton') !== null) return
-            let reloadButton = document.createElement('button')
-            reloadButton.textContent = 'Reload for Changes'
-
-            reloadButton.classList.add('reloadButton')
-            reloadButton.id = 'reloadButton'
-
-            reloadButton.addEventListener('click', () => {
+            grabbedSettings.then( (settings) => {
+                let jsonRead = localStorage.getItem('swcClasses')
+                jsonRead = JSON.parse(jsonRead)
+                jsonRead[index].name = settings[0]
+                jsonRead[index].teacher = settings[1]
+                jsonRead[index].link = settings[2]
+                jsonRead[index].color = settings[3]
+                localStorage.setItem('swcClasses', JSON.stringify(jsonRead))
                 updateMenus()
             })
+        })
+        pane.appendChild(classSettings)
 
-            reloadButton.style.left = String(window.mousePosition[0]) + 'px'
-            reloadButton.style.top = String(window.mousePosition[1]) + 'px'
-
-            settingsMenu.appendChild(reloadButton)
-
-            if (!t.textContent.includes('Reload for Changes!')) {
-                t.textContent += ' - Reload for Changes!'
-                t.style.color = 'rgb(232, 98, 98)'
+        let classDelete = document.createElement('div')
+        classDelete.classList.add('classButton')
+        classDelete.textContent = 'Delete'
+        classDelete.addEventListener('click', (event) => {
+            let confirmDelete = confirm("Are you sure you want to delete this class?")
+            if(confirmDelete){
+                let jsonRead = localStorage.getItem('swcClasses')
+                jsonRead = JSON.parse(jsonRead)
+                jsonRead.splice(index, 1)
+                localStorage.setItem('swcClasses', JSON.stringify(jsonRead))
             }
-        }
-
-        nameInput.addEventListener('input', (event) => {
-            readWrite[this.personalIndex].name = event.currentTarget.value
-            localStorage.setItem('swcClasses', JSON.stringify(readWrite))
-            checkForChanges()
-        })
-
-        settingsMenu.appendChild(document.createElement('hr'))
-
-        let teacherLabel = document.createElement('span')
-        teacherLabel.classList.add('contextTitle')
-        teacherLabel.textContent = 'Change teacher name:'
-        teacherLabel.style.backgroundColor = 'transparent'
-        teacherLabel.style.color = 'black'
-        settingsMenu.appendChild(teacherLabel)
-        settingsMenu.appendChild(br())
-
-        let teacherInput = document.createElement('input')
-        teacherInput.classList.add('contextInput')
-        settingsMenu.appendChild(teacherInput)
-        teacherInput.placeholder = 'Change the teacher\'s name'
-        teacherInput.value = this.teacher
-        teacherInput.style.maxWidth = '50%'
-
-        teacherInput.addEventListener('input', (event) => {
-            readWrite[this.personalIndex].teacher = event.currentTarget.value
-            localStorage.setItem('swcClasses', JSON.stringify(readWrite))
-            checkForChanges()
-        })
-
-        settingsMenu.appendChild(document.createElement('hr'))
-
-        let linkLabel = document.createElement('span')
-        linkLabel.classList.add('contextTitle')
-        linkLabel.textContent = 'Change associated link:'
-        linkLabel.style.backgroundColor = 'transparent'
-        linkLabel.style.color = 'black'
-        settingsMenu.appendChild(linkLabel)
-        settingsMenu.appendChild(br())
-
-        let linkInput = document.createElement('input')
-        linkInput.classList.add('contextInput')
-        settingsMenu.appendChild(linkInput)
-        linkInput.placeholder = 'Change the link of the class'
-        linkInput.value = this.link
-        linkInput.style.maxWidth = '50%'
-
-        linkInput.addEventListener('input', (event) => {
-            readWrite[this.personalIndex].link = event.currentTarget.value
-            localStorage.setItem('swcClasses', JSON.stringify(readWrite))
-            checkForChanges()
-        })
-
-        settingsMenu.appendChild(document.createElement('hr'))
-
-        let numBlocksInt = parseInt(numBlocks)
-
-
-        if(numBlocksInt != 1){
-        let blockLabel = document.createElement('span')
-        blockLabel.classList.add('contextTitle')
-        blockLabel.textContent = 'Change scheduled block:'
-        blockLabel.style.backgroundColor = 'transparent'
-        blockLabel.style.color = 'black'
-        settingsMenu.appendChild(blockLabel)
-        settingsMenu.appendChild(br())
-
-        let blockInput = document.createElement('select')
-        blockInput.classList.add('contextInput')
-        blockInput.style.maxWidth = '50%'
-        blockInput.style.marginTop = '1%'
-        settingsMenu.appendChild(blockInput)
-
-        for (let i = 1; i <= numBlocksInt; i++) {
-            let option = document.createElement('option')
-            option.value = i
-            option.textContent = 'Block ' + i
-            blockInput.appendChild(option)
-        }
-        blockInput.value = this.block
-
-        blockInput.addEventListener('change', (event) => {
-            readWrite[this.personalIndex].block = event.currentTarget.value
-            localStorage.setItem('swcClasses', JSON.stringify(readWrite))
-            checkForChanges()
-        })
-
-        // setting storage
-
-        settingsMenu.appendChild(document.createElement('hr'))
-    }
-        let deleteClassButton = document.createElement('button')
-        deleteClassButton.textContent = 'Delete Class'
-        deleteClassButton.classList.add('contextButtonTweak')
-        // deleteClassButton.style.marginLeft = '1%'
-        deleteClassButton.style.backgroundColor = 'rgb(200, 75, 75)'
-        deleteClassButton.addEventListener('click', (event) => {
-            if(!confirm('Are you sure you want to delete this class? This action cannot be undone.')){
-                return
-            }
-            let readWrite = JSON.parse(localStorage.getItem('swcClasses'))
-            readWrite.splice(this.personalIndex, 1)
-            localStorage.setItem('swcClasses', JSON.stringify(readWrite))
             updateMenus()
         })
+        pane.appendChild(document.createElement('br'))
+        pane.appendChild(classDelete)
+    })
 
-        settingsMenu.appendChild(deleteClassButton)
-    }
+    classPanes.forEach( (pane, index) => {
+        document.getElementById('baseContent').appendChild(pane)
+    })
+
+    let addNewClassButton = document.createElement('div')
+    addNewClassButton.classList.add('classPane')
+    addNewClassButton.classList.add('addClass')
+    addNewClassButton.textContent = 'Add new Class'
+    addNewClassButton.addEventListener('click', (event) => {
+        let newClass = getResultsFromContextMenu([
+                'name',
+                'teacher',
+                'link',
+                'color'
+            ],
+            'Class Creator',
+            ['', '', '', '#FFFFFF'], '1')
+        newClass.then( (newClass) => {
+            let jsonRead = localStorage.getItem('swcClasses')
+            jsonRead = JSON.parse(jsonRead)
+            jsonRead.push({
+                "name": newClass[0],
+                "teacher": newClass[1],
+                "link": newClass[2],
+                "color": newClass[3]
+            })
+            localStorage.setItem('swcClasses', JSON.stringify(jsonRead))
+            updateMenus()
+        })
+    })
+
+    document.getElementById('baseContent').appendChild(document.createElement('br'))
+    document.getElementById('baseContent').appendChild(addNewClassButton)
 }
-
-window.Class = Class

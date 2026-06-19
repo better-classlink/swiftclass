@@ -190,6 +190,8 @@ div {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
+    width: 100%;
 }
 
 .footer {
@@ -225,7 +227,7 @@ div {
 }
 
 .footerButtonText {
-    font-size: clamp(11px, 3vmin, 18px);
+    font-size: clamp(1px, 2cqi, 18px);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

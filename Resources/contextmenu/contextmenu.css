@@ -1,0 +1,131 @@
+.contextButtonTweak {
+    background-color: rgb(123 181 246 / 0.96);
+    border-radius: 3px;
+    padding: 1%;
+    font-size: clamp(8px, 2.5vmin, 24px);
+    width: fit-content;
+    min-width: 10%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: fit-content;
+    cursor: pointer;
+    text-align: center;
+    align-content: center;
+    user-select: none;
+    transition: 0.25s ease;
+    border: none;
+}
+
+.contextButtonTweak:hover {
+    background-color: rgb(59, 84, 113);
+    text-decoration: underline; !important;
+    color: white; !important;
+    transform: scale(1.02);
+}
+
+.contextInput {
+    width: 90%;
+    padding: 1%;
+    margin: 1% 0;
+    border-radius: 5px;
+    border-style: none;
+    font-size: clamp(10px, 2.3vmin, 24px);
+}
+
+.contextInput::placeholder {
+    font-size: clamp(4px, 2vmin, 24px);
+}
+
+.contextMenu {
+    position: absolute;
+    background-color: rgb(83 109 165 / 0.76);
+    border: 2px solid rgb(123 181 246 / 0.96);
+    border-radius: 5px;
+    padding: 1%;
+    width: fit-content;
+    min-width: 45%;
+    max-width: 65vw;
+    height: fit-content;
+    min-height: 25%;
+    transition: 0.25s ease;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.contextMenu.small {
+    transform: scale(0.95);
+    opacity: 0;
+}
+
+.contextMenu.large {
+    transform: scale(1.2);
+}
+
+.contextButton {
+    background-color: rgb(123 181 246 / 0.96);
+    border: 2px solid rgb(123 181 246 / 0.96);
+    border-radius: 3px;
+    padding: 1%;
+    font-size: clamp(15px, 2.5vmin, 24px);
+    width: fit-content;
+    min-width: 10%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: fit-content;
+    cursor: pointer;
+    text-align: center;
+    align-content: center;
+    user-select: none;
+    transition: 0.25s ease;
+    transform-origin: left;
+}
+
+.contextButton:hover {
+    background-color: rgb(59, 84, 113);
+    border-color: rgb(59, 84, 113);
+    text-decoration: underline;
+    color: white;
+    transform: scale(1.1);
+}
+
+
+.contextTitle {
+    font-size: clamp(18px, 2.5vmin, 44px);
+    text-overflow: ellipsis;
+    color: white;
+    font-weight: 500;
+    user-select: none;
+    margin-bottom: 1%;
+    text-align: center;
+    /*background-color: rgba(96, 101, 237, 0.195);*/
+    border-radius: 2px;
+}
+
+.contextColorInput {
+    width: 40%; !important;
+    padding: 0px; !important;
+    border: 3px solid #a9a9a9;
+    cursor: pointer;
+}
+
+.contextTip {
+    font-size: clamp(13px, 2.2vmin, 35px);
+    text-overflow: ellipsis;
+    color: #ececec;
+    margin-left: 0.5%;
+    font-weight: 500;
+    user-select: none;
+    margin-bottom: 1%;
+    text-align: center;
+    /*background-color: rgba(96, 101, 237, 0.195);*/
+    border-radius: 2px;
+}
+
+.contextColorSector {
+    background-color: #ffffff;
+    width: 90%;
+    height: fit-content;
+    padding: 1%;
+    border-radius: 5px;
+    /*border: 5px solid #a9a9a9;*/
+}

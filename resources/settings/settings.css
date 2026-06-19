@@ -50,7 +50,7 @@
     padding-top: 0.5%;
     padding-bottom: 0.5%;
     height: fit-content;
-    background-color: #e2e5e8;
+    background-color: rgba(121, 141, 255, 0.2);
     margin-bottom: 2%;
     border-radius: 5px;
     overflow-x: auto;
@@ -59,7 +59,7 @@
 
 
 .settingsHeader {
-    background-color: rgb(43, 63, 76);
+    background-color: #5e6cd3;
     height: 80%;
     width: fit-content;
     padding: 1%;
