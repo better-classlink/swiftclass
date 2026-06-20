@@ -1,11 +1,7 @@
 :root {
-    --radialMenuBg: #f2f5ffe7;
-    --radialMenuSelector: #F2F5FF99;
-    --radialMenuText: #002e51d9;
-    --radialMenuCircleBase: #98969b80;
-    --radialMenuCircleHover: #1e356fd0;
-    --radialMenuItemBase: #05B4FF90;
-    --radialMenuItemHover: #05B4FFAA;
+    --c1:   0,   0,   0;
+    --c2:  125,  125,  125;
+    --c3:  244,  244,  244;
 }
 
 * {
@@ -38,8 +34,11 @@ div {
     width: 100vw;
     height: 100vh;
     display: grid;
-    background: linear-gradient(207deg, rgb(219, 168, 255) 0%, rgb(183, 196, 255) 100%);
+    /*background: linear-gradient(207deg, rgb(219, 168, 255) 0%, rgb(183, 196, 255) 100%);*/
     grid-template-rows: 0.1fr 1fr 0.1fr;
+    background-image: url("https://libraryofruina.wiki.gg/images/Xiao_Floor.png");
+    background-size: cover;
+    background-position: center;
     grid-template-columns: auto;
     box-sizing: border-box;
     overflow: hidden;
@@ -48,14 +47,13 @@ div {
 .background {
     /*background-color: rgb(189, 189, 189);*/
     z-index: 0;
-    border-top: 5px lightblue;
     min-height: 0;
 }
 
 .headerContainer {
     text-align: center;
-    background-color: rgba(79, 110, 188, 0.33);
-    border-bottom: 3px solid white;
+    background-color: rgba(var(--c1), 0.33);
+    border-bottom: 3px solid rgb(var(--c3));
     display: flex;
     justify-content: center;
     align-items: center;
@@ -67,8 +65,8 @@ div {
     position: absolute;
     bottom: 0;
     left: 0;
-    background-color: rgba(233, 233, 233, 0.96);
-    border: 2px solid rgb(189 220 248 / 0.96);
+    background-color: rgba(var(--c1), 0.96);
+    border: 2px solid rgba(var(--c1), 0.96);
     border-radius: 50%;
     padding: 0.5em;
     font-size: clamp(12px, 2vmin, 32px);
@@ -83,7 +81,7 @@ div {
     aspect-ratio: 1/1;
     text-align: center;
     align-content: center;
-    color: black;
+    color: rgb(var(--c3));
     user-select: none;
     transition: 0.25s ease;
     justify-content: center;
@@ -92,28 +90,28 @@ div {
 }
 
 .openSlidesButton:hover {
-    background-color: rgb(59, 84, 113);
-    border-color: rgb(59, 84, 113);
-    color: white;
+    background-color: rgb(var(--c3));
+    border-color: rgb(var(--c3));
+    color: rgb(var(--c7));
     transform: scale(1.2);
 }
 
 .openSlidesButton:active {
     transform: scale(0.95);
-    background-color: rgb(59, 84, 113);
-    border-color: rgb(59, 84, 113);
+    background-color: rgb(var(--c3));
+    border-color: rgb(var(--c3));
 }
 
 .topHeader {
     font-weight: 450;
-    color: white;
+    color: rgb(var(--c3));
     font-size: clamp(20px, 41px, 46px);
     margin: 0;
 }
 
 .timeTicker {
     font-weight: 500;
-    color: white;
+    color: rgb(var(--c3));
     font-size: clamp(19px, 3vmin, 34px);
     margin: 0;
 }
@@ -121,7 +119,7 @@ div {
 /* news Stuff */
 
 .newsTicker {
-    color: white;
+    color: rgb(var(--c3));
     padding: 11px;
     font-weight: 200;
 }
@@ -140,7 +138,7 @@ div {
 
 .newsImage {
     border-radius: 7px;
-    border: 4px solid #444e9c;
+    border: 4px solid rgb(var(--c1));
     margin-right: auto;
     width: 64vmin;
     height: 33.50vmin;
@@ -152,7 +150,7 @@ div {
 .baseContent {
     position: relative;
     border-radius: 6px;
-    background-color: rgba(151, 156, 193, 0.33);
+    background-color: rgba(var(--c1), 0.33);
     width: 95%;
     height: 90%;
     z-index: 0;
@@ -160,7 +158,7 @@ div {
     overflow-x: hidden;
     transition: 0.3s ease;
     /* height: inherit; */
-    border: 3px solid rgba(53, 82, 225, 0.33);
+    border: 3px solid rgba(var(--c3), 0.33);
 }
 
 .forceClassesGrid {
@@ -181,7 +179,7 @@ div {
 .lineBreak {
     height: 1%;
     width: 100%;
-    background-color: #277ec1d9;
+    background-color: rgba(var(--c4), 0.85);
     margin-bottom: 0.5%;
     border-radius: 50% 1000% 1000% 50%;
 }
@@ -195,8 +193,8 @@ div {
 }
 
 .footer {
-    background-color: rgba(39, 126, 193, 0.1);
-    border-top: 3px solid white;
+    background-color: rgba(var(--c1), 0.10);
+    border-top: 3px solid rgb(var(--c3));
 }
 
 .footerAligner {
@@ -205,15 +203,15 @@ div {
     align-items: center;
     justify-content: space-evenly;
     height: 55%;
-    background-color: rgba(121, 141, 255, 0.2);
+    background-color: rgba(var(--c2), 0.20);
     border-radius: 6px;
 }
 
 .footerButton {
     height: 65%;
     width: 20%;
-    background-color: #5e6cd3;
-    color: #ffffff;
+    background-color: rgb(var(--c1));
+    color: rgb(var(--c3));
     margin-left: 1%;
     margin-right: 1%;
     text-align: center;
@@ -234,7 +232,7 @@ div {
 }
 
 .footerButton:hover {
-    background-color: #444e9c;
+    background-color: rgb(var(--c2));
     cursor: pointer;
     text-decoration: underline;
     transform: scale(1.1);
@@ -242,8 +240,8 @@ div {
 
 .footerButton:active {
     transform: scale(0.95);
-    background-color: rgb(59, 84, 113);
-    border-color: rgb(59, 84, 113);
+    background-color: rgb(var(--c2)) !important;
+    border-color: rgb(var(--c1));
 }
 
 .flexCenter {

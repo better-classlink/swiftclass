@@ -66,6 +66,7 @@ function resetAllFooters(){
 }
 
 async function closeMenu(event){
+        console.log(event)
         document.getElementById('contextMenu').classList.add('small')
         await wait(300)
         document.getElementById('contextMenu').remove()

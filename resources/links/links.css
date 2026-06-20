@@ -10,8 +10,8 @@
     width: 90%;
     overflow: hidden;
     overflow-y: auto;
-    background-color: #e2e5e8;
-    color: black;
+    background-color: rgb(var(--c6));
+    color: rgb(var(--c1));
 }
 
 .leftPaneHeader {
@@ -25,9 +25,9 @@
 }
 
 .linkButtonStacker {
-    background-color: rgb(43, 63, 76);
+    background-color: rgb(var(--c2));
     height: fit-content;
-    color: white;
+    color: rgb(var(--c7));
     width: fit-content;
     min-width: 40%;
     padding: 4%;
@@ -44,7 +44,7 @@
 }
 
 .linkButtonStacker:hover {
-    background-color: rgb(67, 99, 120);
+    background-color: rgb(var(--c3));
     cursor: pointer;
     transform: scale(1.1);
     text-decoration: underline;
@@ -52,14 +52,14 @@
 
 
 .linkButtonStacker:active {
-    background: linear-gradient(90deg, rgb(131, 155, 243) 0%, rgb(148, 154, 245) 100%);
+    background: linear-gradient(90deg, rgb(var(--c5)) 0%, rgb(var(--c5)) 100%);
 }
 
 
 .genericLink {
-    background-color: rgb(43, 63, 76);
+    background-color: rgb(var(--c2));
     height: fit-content;
-    color: white;
+    color: rgb(var(--c7));
     width: fit-content;
     min-width: 5%;
     padding: 0.4%;
@@ -76,7 +76,7 @@
 }
 
 .genericLink:hover {
-    background-color: rgb(67, 99, 120);
+    background-color: rgb(var(--c3));
     cursor: pointer;
     transform: scale(1.1);
     text-decoration: underline;
@@ -84,5 +84,5 @@
 
 
 .genericLink:active {
-    background: linear-gradient(90deg, rgb(131, 155, 243) 0%, rgb(148, 154, 245) 100%);
+    background: linear-gradient(90deg, rgb(var(--c5)) 0%, rgb(var(--c5)) 100%);
 }

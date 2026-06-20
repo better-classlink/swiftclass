@@ -158,24 +158,29 @@ class ContextMenu {
 
                     break;
                     case 'block':
-                    let settings = JSON.parse(localStorage.getItem('swcsettings'))
-                    if(settings.at(settings.indexOf('Number of Scheduled Blocks') + 1) != 1){
-                    e.type = 'number'
-                    e.placeholder = 'Type in the block number here.'
-                    if(typeof this.itemValues[index] == 'string') e.value = this.itemValues[index]; this.data[index] = e.value
-                    e.classList.add('contextInput')
-                    e.min = 1
-                    e.max = 5
-                    e.id = 'blockInput'
-                    e.addEventListener('input', (event) => {
-                        this.data[index] = event.target.value
-                    })
-                    l.classList.add('contextTip')
-                    l.textContent = "Block"
-                    contextMenu.appendChild(l)
-                    contextMenu.appendChild(document.createElement('br'))
-                    contextMenu.appendChild(e)
-                    }
+                        let settings = JSON.parse(localStorage.getItem('swcsettings'))
+                        if(settings.at(settings.indexOf('Number of Scheduled Blocks') + 1) != 1){
+                        e.type = 'number'
+                        e.placeholder = 'Number'
+                        if(typeof this.itemValues[index] == 'string') e.value = this.itemValues[index]; this.data[index] = e.value
+                        e.classList.add('contextInput')
+                        e.min = 1
+                        e.max = 5
+                        e.id = 'blockInput'
+                        e.style.width = 'fit-content'
+                        e.addEventListener('input', (event) => {
+                            this.data[index] = event.target.value
+                            if(event.target.value > 5) event.target.value = 5
+                            if(event.target.value < 1) event.target.value = 1
+                        })
+                        l.classList.add('contextTip')
+                        l.textContent = "Block"
+                        contextMenu.appendChild(l)
+                        contextMenu.appendChild(document.createElement('br'))
+                        contextMenu.appendChild(e)
+                        }else{
+                            this.data[index] = "1"
+                        }
                     break;
             }
         })
@@ -196,6 +201,7 @@ class ContextMenu {
 
             if(this.data.includes(null)){
                 alert("Please fill out all fields.")
+                console.log(this.data)
                 invalid = true
             }
 

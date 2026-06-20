@@ -5,7 +5,7 @@
     min-height: fit-content;
     padding: 1%;
     display: inline-block;
-    background-color: #e2e5e88b;
+    background-color: rgba(var(--c3), 0.55);
     margin: 1%;
     border-radius: 5px;
     transition: 0.25s ease;
@@ -16,12 +16,12 @@
 }
 
 .classHeader {
-    color: rgb(255 255 255 / 0.94);
+    color: rgba(var(--c3), 0.94);
     font-size: clamp(15px, 3vmin, 33px);
 }
 
 .classSubHeader {
-    color: rgb(255 255 255 / 0.8);
+    color: rgba(var(--c3), 0.80);
     font-size: clamp(14px, 2vmin, 34px);
 }
 
@@ -31,11 +31,11 @@ h2 {
 
 .breakerBar {
     border-style: solid;
-    color: #e3dbdb;
+    color: rgb(var(--c3));
 }
 
 .classButton {
-    background-color: rgb(255 255 255 / 0.41);
+    background-color: rgba(var(--c1), 0.41);
     width: fit-content;
     height: fit-content;
     padding: 1%;
@@ -47,7 +47,7 @@ h2 {
 }
 
 .classButton:hover {
-    background-color: rgb(255 255 255 / 0.25);
+    background-color: rgba(var(--c3), 0.25);
     scale: 1.1;
     text-decoration: underline;
 }
@@ -58,7 +58,7 @@ h2 {
     bottom: 1%;
     right: 1%;
     transform-origin: left;
-    background-color: #222222;
+    background-color: rgb(var(--c2));
     cursor: pointer;
     user-select: none;
 }
