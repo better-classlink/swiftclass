@@ -53,6 +53,10 @@ class Setting {
 
 
                 i.addEventListener('click', (event) => {
+                    let reloadButton = document.querySelector('.reloadButton')
+                    if(!reloadButton.classList.contains('reloadPulse')){
+                        reloadButton.classList.add('reloadPulse')
+                    }
                     if (this.value == 'off') {
                         this.value = 'on'
                     } else {
@@ -99,6 +103,10 @@ class Setting {
                 i.classList.add('colorInput')
 
                 i.addEventListener('input', (event) => {
+                    let reloadButton = document.querySelector('.reloadButton')
+                    if(!reloadButton.classList.contains('reloadPulse')){
+                        reloadButton.classList.add('reloadPulse')
+                    }
                     this.value = event.currentTarget.value
                     let settingsLoad = localStorage.getItem('swcsettings')
                     settingsLoad = JSON.parse(settingsLoad)
@@ -144,6 +152,10 @@ class Setting {
                 i.classList.add('sliderInput')
 
                 i.addEventListener('input', (event) => {
+                    let reloadButton = document.querySelector('.reloadButton')
+                    if(!reloadButton.classList.contains('reloadPulse')){
+                        reloadButton.classList.add('reloadPulse')
+                    }
                     this.value = event.currentTarget.value
                     v.textContent = this.value
                     let settingsLoad = localStorage.getItem('swcsettings')
@@ -186,6 +198,10 @@ class Setting {
                 i.value = this.value
 
                 i.addEventListener('change', (event) => {
+                    let reloadButton = document.querySelector('.reloadButton')
+                    if(!reloadButton.classList.contains('reloadPulse')){
+                        reloadButton.classList.add('reloadPulse')
+                    }
                     let settingsLoad = localStorage.getItem('swcsettings')
                     settingsLoad = JSON.parse(settingsLoad)
                     settingsLoad[settingsLoad.indexOf(this.name) + 1] = event.currentTarget.value

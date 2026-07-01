@@ -5,6 +5,9 @@ function randint(min, max) {
 }
 
 async function quickWrap() {
+    if(localStorage.getItem('swcsettings') == null) localStorage.setItem('swcsettings',
+        '[]'
+    )
     let settingsList = await fetch('Resources/settings/list.json')
     let settingsJSON = await settingsList.json()
     let allHeaders = []
@@ -40,6 +43,31 @@ async function quickWrap() {
 
 quickWrap()
 
+function convertHexValueToDecimal(hexValue) {
+    return parseInt(hexValue, 16)
+}
+
+function hexCodeToRGB(hexCode) {
+    let r = convertHexValueToDecimal(hexCode.substring(1, 3))
+    let g = convertHexValueToDecimal(hexCode.substring(3, 5))
+    let b = convertHexValueToDecimal(hexCode.substring(5, 7))
+    return `${r}, ${g}, ${b}`
+}
+
+function extractSetting(settingName) {
+    let settingsLoad = localStorage.getItem('swcsettings')
+    settingsLoad = JSON.parse(settingsLoad)
+    return settingsLoad[settingsLoad.indexOf(settingName) + 1]
+}
+
+
+
+const root = document.documentElement;
+root.style.setProperty('--c1', hexCodeToRGB(extractSetting('Dark Elements')));
+root.style.setProperty('--c2', hexCodeToRGB(extractSetting('Somewhat Bright Elements')));
+root.style.setProperty('--c3', hexCodeToRGB(extractSetting('Light Elements')));
+
+
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 if(localStorage.getItem('swcFirstTime') == null) {
@@ -66,6 +94,7 @@ function resetAllFooters(){
 }
 
 async function closeMenu(event){
+    console.log("Closing menu")
         console.log(event)
         document.getElementById('contextMenu').classList.add('small')
         await wait(300)
@@ -360,7 +389,11 @@ async function updateMenus() {
 
                         window.currentMenu = 'Settings' + ' - ' + window.settingHeaderType
 
-                        typeMenuName()
+                        document.querySelectorAll('.footerButton').forEach(element => {
+                            element.classList.add('deny')
+                        })
+
+                        typeMenuName(true)
 
                         let liveChildNodes = document.getElementById('baseContent').childNodes
                         if (liveChildNodes && liveChildNodes.length > 1) {
@@ -369,10 +402,6 @@ async function updateMenus() {
                             }
 
                         }
-
-                        let slidesOpenButton = document.createElement('div')
-                        slidesOpenButton.classList.add('openSlidesButton')
-                        slidesOpenButton.textContent = 'i'
 
                         try {
 
@@ -412,12 +441,25 @@ async function updateMenus() {
                                 let setting = new Setting(element.name, settingsLoad[settingsLoad.indexOf(element.name) + 1], element.type, element.description, element.header, element.types, element.minval, element.maxval, element.selectors)
                                 setting.render()
                             }
-
                         })
+                        let reloadButton = document.createElement('div')
+                        reloadButton.classList.add('reloadButton')
+                        reloadButton.textContent = 'Reload the Page'
+                        reloadButton.addEventListener('click', () => {
+                            location.reload()
+                        })
+                        document.getElementById('baseContent').appendChild(reloadButton)
                     })
                     headerCont.appendChild(header)
                 }
             )
+            let reloadButton = document.createElement('div')
+            reloadButton.classList.add('reloadButton')
+            reloadButton.textContent = 'Reload the Page'
+            reloadButton.addEventListener('click', () => {
+                location.reload()
+            })
+            document.getElementById('baseContent').appendChild(reloadButton)
             break;
         case 'Classes':
             classGen()
@@ -542,7 +584,7 @@ setInterval(() => {
     // console.log(window.denySettingMovement)
 }, 100);
 
-async function typeMenuName(){
+async function typeMenuName(...args){
     window.denySettingMovement = true
         let name = ''
         document.getElementById('topHeader').textContent = '...'
@@ -553,6 +595,12 @@ async function typeMenuName(){
             document.getElementById('topHeader').textContent = name
         }
         window.denySettingMovement = false
+    console.log(args)
+    if(args[0]){
+        document.querySelectorAll('.footerButton').forEach(element => {
+            element.classList.remove('deny')
+        })
+    }
 }
 
 buttons.forEach((element) => {

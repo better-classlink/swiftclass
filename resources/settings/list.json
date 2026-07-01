@@ -17,10 +17,17 @@
     },
     {
         "header": "Appearance and Visuals",
-        "name": "Dark Panel Colors",
+        "name": "Somewhat Bright Elements",
         "type": "color",
-        "description": "Sets the colors of the dark panels of the app.",
-        "value": "#111111"
+        "description": "Sets the colors of the medium-brightness parts of the app.",
+        "value": "#808080"
+    },
+    {
+    "header": "Appearance and Visuals",
+    "name": "Light Elements",
+    "type": "color",
+    "description": "Sets the colors of the lightest parts of the app.",
+    "value": "#FFFFFF"
     },
     {
         "header": "Appearance and Visuals",

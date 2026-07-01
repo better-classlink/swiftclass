@@ -33,7 +33,7 @@ svg.menu.outer {
 }
 
 svg.menu > g > path {
-    fill: rgba(var(--c6))
+    fill: rgba(var(--c3))
 }
 
 svg.menu > g.sector > path {
@@ -50,14 +50,14 @@ svg.menu > g.sector > use {
 }
 
 svg.menu > g.sector:hover > path {
-    fill: rgba(var(--c4));
+    fill: rgba(var(--c1));
      /*transform: scale(0.95);*/
     /* transform: rotate(-2deg); */
 
 }
 
 svg.menu > g.sector:hover > text {
-    fill: rgba(var(--c1));
+    fill: rgba(var(--c3));
 }
 
 /*svg.menu > g.sector > text {*/
@@ -76,19 +76,19 @@ svg.menu > g.sector.selected > path {
 }
 
 svg.menu > g.center:hover > circle {
-    fill: rgba(var(--c2));
+    fill: rgba(var(--c1));
     /* transform: translateX(-5px); */
 }
 
 svg.menu > g.center > circle {
     cursor: pointer;
-    fill: rgba(var(--c4));
+    fill: rgba(var(--c2));
     transition: 0.25s;
 }
 
 svg.menu > g.center > text,
 svg.menu > g.center > use {
     cursor: pointer;
-    fill: rgb(var(--c7));
+    fill: rgb(var(--c3));
     text-shadow: 1px 1px 0 rgba(var(--c1), 0.63);
 }
