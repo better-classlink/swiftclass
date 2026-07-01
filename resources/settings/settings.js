@@ -14,7 +14,7 @@ class Setting {
 
         // verifying types FIRST
 
-        if (!['bool', 'dropdown', 'color', 'slider'].includes(this.type)) {
+        if (!['bool', 'dropdown', 'color', 'slider', 'text'].includes(this.type)) {
             throw new Error("Invalid type: " + this.type)
         }
 
@@ -53,6 +53,10 @@ class Setting {
 
 
                 i.addEventListener('click', (event) => {
+                    let reloadButton = document.querySelector('.reloadButton')
+                    if(!reloadButton.classList.contains('reloadPulse')){
+                        reloadButton.classList.add('reloadPulse')
+                    }
                     if (this.value == 'off') {
                         this.value = 'on'
                     } else {
@@ -99,6 +103,10 @@ class Setting {
                 i.classList.add('colorInput')
 
                 i.addEventListener('input', (event) => {
+                    let reloadButton = document.querySelector('.reloadButton')
+                    if(!reloadButton.classList.contains('reloadPulse')){
+                        reloadButton.classList.add('reloadPulse')
+                    }
                     this.value = event.currentTarget.value
                     let settingsLoad = localStorage.getItem('swcsettings')
                     settingsLoad = JSON.parse(settingsLoad)
@@ -144,6 +152,10 @@ class Setting {
                 i.classList.add('sliderInput')
 
                 i.addEventListener('input', (event) => {
+                    let reloadButton = document.querySelector('.reloadButton')
+                    if(!reloadButton.classList.contains('reloadPulse')){
+                        reloadButton.classList.add('reloadPulse')
+                    }
                     this.value = event.currentTarget.value
                     v.textContent = this.value
                     let settingsLoad = localStorage.getItem('swcsettings')
@@ -186,6 +198,10 @@ class Setting {
                 i.value = this.value
 
                 i.addEventListener('change', (event) => {
+                    let reloadButton = document.querySelector('.reloadButton')
+                    if(!reloadButton.classList.contains('reloadPulse')){
+                        reloadButton.classList.add('reloadPulse')
+                    }
                     let settingsLoad = localStorage.getItem('swcsettings')
                     settingsLoad = JSON.parse(settingsLoad)
                     settingsLoad[settingsLoad.indexOf(this.name) + 1] = event.currentTarget.value
@@ -205,6 +221,36 @@ class Setting {
 
                 b.appendChild(d)
 
+                document.getElementById('baseContent').appendChild(b)
+            }
+            else if (this.type == 'text') {
+                let b = document.createElement('div')
+                b.classList.add('boolInteract')
+                b.id = this.name
+                let t = document.createElement('span')
+                t.classList.add('boolHeader')
+                t.textContent = this.name
+                let i = document.createElement('input')
+                i.type = 'text'
+                i.value = this.value
+                i.classList.add('textInput')
+                i.addEventListener('input', (event) => {
+                    let reloadButton = document.querySelector('.reloadButton')
+                    if(!reloadButton.classList.contains('reloadPulse')){}
+                })
+                i.addEventListener('input', (event) => {
+                    let settingsLoad = localStorage.getItem('swcsettings')
+                    settingsLoad = JSON.parse(settingsLoad)
+                    settingsLoad[settingsLoad.indexOf(this.name) + 1] = event.currentTarget.value
+                    localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
+                })
+                let d = document.createElement('span')
+                d.textContent = this.description
+                b.appendChild(t)
+                b.appendChild(document.createElement('br'))
+                b.appendChild(i)
+                b.appendChild(document.createElement('br'))
+                b.appendChild(d)
                 document.getElementById('baseContent').appendChild(b)
             }
 

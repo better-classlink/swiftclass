@@ -13,22 +13,27 @@
         "name": "Dark Elements",
         "type": "color",
         "description": "Sets the colors of the darkest parts of the app.",
-        "value": "#000000"
+        "value": "#7BB5F6"
     },
     {
         "header": "Appearance and Visuals",
-        "name": "Dark Panel Colors",
+        "name": "Somewhat Bright Elements",
         "type": "color",
-        "description": "Sets the colors of the dark panels of the app.",
-        "value": "#111111"
+        "description": "Sets the colors of the medium-brightness parts of the app.",
+        "value": "#C3C3C3"
     },
     {
         "header": "Appearance and Visuals",
-        "name": "example slider",
-        "type": "slider",
-        "description": "example slider",
-        "minval": "0",
-        "maxval": "",
-        "value": "50"
+        "name": "Light Elements",
+        "type": "color",
+        "description": "Sets the colors of the lightest parts of the app.",
+        "value": "#FFFFFF"
+    },
+    {
+        "header": "Appearance and Visuals",
+        "name": "Background Image",
+        "type": "text",
+        "description": "The URL of the background image to use. Leave blank to use the default background. (White Color)",
+        "value": ""
     }
 ]

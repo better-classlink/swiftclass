@@ -34,8 +34,8 @@
     "image": "Resources/info/images/default.png"
   },
   {
-    "title": "Very Important Note",
-    "body": "In the bottom-left corner of every menu, there will be an \"i\" button. Clicking on it will open a menu with information about the page you're on. \nThis slideshow can be replayed by clicking that button on the home page.\nWe suggest you start with the Classes page to set up.",
+    "title": "Getting Started",
+    "body": "To get started, you should check out Settings and personalize the app to your liking. Afterward, you should add classes in the, well... Classes tab. Feel free to re-watch this slideshow by clicking the \"i\" button in the bottom left corner of the screen.",
     "image": "Resources/info/images/default.png"
   }
 ]

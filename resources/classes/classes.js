@@ -108,6 +108,7 @@ function classGen(){
     let addNewClassButton = document.createElement('div')
     addNewClassButton.classList.add('classPane')
     addNewClassButton.classList.add('addClass')
+    addNewClassButton.classList.add('contextMenuOpen')
     addNewClassButton.textContent = 'Add new Class'
     addNewClassButton.addEventListener('click', (event) => {
         let newClass = getResultsFromContextMenu([

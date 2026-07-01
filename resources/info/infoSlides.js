@@ -29,6 +29,7 @@ class InfoSlides{
 
         let lineBreaker = document.createElement('div')
         lineBreaker.classList.add('lineBreak')
+        lineBreaker.style.backgroundColor = extractSetting('Somewhat Bright Elements')
         slidesModal.appendChild(lineBreaker)
 
         let body = document.createElement('div')

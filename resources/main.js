@@ -5,6 +5,10 @@ function randint(min, max) {
 }
 
 async function quickWrap() {
+    let mod = false
+    if(localStorage.getItem('swcsettings') == null) localStorage.setItem('swcsettings',
+        '[]'
+    )
     let settingsList = await fetch('Resources/settings/list.json')
     let settingsJSON = await settingsList.json()
     let allHeaders = []
@@ -40,6 +44,40 @@ async function quickWrap() {
 
 quickWrap()
 
+function convertHexValueToDecimal(hexValue) {
+    return parseInt(hexValue, 16)
+}
+
+function hexCodeToRGB(hexCode) {
+    let r = convertHexValueToDecimal(hexCode.substring(1, 3))
+    let g = convertHexValueToDecimal(hexCode.substring(3, 5))
+    let b = convertHexValueToDecimal(hexCode.substring(5, 7))
+    return `${r}, ${g}, ${b}`
+}
+
+function extractSetting(settingName) {
+    let settingsLoad = localStorage.getItem('swcsettings')
+    settingsLoad = JSON.parse(settingsLoad)
+    return settingsLoad[settingsLoad.indexOf(settingName) + 1]
+}
+
+
+try{
+const root = document.documentElement;
+root.style.setProperty('--c1', hexCodeToRGB(extractSetting('Dark Elements')));
+root.style.setProperty('--c2', hexCodeToRGB(extractSetting('Somewhat Bright Elements')));
+root.style.setProperty('--c3', hexCodeToRGB(extractSetting('Light Elements')));
+    }catch(e){
+    console.warn(e)
+}
+
+let backgroundImageURL = extractSetting('Background Image')
+if(backgroundImageURL != ""){
+    document.getElementById('content').style.backgroundImage = "url('" + backgroundImageURL + "')"
+}else{
+    document.getElementById('content').style.background = '#FFFFFF'
+}
+
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 if(localStorage.getItem('swcFirstTime') == null) {
@@ -66,6 +104,7 @@ function resetAllFooters(){
 }
 
 async function closeMenu(event){
+    console.log("Closing menu")
         console.log(event)
         document.getElementById('contextMenu').classList.add('small')
         await wait(300)
@@ -360,7 +399,11 @@ async function updateMenus() {
 
                         window.currentMenu = 'Settings' + ' - ' + window.settingHeaderType
 
-                        typeMenuName()
+                        document.querySelectorAll('.footerButton').forEach(element => {
+                            element.classList.add('deny')
+                        })
+
+                        typeMenuName(true)
 
                         let liveChildNodes = document.getElementById('baseContent').childNodes
                         if (liveChildNodes && liveChildNodes.length > 1) {
@@ -369,10 +412,6 @@ async function updateMenus() {
                             }
 
                         }
-
-                        let slidesOpenButton = document.createElement('div')
-                        slidesOpenButton.classList.add('openSlidesButton')
-                        slidesOpenButton.textContent = 'i'
 
                         try {
 
@@ -412,12 +451,25 @@ async function updateMenus() {
                                 let setting = new Setting(element.name, settingsLoad[settingsLoad.indexOf(element.name) + 1], element.type, element.description, element.header, element.types, element.minval, element.maxval, element.selectors)
                                 setting.render()
                             }
-
                         })
+                        let reloadButton = document.createElement('div')
+                        reloadButton.classList.add('reloadButton')
+                        reloadButton.textContent = 'Reload the Page'
+                        reloadButton.addEventListener('click', () => {
+                            location.reload()
+                        })
+                        document.getElementById('baseContent').appendChild(reloadButton)
                     })
                     headerCont.appendChild(header)
                 }
             )
+            let reloadButton = document.createElement('div')
+            reloadButton.classList.add('reloadButton')
+            reloadButton.textContent = 'Reload the Page'
+            reloadButton.addEventListener('click', () => {
+                location.reload()
+            })
+            document.getElementById('baseContent').appendChild(reloadButton)
             break;
         case 'Classes':
             classGen()
@@ -542,7 +594,7 @@ setInterval(() => {
     // console.log(window.denySettingMovement)
 }, 100);
 
-async function typeMenuName(){
+async function typeMenuName(...args){
     window.denySettingMovement = true
         let name = ''
         document.getElementById('topHeader').textContent = '...'
@@ -553,11 +605,39 @@ async function typeMenuName(){
             document.getElementById('topHeader').textContent = name
         }
         window.denySettingMovement = false
+    console.log(args)
+    if(args[0]){
+        document.querySelectorAll('.footerButton').forEach(element => {
+            element.classList.remove('deny')
+        })
+    }
+}
+
+function resetTheme(){
+    if(!confirm("Are you sure you want to reset the theme? This will reset all settings to their default values.")){
+        return
+    }
+    let settingsLoad = localStorage.getItem('swcsettings')
+    settingsLoad = JSON.parse(settingsLoad)
+
+    settingsLoad.splice([settingsLoad.indexOf("Dark Elements")] + 1, 1)
+    settingsLoad.splice([settingsLoad.indexOf("Dark Elements")], 1)
+
+    settingsLoad.splice([settingsLoad.indexOf("Light Elements")] + 1, 1)
+    settingsLoad.splice([settingsLoad.indexOf("Light Elements")], 1)
+
+    settingsLoad.splice([settingsLoad.indexOf("Somewhat Bright Elements")] + 1, 1)
+    settingsLoad.splice([settingsLoad.indexOf("Somewhat Bright Elements")], 1)
+
+    console.log(settingsLoad)
 }
 
 buttons.forEach((element) => {
     if(window.denySettingMovement) return
     element.addEventListener('click', (event) => {
+        if(element.classList.contains('scriptOverride')){
+            return
+        }
         if(event.currentTarget.classList.contains('deny')) return
          let selfName = event.currentTarget.textContent.trim()
          if(selfName == 'Home')

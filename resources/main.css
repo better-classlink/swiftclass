@@ -24,6 +24,8 @@ body {
     height: 100vh;
     user-select: none;
     --webkit-user-select: none;
+    background-size: cover;
+    background-position: center;
 }
 
 div {
@@ -34,11 +36,10 @@ div {
     width: 100vw;
     height: 100vh;
     display: grid;
-    /*background: linear-gradient(207deg, rgb(219, 168, 255) 0%, rgb(183, 196, 255) 100%);*/
     grid-template-rows: 0.1fr 1fr 0.1fr;
-    background-image: url("https://libraryofruina.wiki.gg/images/Xiao_Floor.png");
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     grid-template-columns: auto;
     box-sizing: border-box;
     overflow: hidden;
@@ -92,7 +93,7 @@ div {
 .openSlidesButton:hover {
     background-color: rgb(var(--c3));
     border-color: rgb(var(--c3));
-    color: rgb(var(--c7));
+    color: rgb(var(--c1));
     transform: scale(1.2);
 }
 
@@ -150,7 +151,7 @@ div {
 .baseContent {
     position: relative;
     border-radius: 6px;
-    background-color: rgba(var(--c1), 0.33);
+    background-color: rgba(var(--c1), 0.55);
     width: 95%;
     height: 90%;
     z-index: 0;
@@ -179,7 +180,7 @@ div {
 .lineBreak {
     height: 1%;
     width: 100%;
-    background-color: rgba(var(--c4), 0.85);
+    background-color: rgba(var(--c3), 0.85);
     margin-bottom: 0.5%;
     border-radius: 50% 1000% 1000% 50%;
 }
@@ -201,15 +202,17 @@ div {
     width: 45%;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
+    overflow-x: auto;
     height: 55%;
     background-color: rgba(var(--c2), 0.20);
     border-radius: 6px;
 }
 
 .footerButton {
-    height: 65%;
-    width: 20%;
+    width: 10vw;
+    min-width: fit-content;
+    height: 70%;
     background-color: rgb(var(--c1));
     color: rgb(var(--c3));
     margin-left: 1%;
@@ -220,16 +223,18 @@ div {
     justify-content: center;
     padding: 0 9px;
     border-radius: 5px;
-    min-width: 0;
     transition: 0.25s ease;
+    font-size: clamp(10px, 1cqi, 18px);
+    white-space: nowrap;
+    text-align: center;
+    scrollbar-color: rgb(var(--c3)) rgb(var(--c1));
 }
 
-.footerButtonText {
-    font-size: clamp(1px, 2cqi, 18px);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.footerButton::-webkit-scrollbar {
+    scrollbar-color: rgb(var(--c3)) rgb(var(--c1));
+    height: 10%;
 }
+
 
 .footerButton:hover {
     background-color: rgb(var(--c2));
@@ -254,4 +259,9 @@ div {
     transform: none !important;
     opacity: 0.5;
     cursor: not-allowed !important;
+}
+
+.textOverride {
+    color: white !important;
+    mix-blend-mode: difference !important;
 }

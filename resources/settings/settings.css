@@ -114,3 +114,49 @@
     font-size: clamp(12px, 2vmin, 18px);
     font-weight: 10;
 }
+
+.reloadButton {
+    background-color: rgb(var(--c1));
+    color: rgb(var(--c3));
+    font-weight: 500;
+    border: 2px solid rgb(var(--c2));
+    width: fit-content;
+    height: fit-content;
+    padding: 1%;
+    margin: 1%;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: clamp(12px, 2vmin, 18px);
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    transition: 0.25s ease;
+    transform-origin: left;
+}
+
+.reloadButton:hover {
+    background-color: rgb(var(--c2));
+    color: rgb(var(--c1));
+    transform: scale(1.1);
+}
+
+.reloadButton:active {
+    background-color: rgb(var(--c3));
+    color: rgb(var(--c1));
+    transform: scale(0.95);
+}
+
+@keyframes reloadPulse {
+    from {
+        transform: scale(1.1);
+        background-color: rgb(255 71 71);
+    }
+    to {
+        transform: scale(1);
+        background-color: rgb(255 10 10);
+    }
+}
+
+.reloadPulse {
+    animation: reloadPulse 0.5s ease-in-out infinite alternate;
+}
