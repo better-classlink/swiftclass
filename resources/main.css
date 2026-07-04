@@ -53,8 +53,8 @@ div {
 
 .headerContainer {
     text-align: center;
-    background-color: rgba(var(--c1), 0.33);
-    border-bottom: 3px solid rgb(var(--c3));
+    background-color: rgba(var(--c1), 0.4);
+    border-bottom: 3px solid rgb(var(--c1));
     display: flex;
     justify-content: center;
     align-items: center;
@@ -194,8 +194,8 @@ div {
 }
 
 .footer {
-    background-color: rgba(var(--c1), 0.10);
-    border-top: 3px solid rgb(var(--c3));
+    background-color: rgba(var(--c1), 0.4);
+    border-top: 3px solid rgb(var(--c1));
 }
 
 .footerAligner {

@@ -33,7 +33,7 @@
         "header": "Appearance and Visuals",
         "name": "Background Image",
         "type": "text",
-        "description": "The URL of the background image to use. Leave blank to use the default background. (White Color)",
+        "description": "The URL of the background image to use. Leave blank to use the default blue gradient as your background.",
         "value": ""
     }
 ]

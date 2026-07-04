@@ -4,11 +4,13 @@ function randint(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+if(localStorage.getItem('swcsettings') == null) localStorage.setItem('swcsettings',
+    '[]'
+)
+
 async function quickWrap() {
     let mod = false
-    if(localStorage.getItem('swcsettings') == null) localStorage.setItem('swcsettings',
-        '[]'
-    )
+
     let settingsList = await fetch('Resources/settings/list.json')
     let settingsJSON = await settingsList.json()
     let allHeaders = []
@@ -44,6 +46,8 @@ async function quickWrap() {
 
 quickWrap()
 
+console.log(localStorage.getItem('swcsettings'))
+
 function convertHexValueToDecimal(hexValue) {
     return parseInt(hexValue, 16)
 }
@@ -64,6 +68,7 @@ function extractSetting(settingName) {
 
 try{
 const root = document.documentElement;
+console.log("dark setting" + extractSetting('Dark Elements'))
 root.style.setProperty('--c1', hexCodeToRGB(extractSetting('Dark Elements')));
 root.style.setProperty('--c2', hexCodeToRGB(extractSetting('Somewhat Bright Elements')));
 root.style.setProperty('--c3', hexCodeToRGB(extractSetting('Light Elements')));
@@ -75,7 +80,7 @@ let backgroundImageURL = extractSetting('Background Image')
 if(backgroundImageURL != ""){
     document.getElementById('content').style.backgroundImage = "url('" + backgroundImageURL + "')"
 }else{
-    document.getElementById('content').style.background = '#FFFFFF'
+    document.getElementById('content').style.backgroundImage = 'url("./resources/defaultbg.png")'
 }
 
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
