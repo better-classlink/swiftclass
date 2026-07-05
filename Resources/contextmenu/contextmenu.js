@@ -136,7 +136,7 @@ class ContextMenu {
                     let e2 = document.createElement('span')
                     e2.classList.add('contextTip')
                     e2.textContent = "Adjust the color using the picker above."
-                    e2.style.color = '#acacac'
+                    e2.style.color = 'rgb(var(--c3))'
 
                     let subE = document.createElement('section')
                     subE.classList.add("contextColorSector")
@@ -165,12 +165,12 @@ class ContextMenu {
                         if(typeof this.itemValues[index] == 'string') e.value = this.itemValues[index]; this.data[index] = e.value
                         e.classList.add('contextInput')
                         e.min = 1
-                        e.max = 5
+                        e.max = Number(extractSetting('Number of Scheduled Blocks'))
                         e.id = 'blockInput'
                         e.style.width = 'fit-content'
                         e.addEventListener('input', (event) => {
                             this.data[index] = event.target.value
-                            if(event.target.value > 5) event.target.value = 5
+                            if(event.target.value > Number(extractSetting('Number of Scheduled Blocks'))) event.target.value = event.target.value = Number(extractSetting('Number of Scheduled Blocks'))
                             if(event.target.value < 1) event.target.value = 1
                         })
                         l.classList.add('contextTip')

@@ -1,24 +1,15 @@
 window.currentMenu = 'SwiftClass'
 
-function randint(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 if(localStorage.getItem('swcsettings') == null) localStorage.setItem('swcsettings',
     '[]'
 )
 
 async function quickWrap() {
-    let mod = false
 
     let settingsList = await fetch('Resources/settings/list.json')
     let settingsJSON = await settingsList.json()
     let allHeaders = []
 
-    let headerContainer = document.createElement('div')
-    headerContainer.id = 'settingsHeaderContainer'
-    headerContainer.classList.add('settingsHeaderContainer')
-    document.getElementById('baseContent').appendChild(headerContainer)
 
     for (let setting of settingsJSON) {
         if (typeof setting.header != 'undefined' && !allHeaders.includes(setting.header)) {
@@ -29,13 +20,11 @@ async function quickWrap() {
     let settingsLoad = localStorage.getItem('swcsettings')
 
     settingsLoad = JSON.parse(settingsLoad)
-    // console.log('Loaded settings: ')
-    // console.log(settingsLoad)
 
     console.log(settingsJSON)
 
     settingsJSON.forEach((element) => {
-        // console.log(element)
+
         if (!settingsLoad.includes(element.name)) {
             settingsLoad.push(element.name)
             settingsLoad.push(element.value)
@@ -44,44 +33,26 @@ async function quickWrap() {
     })
 }
 
-quickWrap()
+quickWrap().then(() => {
+    try{
+        const root = document.documentElement;
+        console.log("dark setting" + extractSetting('Dark Elements'))
+        root.style.setProperty('--c1', hexCodeToRGB(extractSetting('Dark Elements')));
+        root.style.setProperty('--c2', hexCodeToRGB(extractSetting('Somewhat Bright Elements')));
+        root.style.setProperty('--c3', hexCodeToRGB(extractSetting('Light Elements')));
+    }catch(e){
+        console.warn(e)
+    }
+
+    let backgroundImageURL = extractSetting('Background Image')
+    if(backgroundImageURL != ""){
+        document.getElementById('content').style.backgroundImage = "url('" + backgroundImageURL + "')"
+    }else{
+        document.getElementById('content').style.backgroundImage = 'url("./resources/defaultbg.png")'
+    }
+})
 
 console.log(localStorage.getItem('swcsettings'))
-
-function convertHexValueToDecimal(hexValue) {
-    return parseInt(hexValue, 16)
-}
-
-function hexCodeToRGB(hexCode) {
-    let r = convertHexValueToDecimal(hexCode.substring(1, 3))
-    let g = convertHexValueToDecimal(hexCode.substring(3, 5))
-    let b = convertHexValueToDecimal(hexCode.substring(5, 7))
-    return `${r}, ${g}, ${b}`
-}
-
-function extractSetting(settingName) {
-    let settingsLoad = localStorage.getItem('swcsettings')
-    settingsLoad = JSON.parse(settingsLoad)
-    return settingsLoad[settingsLoad.indexOf(settingName) + 1]
-}
-
-
-try{
-const root = document.documentElement;
-console.log("dark setting" + extractSetting('Dark Elements'))
-root.style.setProperty('--c1', hexCodeToRGB(extractSetting('Dark Elements')));
-root.style.setProperty('--c2', hexCodeToRGB(extractSetting('Somewhat Bright Elements')));
-root.style.setProperty('--c3', hexCodeToRGB(extractSetting('Light Elements')));
-    }catch(e){
-    console.warn(e)
-}
-
-let backgroundImageURL = extractSetting('Background Image')
-if(backgroundImageURL != ""){
-    document.getElementById('content').style.backgroundImage = "url('" + backgroundImageURL + "')"
-}else{
-    document.getElementById('content').style.backgroundImage = 'url("./resources/defaultbg.png")'
-}
 
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -99,55 +70,22 @@ if(localStorage.getItem('swcsettings') == null) localStorage.setItem('swcsetting
 
 document.querySelector('.footerButton').classList.add('deny')
 
-function resetAllFooters(){
-    document.querySelectorAll('.footerButton')
-        .forEach(element => {
-            if(element.classList.contains('deny')){
-                element.classList.remove('deny');
-            }
-        })
-}
-
-async function closeMenu(event){
-    console.log("Closing menu")
-        console.log(event)
-        document.getElementById('contextMenu').classList.add('small')
-        await wait(300)
-        document.getElementById('contextMenu').remove()
-}
-
-async function closeMenuOnEsc(event){
-    if(event.key == 'Escape'){
-        closeMenu(event)
-    }
-}
-
-async function closeMenuOnMouse(event){
-    let contextMenu = document.getElementById('contextMenu')
-    let openers = document.querySelectorAll('.contextMenuOpen')
-
-    if(contextMenu == null) return
-    if(contextMenu.contains(event.target)) return
-
-    if(event.target.classList.contains('contextMenuOpen')){
-        return
-    }
-
-    closeMenu(event)
-}
-
 const menu = new RadialMenu({
     parent: document.getElementById('container'),
     size: 200,
     closeOnClick: true,
     menuItems: [
-      { id: 'Classes', title: 'Classes' },
-      { id: 'Links', title: 'Links' },
-      { id: 'Agendas', title: 'Agendas' },
-      { id: 'Settings', title: 'Settings' },
-      { id: 'SwiftClass', title: 'Home' },
+        { id: 'Classes & Agendas', title: 'CA' },
+        { id: 'Links', title: 'Links' },
+        { id: 'Settings', title: 'Settings' },
+        { id: 'SwiftClass', title: 'Home' },
+        { id: 'About this Page', title: 'About'}
     ],
     onClick: async function(item) {
+        if(item.id == 'About this Page'){
+            showInfoSlides()
+            return
+        }
     if(window.denySettingMovement) return
       window.currentMenu = item.id
         if(!window.denySettingMovement){
@@ -164,7 +102,7 @@ const menu = new RadialMenu({
                 prettyHeader = window.currentMenu
             }
             document.querySelectorAll('.footerButton').forEach(element => {
-                if(element.children[0].textContent == prettyHeader){
+                if(element.textContent == prettyHeader){
                     element.classList.add('deny')
                 }
             })
@@ -354,6 +292,32 @@ async function updateMenus() {
             headerContainer.classList.add('settingsHeaderContainer')
             document.getElementById('baseContent').appendChild(headerContainer)
 
+            const distCheck = setInterval((e) => {
+                let cont = document.getElementById('settingsHeaderContainer')
+                let rect = null
+                try {
+                    rect = cont.getBoundingClientRect()
+                }catch (e) {
+                    clearInterval(distCheck)
+                }
+
+                let y = rect.top + rect.height / 2
+
+                let dy = y - window.mousePosition[1]
+
+                dy = Math.abs(dy)
+                if(dy > 100){
+                    if(!cont.classList.contains('shrinkVertically')){
+                        cont.classList.add('shrinkVertically')
+                    }
+                }
+                else{
+                    if(cont.classList.contains('shrinkVertically')){
+                        cont.classList.remove('shrinkVertically')
+                    }
+                }
+            }, 10)
+
             for (let setting of settingsJSON) {
                 if (typeof setting.header != 'undefined' && !allHeaders.includes(setting.header)) {
                     allHeaders.push(setting.header)
@@ -429,14 +393,7 @@ async function updateMenus() {
                         } catch (e) {
                             console.warn(e)
 
-                            slidesOpenButton.classList.add('deny')
                         }
-
-                        slidesOpenButton.addEventListener('click', (event) => {
-                            if (event.currentTarget.classList.contains('deny')) return
-                            infoSlides.render()
-                        })
-                        document.getElementById('main').appendChild(slidesOpenButton)
 
                         let valueType = null
 
@@ -476,7 +433,7 @@ async function updateMenus() {
             })
             document.getElementById('baseContent').appendChild(reloadButton)
             break;
-        case 'Classes':
+        case 'Classes & Agendas':
             classGen()
             // i put everything in the one js file. >:D
             break;
@@ -548,10 +505,6 @@ async function updateMenus() {
 
     console.log("Updated menus")
 
-    let slidesOpenButton = document.createElement('div')
-    slidesOpenButton.classList.add('openSlidesButton')
-    slidesOpenButton.textContent = 'i'
-
     try {
 
         let test = await fetch("./Resources/info/json/" + window.currentMenu + "/slides.json").then(
@@ -565,20 +518,6 @@ async function updateMenus() {
 
         slidesOpenButton.classList.add('deny')
     }
-    if (!slidesOpenButton.classList.contains(('deny'))) {
-        slidesOpenButton.addEventListener('click', () => {
-            let infoSlides = new InfoSlides("resources/info/json/" + window.currentMenu + "/slides.json")
-            infoSlides.render()
-        })
-    }
-    document.getElementById('main').appendChild(slidesOpenButton)
-
-    // annoying webkit thing
-
-    await wait(5)
-    slidesOpenButton.style.transform = 'scale(0.7)'
-    await wait(5)
-    slidesOpenButton.style.transform = 'none'
 }
 
 window.addEventListener('contextmenu', (event) => {
@@ -598,44 +537,6 @@ let buttons = document.querySelectorAll(".footerButton")
 setInterval(() => {
     // console.log(window.denySettingMovement)
 }, 100);
-
-async function typeMenuName(...args){
-    window.denySettingMovement = true
-        let name = ''
-        document.getElementById('topHeader').textContent = '...'
-        let nameCache = window.currentMenu
-        for(let i = 0;i < nameCache.length;i++){
-            name += nameCache[i]
-            await wait(45)
-            document.getElementById('topHeader').textContent = name
-        }
-        window.denySettingMovement = false
-    console.log(args)
-    if(args[0]){
-        document.querySelectorAll('.footerButton').forEach(element => {
-            element.classList.remove('deny')
-        })
-    }
-}
-
-function resetTheme(){
-    if(!confirm("Are you sure you want to reset the theme? This will reset all settings to their default values.")){
-        return
-    }
-    let settingsLoad = localStorage.getItem('swcsettings')
-    settingsLoad = JSON.parse(settingsLoad)
-
-    settingsLoad.splice([settingsLoad.indexOf("Dark Elements")] + 1, 1)
-    settingsLoad.splice([settingsLoad.indexOf("Dark Elements")], 1)
-
-    settingsLoad.splice([settingsLoad.indexOf("Light Elements")] + 1, 1)
-    settingsLoad.splice([settingsLoad.indexOf("Light Elements")], 1)
-
-    settingsLoad.splice([settingsLoad.indexOf("Somewhat Bright Elements")] + 1, 1)
-    settingsLoad.splice([settingsLoad.indexOf("Somewhat Bright Elements")], 1)
-
-    console.log(settingsLoad)
-}
 
 buttons.forEach((element) => {
     if(window.denySettingMovement) return
@@ -679,6 +580,7 @@ setInterval(() => {
         hrs = 12
         type = 'AM'
     }
+
     let mins = String(dateObj.getMinutes())
     if(mins.length == 1) mins = '0' + mins
 
@@ -694,28 +596,5 @@ setInterval(() => {
 
 
 window.SwiftClassPage = document.getElementById('baseContent').innerHTML
-
-// const baseContent = document.getElementById('baseContent')
-    const mainParent = baseContent.parentElement
-    setInterval(() => {
-    try{
-
-    // baseContent.style.height = String(mainParent.clientHeight / 1.15) + 'px'
-    // baseContent.style.width = String(mainParent.clientWidth / 1.1) + 'px'
-    //
-    }catch(e){
-        console.warn('dimensions err: ' + e)
-    }
-    }, 5);
-
-
-let lastURL = location.href
-
-setInterval(async () => {
-    if(location.href != lastURL){
-        lastURL = location.href
-        console.log('URL changed: ' + lastURL)
-    }
-})
 
 updateMenus()

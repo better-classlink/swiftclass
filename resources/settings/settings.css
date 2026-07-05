@@ -3,7 +3,7 @@
     width: fit-content;
     height: fit-content;
     padding: 1%;
-    border: 4px solid rgb(var(--c2));
+    border: 4px solid rgb(var(--c3));
     border-radius: 3px;
     user-select: text;
     pointer-events: auto;
@@ -41,7 +41,13 @@
     font-size: clamp(14px, 3vmin, 24px)
 }
 
+.shrinkVertically {
+    background-color: rgba(var(--c1), 0.3);
+}
+
 .settingsHeaderContainer {
+    transition: 0.25s ease-out;
+    transform-origin: top;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,7 +56,8 @@
     padding-top: 0.5%;
     padding-bottom: 0.5%;
     height: fit-content;
-    background-color: rgba(var(--c1), 0.20);
+    background-color: rgba(var(--c1), 0.7);
+    border: 4px solid rgb(var(--c3));
     margin-bottom: 2%;
     border-radius: 5px;
     overflow-x: auto;

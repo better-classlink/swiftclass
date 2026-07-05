@@ -239,6 +239,11 @@ class Setting {
                     if(!reloadButton.classList.contains('reloadPulse')){}
                 })
                 i.addEventListener('input', (event) => {
+                    let reloadButton = document.querySelector('.reloadButton')
+                    if(!reloadButton.classList.contains('reloadPulse')){
+                        reloadButton.classList.add('reloadPulse')
+                    }
+
                     let settingsLoad = localStorage.getItem('swcsettings')
                     settingsLoad = JSON.parse(settingsLoad)
                     settingsLoad[settingsLoad.indexOf(this.name) + 1] = event.currentTarget.value

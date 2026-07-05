@@ -159,8 +159,18 @@ RadialMenu.prototype.createCenter = function (svg, title, icon, size) {
     var centerCircle = self.createCircle(0, 0, self.innerRadius - self.sectorSpace / 3);
     g.appendChild(centerCircle);
     if (text) {
-        var text = self.createText(0, 0, title);
-        g.appendChild(text);
+        console.log(title)
+        if(title != "CA") {
+            var text = self.createText(0, 0, title);
+            g.appendChild(text);
+        }
+        else
+        {
+            var text1 = self.createText(0, 0, "Classes &");
+            g.appendChild(text1);
+            var text2 = self.createText(0, 15, "Agendas");
+            g.appendChild(text2);
+        }
     }
 
     if (icon) {
@@ -377,14 +387,18 @@ RadialMenu.prototype.appendSectorPath = function (startAngleDeg, endAngleDeg, sv
         g.setAttribute('data-index', index);
 
         if (item.title) {
-            var text = self.createText(centerPoint.x, centerPoint.y, item.title);
-            if (item.icon) {
-                text.setAttribute('transform', 'translate(0,8)');
-            } else {
-                text.setAttribute('transform', 'translate(0,2)');
-            }
+            if(item.title != "CA") {
+                var text = self.createText(centerPoint.x, centerPoint.y, item.title);
 
-            g.appendChild(text);
+                g.appendChild(text);
+            }else{
+                var text1 = self.createText(centerPoint.x + 1, centerPoint.y - 7, "Classes");
+                g.appendChild(text1);
+                var text2 = self.createText(centerPoint.x + 1, centerPoint.y, "&");
+                g.appendChild(text2);
+                var text3 = self.createText(centerPoint.x + 1, centerPoint.y + 7, "Agendas");
+                g.appendChild(text3);
+            }
         }
 
         if (item.icon) {
@@ -432,8 +446,9 @@ RadialMenu.prototype.createText = function (x, y, title) {
     text.setAttribute('text-anchor', 'middle');
     text.setAttribute('x', RadialMenu.numberToString(x));
     text.setAttribute('y', RadialMenu.numberToString(y));
-    text.setAttribute('font-size', '41%');
-    // text.setAttribute('font-weight', '750')
+    text.setAttribute('font-size', '41%')
+    text.setAttribute('font-weight', 'bold');
+    text.setAttribute('white-space', 'pre-wrap');
     text.setAttribute('font-family', 'Geist');
     text.innerHTML = title;
     return text;

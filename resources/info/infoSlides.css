@@ -39,7 +39,7 @@
 }
 
 .slidesBody {
-    color: rgb(var(--c2));
+    color: rgb(var(--c1));
     font-size: clamp(15px, 3vmin, 34px);
     white-space: pre-wrap;
 }
@@ -69,7 +69,7 @@
 .slidesButton {
     color: rgb(var(--c1));
     font-size: clamp(12px, 3vmin, 24px);
-    background-color: rgb(var(--c2));
+    background-color: rgb(var(--c3));
     border: none;
     cursor: pointer;
     width: 30%;
@@ -85,8 +85,8 @@
 .slidesButton:hover {
     text-decoration: underline;
     transform: scale(1.1);
-    background-color: rgb(var(--c3));
-    color: rgb(var(--c2));
+    background-color: rgb(var(--c2));
+    color: rgb(var(--c3));
 }
 
 .slidesButton:active {

@@ -1,9 +1,9 @@
 [
     {
         "header": "Class Control",
-        "name": "Number of Scheduled Blocks",
+        "name": "Number of Available Periods",
         "type": "slider",
-        "description": "Sets the number of block types in a block schedule system. If you don't have a block schedule, keep this at 1.",
+        "description": "Sets the number of available class periods that can be selected. (useful for organization)",
         "minval": "1",
         "maxval": "15",
         "value": "1"

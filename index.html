@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="resources/links/links.css">
     <link rel="stylesheet" href="resources/contextmenu/contextmenu.css">
 
+    <script src="resources/helpers.js" defer></script>
     <script src="resources/main.js" defer></script>
     <script src="resources/RadialMenu.js"></script>
     <script src="resources/info/infoSlides.js"></script>
@@ -74,32 +75,39 @@
             </div>
         </div>
     </div>
+
     <div class="footer flexCenter" id="footer">
+
+        <div class="footerButtonB scriptOverride footerOverride" onclick="showInfoSlides()">
+            About this Page
+        </div>
+
         <div class="footerAligner">
+
             <div class="footerButton">
                 Home
             </div>
+
             <div class="footerButton">
                 Settings
             </div>
+
             <div class="footerButton">
-                Classes
+                Classes & Agendas
             </div>
+
             <div class="footerButton">
                 Links
             </div>
-            <div class="footerButton">
-                Agendas
-            </div>
-            <div class="footerButton scriptOverride" onclick="showInfoSlides()">
-                About this Page
-            </div>
-            <div class="footerButton scriptOverride" onclick="resetTheme()">
-                <span class="footerButtonText textOverride">
-                    Reset Theme
-                </span>
-            </div>
+
         </div>
+
+        <div class="footerButtonB scriptOverride footerOverride" onclick="resetTheme()">
+            <span class="footerButtonText textOverride">
+                Reset Theme
+            </span>
+        </div>
+
     </div>
 </div>
 </body>
