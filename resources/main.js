@@ -262,6 +262,32 @@ async function updateMenus() {
             break;
     }
 
+    setInterval(() => {
+        let dateObj = new Date()
+        let hrs = dateObj.getHours()
+        let type = 'AM'
+        if(hrs > 12){
+            hrs -= 12
+            type = 'PM'
+        }
+        if(hrs == 0){
+            hrs = 12
+            type = 'AM'
+        }
+
+        let mins = String(dateObj.getMinutes())
+        if(mins.length == 1) mins = '0' + mins
+
+        let secs = String(dateObj.getSeconds())
+        if(secs.length == 1) secs = '0' + secs
+
+        let completeTime = `${hrs}:${mins}:${secs} ${type}`
+
+        document.getElementById('timeTicker').textContent = completeTime
+
+        // document.title = 'SwiftClass - ' + completeTime
+    }, 100);
+
     baseContent.classList.remove('smallProp')
 }
 
