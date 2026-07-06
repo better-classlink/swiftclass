@@ -102,6 +102,10 @@ class Setting {
 
                 i.classList.add('colorInput')
 
+                if(this.name == "Somewhat Bright Elements"){
+                    i.style.backgroundColor = "rgb(var(--c1))"
+                }
+
                 i.addEventListener('input', (event) => {
                     let reloadButton = document.querySelector('.reloadButton')
                     if(!reloadButton.classList.contains('reloadPulse')){
@@ -128,6 +132,7 @@ class Setting {
                 b.appendChild(document.createElement('br'))
 
                 b.appendChild(d)
+
             } else if (this.type == 'slider') {
                 let b = document.createElement('div')
                 b.classList.add('boolInteract')
@@ -268,4 +273,167 @@ class Setting {
 
 window.Setting = Setting
 
-// let testSetting = new Setting('Example Setting', 'off', 'bool', 'This is a test setting')
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// GENERATOR FUNCTION
+
+
+async function settingsGen(){
+
+
+    let settingsList = await fetch('Resources/settings/list.json')
+    let settingsJSON = await settingsList.json()
+    let allHeaders = []
+
+    let headerContainer = document.createElement('div')
+    headerContainer.id = 'settingsHeaderContainer'
+    headerContainer.classList.add('settingsHeaderContainer')
+    document.getElementById('baseContent').appendChild(headerContainer)
+
+    const distCheck = setInterval((e) => {
+        let cont = document.getElementById('settingsHeaderContainer')
+        let rect = null
+        try {
+            rect = cont.getBoundingClientRect()
+        }catch (e) {
+            clearInterval(distCheck)
+        }
+
+        let y = rect.top + rect.height / 2
+
+        let dy = y - window.mousePosition[1]
+
+        dy = Math.abs(dy)
+        if(dy > 100){
+            if(!cont.classList.contains('shrinkVertically')){
+                cont.classList.add('shrinkVertically')
+            }
+        }
+        else{
+            if(cont.classList.contains('shrinkVertically')){
+                cont.classList.remove('shrinkVertically')
+            }
+        }
+    }, 10)
+
+    for (let setting of settingsJSON) {
+        if (typeof setting.header != 'undefined' && !allHeaders.includes(setting.header)) {
+            allHeaders.push(setting.header)
+        }
+    }
+
+    window.settingHeaderType = allHeaders[0]
+
+    window.currentMenu = 'Settings' + ' - ' + window.settingHeaderType
+
+    let valueType = null
+
+    let settingsLoad = localStorage.getItem('swcsettings')
+
+    settingsLoad = JSON.parse(settingsLoad)
+    // console.log('Loaded settings: ')
+    // console.log(settingsLoad)
+
+    settingsJSON.forEach((element) => {
+        // console.log(element)
+        if (!settingsLoad.includes(element.name)) {
+            settingsLoad.push(element.name)
+            settingsLoad.push(element.value)
+            localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
+        }
+        if (element.header == window.settingHeaderType) {
+            let setting = new Setting(element.name, settingsLoad[settingsLoad.indexOf(element.name) + 1], element.type, element.description, element.header, element.types, String(element.minval), String(element.maxval), element.selectors)
+            setting.render()
+        } else {
+            // console.log('not of type')
+        }
+    })
+
+    let headerCont = document.getElementById('settingsHeaderContainer')
+
+    allHeaders.forEach((item) => {
+            let header = document.createElement('div')
+
+            header.classList.add('settingsHeader')
+            header.textContent = item
+            header.addEventListener('click', async (event) => {
+
+                if (window.denySettingMovement || event.currentTarget.classList.contains('deny')) {
+                    return
+                }
+
+                window.settingHeaderType = event.currentTarget.textContent
+
+                window.currentMenu = 'Settings' + ' - ' + window.settingHeaderType
+
+                document.querySelectorAll('.footerButton').forEach(element => {
+                    element.classList.add('deny')
+                })
+
+                typeMenuName(true)
+
+                let liveChildNodes = document.getElementById('baseContent').childNodes
+                if (liveChildNodes && liveChildNodes.length > 1) {
+                    while (liveChildNodes.length > 1) {
+                        liveChildNodes[1].remove()
+                    }
+
+                }
+
+                try {
+
+                    let test = await fetch("./Resources/info/json/" + window.currentMenu + "/slides.json").then(
+                        () => {
+                            let testOther = test.json()
+                        }
+                    )
+
+                } catch (e) {
+                    console.warn(e)
+
+                }
+
+                let valueType = null
+
+                let settingsLoad = localStorage.getItem('swcsettings')
+
+                settingsLoad = JSON.parse(settingsLoad)
+                // console.log('Loaded settings: ')
+                // console.log(settingsLoad)
+
+                settingsJSON.forEach(async (element) => {
+                    if (!settingsLoad.includes(element.name)) {
+                        settingsLoad.push(element.name)
+                        settingsLoad.push(element.value)
+                        localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
+                    }
+                    if (element.header == window.settingHeaderType) {
+                        let setting = new Setting(element.name, settingsLoad[settingsLoad.indexOf(element.name) + 1], element.type, element.description, element.header, element.types, element.minval, element.maxval, element.selectors)
+                        setting.render()
+                    }
+                })
+                let reloadButton = document.createElement('div')
+                reloadButton.classList.add('reloadButton')
+                reloadButton.textContent = 'Reload the Page'
+                reloadButton.addEventListener('click', () => {
+                    location.reload()
+                })
+                document.getElementById('baseContent').appendChild(reloadButton)
+            })
+            headerCont.appendChild(header)
+        }
+    )
+    let reloadButton = document.createElement('div')
+    reloadButton.classList.add('reloadButton')
+    reloadButton.textContent = 'Reload the Page'
+    reloadButton.addEventListener('click', () => {
+        location.reload()
+    })
+    document.getElementById('baseContent').appendChild(reloadButton)
+
+}

@@ -62,8 +62,8 @@
 }
 
 .contextButton {
-    background-color: rgba(var(--c2), 0.96);
-    border: 2px solid rgba(var(--c2), 0.96);
+    background-color: rgba(var(--c1), 0.96);
+    border: 2px solid rgba(var(--c3), 0.96);
     color: rgb(var(--c3));
     border-radius: 3px;
     padding: 1%;
@@ -82,7 +82,7 @@
 }
 
 .contextButton:hover {
-    background-color: rgb(var(--c3));
+    background-color: rgb(var(--c2));
     border-color: rgb(var(--c3));
     text-decoration: underline;
     color: rgb(var(--c1));

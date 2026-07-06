@@ -94,8 +94,8 @@ function classGen(){
                 jsonRead = JSON.parse(jsonRead)
                 jsonRead.splice(index, 1)
                 localStorage.setItem('swcClasses', JSON.stringify(jsonRead))
+                updateMenus()
             }
-            updateMenus()
         })
         pane.appendChild(document.createElement('br'))
         pane.appendChild(classDelete)

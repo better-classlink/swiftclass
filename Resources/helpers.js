@@ -72,7 +72,12 @@ async function typeMenuName(...args){
 }
 
 function showInfoSlides() {
-    let infoSlides = new InfoSlides("resources/info/json/" + window.currentMenu + "/slides.json")
+    console.log(window.currentMenu)
+    let sourcename = window.currentMenu
+    if(window.curentMenu.includes("Settings")){
+        sourcename = "Settings"
+    }
+    let infoSlides = new InfoSlides("resources/info/json/" + sourcename + "/slides.json")
     infoSlides.render()
 }
 
@@ -151,7 +156,11 @@ async function typeMenuName(...args){
 }
 
 function showInfoSlides() {
-    let infoSlides = new InfoSlides("resources/info/json/" + window.currentMenu + "/slides.json")
+    let sourcename = window.currentMenu
+    if(sourcename.includes("Settings")){
+        sourcename = "Settings"
+    }
+    let infoSlides = new InfoSlides("resources/info/json/" + sourcename + "/slides.json")
     infoSlides.render()
 }
 

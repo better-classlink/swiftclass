@@ -82,7 +82,11 @@ class InfoSlides{
         let nextButton = document.createElement('button')
         nextButton.classList.add('slidesButton')
         nextButton.id = "slidesNextButton"
-        nextButton.textContent = 'Next'
+        if(this.slides.length == 1){
+            nextButton.textContent = "Finish"
+        }else {
+            nextButton.textContent = 'Next'
+        }
         buttonContainer.appendChild(nextButton)
 
         nextButton.addEventListener('click', (event) => {
