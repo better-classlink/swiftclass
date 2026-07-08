@@ -10,7 +10,7 @@ window.caSubMenu = 'Classes'
 
 async function quickWrap() {
 
-    let settingsList = await fetch('Resources/settings/list.json')
+    let settingsList = await fetch('resources/settings/list.json')
     let settingsJSON = await settingsList.json()
     let allHeaders = []
 

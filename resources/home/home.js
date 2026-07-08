@@ -2,7 +2,7 @@ async function homeGen(){
    try {
        document.getElementById('baseContent').innerHTML = window.SwiftClassPage
        try {
-           let jsonRequest = await fetch("Resources/news/display.json")
+           let jsonRequest = await fetch("resources/news/display.json")
            let newsJSON = await jsonRequest.json()
 
            // let newsJSON = {"title": "example"}
