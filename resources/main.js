@@ -260,10 +260,11 @@ async function updateMenus() {
         case 'Settings':
             settingsGen()
             break;
-        case 'Classes':
+        case 'Classes & Agendas':
             classGen()
             break;
         case 'Links':
+            baseContent.textContent = "nothing here yet. return in like a month"
             break;
     }
 

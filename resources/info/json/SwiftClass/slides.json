@@ -20,7 +20,7 @@
   },
   {
     "title": "The Class Page",
-    "body": "The Classes Page is where you can view basic info about your classes.\nYou can see your teacher's names, a link associated with the class, and its assigned block. (if used)",
+    "body": "The Classes Page is where you can view basic info about your classes.\nYou can see your teachers' names, a link associated with the class, and its assigned block. (if used)",
     "image": "resources/info/images/default.png"
   },
   {
@@ -35,7 +35,7 @@
   },
   {
     "title": "Getting Started",
-    "body": "To get started, you should check out Settings and personalize the app to your liking. Afterward, you should add classes in the, well... Classes tab. Feel free to re-watch this slideshow by clicking the \"i\" button in the bottom left corner of the screen.",
+    "body": "To get started, you should check out Settings and personalize the app to your liking. Afterward, you should add classes in the, well... Classes tab. Feel free to re-watch this slideshow by clicking the \"About this Page\" button in the bottom left corner of the screen.",
     "image": "resources/info/images/default.png"
   }
 ]
