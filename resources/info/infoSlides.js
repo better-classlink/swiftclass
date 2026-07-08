@@ -105,6 +105,15 @@ class InfoSlides{
                 this.closeSlides()
             }
         })
+
+        let closeButton = document.createElement('div')
+        closeButton.classList.add('slidesCloseButton')
+        closeButton.textContent = 'Close'
+        closeButton.addEventListener('click', () => {
+            this.closeSlides()
+        })
+        slidesModal.appendChild(closeButton)
+
         await wait(250)
         slidesModal.classList.remove('fading')
     }

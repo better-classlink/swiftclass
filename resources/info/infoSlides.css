@@ -102,3 +102,20 @@
     margin-top: 1%;
     border: 3px solid rgb(var(--c1));
 }
+
+.slidesCloseButton {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 1%;
+    background-color: rgba(var(--c1), 0.96);
+    border: 2px solid rgba(var(--c1), 0.96);
+    border-radius: 4px;
+    padding: 0.5em;
+    font-size: clamp(12px, 2vmin, 32px);
+    width: 0.4vmin;
+    height: 0.4vmin;
+    min-width: fit-content;
+    min-height: fit-content;
+    cursor: pointer;
+}
