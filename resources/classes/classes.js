@@ -1,4 +1,11 @@
 function classGen(){
+    let classesButton = document.createElement('div')
+    let agendasButton = document.createElement('div')
+
+    classesButton, agendasButton.classList.add('c&aSwap')
+
+
+
     if(localStorage.getItem('swcClasses') == null){
         localStorage.setItem('swcClasses', JSON.stringify([
             {
@@ -102,7 +109,7 @@ function classGen(){
     })
 
     classPanes.forEach( (pane, index) => {
-        document.getElementById('baseContent').appendChild(pane)
+        document.getElementById('sub2').appendChild(pane)
     })
 
     let addNewClassButton = document.createElement('div')
@@ -133,6 +140,6 @@ function classGen(){
         })
     })
 
-    document.getElementById('baseContent').appendChild(document.createElement('br'))
-    document.getElementById('baseContent').appendChild(addNewClassButton)
+    document.getElementById('sub2').appendChild(document.createElement('br'))
+    document.getElementById('sub2').appendChild(addNewClassButton)
 }

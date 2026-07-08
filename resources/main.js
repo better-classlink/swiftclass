@@ -248,6 +248,10 @@ async function updateMenus() {
 
     // Central Switch Case
 
+    if(baseContent.classList.contains('classesGrid')){
+        baseContent.classList.remove('classesGrid')
+    }
+
     switch (window.currentMenu) {
         case 'SwiftClass':
             homeGen()
@@ -256,6 +260,16 @@ async function updateMenus() {
             settingsGen()
             break;
         case 'Classes & Agendas':
+            baseContent.classList.add('classesGrid')
+
+            let sub1 = document.createElement('div')
+            let sub2 = document.createElement('div')
+
+            sub1.id = 'sub1'
+            sub2.id = 'sub2'
+
+            baseContent.appendChild(sub1)
+            baseContent.appendChild(sub2)
             classGen()
             break;
         case 'Links':
@@ -290,5 +304,39 @@ async function updateMenus() {
 
     baseContent.classList.remove('smallProp')
 }
+
+window.addEventListener('contextmenu', (event) => {
+    event.preventDefault()
+})
+
+let buttons = document.querySelectorAll(".footerButton")
+
+buttons.forEach((element) => {
+    if(window.denySettingMovement) return
+    element.addEventListener('click', (event) => {
+        if(element.classList.contains('scriptOverride')){
+            return
+        }
+        if(event.currentTarget.classList.contains('deny')) return
+        let selfName = event.currentTarget.textContent.trim()
+        if(selfName == 'Home')
+        {
+            window.currentMenu = 'SwiftClass'
+            if(!window.denySettingMovement){
+                window.denySettingMovement = true
+                updateMenus()
+            }
+        }
+        else{
+            window.currentMenu = selfName
+            if(!window.denySettingMovement){
+                window.denySettingMovement = true
+                updateMenus()
+            }
+        }
+        resetAllFooters()
+        event.currentTarget.classList.add('deny')
+    })
+})
 
 updateMenus()

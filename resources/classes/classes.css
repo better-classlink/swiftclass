@@ -1,3 +1,13 @@
+.classesGrid {
+    display: grid;
+    grid-template-columns: 0.1fr 1fr;
+}
+
+#sub1 {
+    background-color: rgba(var(--c3), 0.5);
+    border-radius: 4px;
+}
+
 .classPane {
     width: fit-content;
     height: fit-content;
