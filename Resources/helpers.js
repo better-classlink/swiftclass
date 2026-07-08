@@ -159,6 +159,8 @@ function showInfoSlides() {
     let sourcename = window.currentMenu
     if(sourcename.includes("Settings")){
         sourcename = "Settings"
+    }else if(sourcename == 'Classes'){
+        sourcename = window.caSubMenu
     }
     let infoSlides = new InfoSlides("resources/info/json/" + sourcename + "/slides.json")
     infoSlides.render()

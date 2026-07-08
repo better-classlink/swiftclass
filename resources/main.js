@@ -5,6 +5,7 @@ if(localStorage.getItem('swcsettings') == null) localStorage.setItem('swcsetting
 )
 
 window.SwiftClassPage = document.getElementById('baseContent').innerHTML
+window.caSubMenu = 'Classes'
 
 
 async function quickWrap() {
@@ -78,7 +79,7 @@ const menu = new RadialMenu({
     size: 200,
     closeOnClick: true,
     menuItems: [
-        { id: 'Classes & Agendas', title: 'CA' },
+        { id: 'Classes', title: 'CA' },
         { id: 'Links', title: 'Links' },
         { id: 'Settings', title: 'Settings' },
         { id: 'SwiftClass', title: 'Home' },
@@ -259,17 +260,7 @@ async function updateMenus() {
         case 'Settings':
             settingsGen()
             break;
-        case 'Classes & Agendas':
-            baseContent.classList.add('classesGrid')
-
-            let sub1 = document.createElement('div')
-            let sub2 = document.createElement('div')
-
-            sub1.id = 'sub1'
-            sub2.id = 'sub2'
-
-            baseContent.appendChild(sub1)
-            baseContent.appendChild(sub2)
+        case 'Classes':
             classGen()
             break;
         case 'Links':
