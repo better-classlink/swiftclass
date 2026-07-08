@@ -137,6 +137,9 @@ async function closeMenuOnMouse(event){
 }
 
 async function typeMenuName(...args){
+    document.querySelectorAll('.footerButton').forEach(element => {
+        element.classList.add('deny')
+    })
     window.denySettingMovement = true
     let name = ''
     document.getElementById('topHeader').textContent = '...'
@@ -148,11 +151,9 @@ async function typeMenuName(...args){
     }
     window.denySettingMovement = false
     console.log(args)
-    if(args[0]){
         document.querySelectorAll('.footerButton').forEach(element => {
             element.classList.remove('deny')
         })
-    }
 }
 
 function showInfoSlides() {
