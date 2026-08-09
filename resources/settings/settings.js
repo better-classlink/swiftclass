@@ -295,32 +295,6 @@ async function settingsGen(){
     headerContainer.classList.add('settingsHeaderContainer')
     document.getElementById('baseContent').appendChild(headerContainer)
 
-    const distCheck = setInterval((e) => {
-        let cont = document.getElementById('settingsHeaderContainer')
-        let rect = null
-        try {
-            rect = cont.getBoundingClientRect()
-        }catch (e) {
-            clearInterval(distCheck)
-        }
-
-        let y = rect.top + rect.height / 2
-
-        let dy = y - window.mousePosition[1]
-
-        dy = Math.abs(dy)
-        if(dy > 100){
-            if(!cont.classList.contains('shrinkVertically')){
-                cont.classList.add('shrinkVertically')
-            }
-        }
-        else{
-            if(cont.classList.contains('shrinkVertically')){
-                cont.classList.remove('shrinkVertically')
-            }
-        }
-    }, 10)
-
     for (let setting of settingsJSON) {
         if (typeof setting.header != 'undefined' && !allHeaders.includes(setting.header)) {
             allHeaders.push(setting.header)

@@ -190,68 +190,74 @@ window.addEventListener('keydown', function(e) {
 });
 
 async function updateMenus() {
-    let visitedMenus = JSON.parse(localStorage.getItem('visitedMenus'))
+    try {
+        let visitedMenus = JSON.parse(localStorage.getItem('visitedMenus'))
 
-    if (visitedMenus == null) {
-        visitedMenus = []
-        localStorage.setItem('visitedMenus', JSON.stringify(visitedMenus))
-    }
-
-    if (!visitedMenus.includes(window.currentMenu)) {
-        if (!window.currentMenu.includes('-')) {
-            visitedMenus.push(window.currentMenu)
+        if (visitedMenus == null) {
+            visitedMenus = []
             localStorage.setItem('visitedMenus', JSON.stringify(visitedMenus))
-            console.log("New menu visited: " + window.currentMenu)
-            // play info slides
-        } else {
-            if (!window.currentMenu.includes('Settings')) {
-                visitedMenus.push('Settings')
+        }
+
+        if (!visitedMenus.includes(window.currentMenu)) {
+            if (!window.currentMenu.includes('-')) {
+                visitedMenus.push(window.currentMenu)
                 localStorage.setItem('visitedMenus', JSON.stringify(visitedMenus))
-                console.log("New menu visited: Settings")
+                console.log("New menu visited: " + window.currentMenu)
+                // play info slides
+            } else {
+                if (!window.currentMenu.includes('Settings')) {
+                    visitedMenus.push('Settings')
+                    localStorage.setItem('visitedMenus', JSON.stringify(visitedMenus))
+                    console.log("New menu visited: Settings")
+                }
             }
         }
+
+        if (document.querySelector('.openSlidesButton') != null) {
+            document.querySelector('.openSlidesButton').remove()
+        }
+
+        if (document.getElementById('reloadButton') !== null) {
+            document.getElementById('reloadButton').remove()
+        }
+
+        let prettyHeader = ''
+        if (window.currentMenu == 'SwiftClass') {
+            prettyHeader = 'Home'
+        } else if (window.currentMenu.includes('Settings')) {
+            prettyHeader = 'Settings'
+        } else {
+            prettyHeader = window.currentMenu
+        }
+
+        document.title = 'SwiftClass - ' + prettyHeader
+
+        let baseContent = document.getElementById('baseContent')
+        console.log("Updating menus")
+        baseContent.classList.add('smallProp')
+        typeMenuName(false)
+
+        await wait(300)
+
+        if (baseContent.classList.contains('forceClassesGrid')) {
+            baseContent.classList.remove('forceClassesGrid')
+        } else if (baseContent.classList.contains('forceLinksGrid')) {
+            baseContent.classList.remove('forceLinksGrid')
+        }
+
+
+        document.getElementById('baseContent').innerHTML = ''
+
+        // Central Switch Case
+
+        if (baseContent.classList.contains('classesGrid')) {
+            baseContent.classList.remove('classesGrid')
+        }
+    }catch (e){
+        console.warn(e)
     }
 
-    if (document.querySelector('.openSlidesButton') != null) {
-        document.querySelector('.openSlidesButton').remove()
-    }
-
-    if (document.getElementById('reloadButton') !== null) {
-        document.getElementById('reloadButton').remove()
-    }
-
-    let prettyHeader = ''
-    if (window.currentMenu == 'SwiftClass') {
-        prettyHeader = 'Home'
-    } else if (window.currentMenu.includes('Settings')) {
-        prettyHeader = 'Settings'
-    } else {
-        prettyHeader = window.currentMenu
-    }
-
-    document.title = 'SwiftClass - ' + prettyHeader
-
-    let baseContent = document.getElementById('baseContent')
-    console.log("Updating menus")
-    baseContent.classList.add('smallProp')
-    typeMenuName()
-
-    await wait(300)
-
-    if (baseContent.classList.contains('forceClassesGrid')) {
-        baseContent.classList.remove('forceClassesGrid')
-    } else if (baseContent.classList.contains('forceLinksGrid')) {
-        baseContent.classList.remove('forceLinksGrid')
-    }
-
-
-    document.getElementById('baseContent').innerHTML = ''
-
-    // Central Switch Case
-
-    if(baseContent.classList.contains('classesGrid')){
-        baseContent.classList.remove('classesGrid')
-    }
+    console.log("Updating menus ", window.currentMenu)
 
     switch (window.currentMenu) {
         case 'SwiftClass':
@@ -267,32 +273,6 @@ async function updateMenus() {
             baseContent.textContent = "nothing here yet. return in like a month"
             break;
     }
-
-    setInterval(() => {
-        let dateObj = new Date()
-        let hrs = dateObj.getHours()
-        let type = 'AM'
-        if(hrs > 12){
-            hrs -= 12
-            type = 'PM'
-        }
-        if(hrs == 0){
-            hrs = 12
-            type = 'AM'
-        }
-
-        let mins = String(dateObj.getMinutes())
-        if(mins.length == 1) mins = '0' + mins
-
-        let secs = String(dateObj.getSeconds())
-        if(secs.length == 1) secs = '0' + secs
-
-        let completeTime = `${hrs}:${mins}:${secs} ${type}`
-
-        document.getElementById('timeTicker').textContent = completeTime
-
-        // document.title = 'SwiftClass - ' + completeTime
-    }, 100);
 
     baseContent.classList.remove('smallProp')
 }
@@ -330,5 +310,31 @@ buttons.forEach((element) => {
         event.currentTarget.classList.add('deny')
     })
 })
+
+setInterval(() => {
+    let dateObj = new Date()
+    let hrs = dateObj.getHours()
+    let type = 'AM'
+    if(hrs > 12){
+        hrs -= 12
+        type = 'PM'
+    }
+    if(hrs == 0){
+        hrs = 12
+        type = 'AM'
+    }
+
+    let mins = String(dateObj.getMinutes())
+    if(mins.length == 1) mins = '0' + mins
+
+    let secs = String(dateObj.getSeconds())
+    if(secs.length == 1) secs = '0' + secs
+
+    let completeTime = `${hrs}:${mins}:${secs} ${type}`
+
+    document.getElementById('timeTicker').textContent = completeTime
+
+    // document.title = 'SwiftClass - ' + completeTime
+}, 100);
 
 updateMenus()

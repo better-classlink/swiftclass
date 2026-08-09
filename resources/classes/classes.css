@@ -106,12 +106,17 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: clamp(11px, 4vw, 40px);
     user-select: none;
     cursor: pointer;
     transition: 0.25s ease;
+    font-size: 150%;
+    border-radius: 5px;
 }
 
 .caSwap:hover {
     background-color: rgb(var(--c2));
+}
+
+.caSwap:active {
+    scale: 0.95;
 }
