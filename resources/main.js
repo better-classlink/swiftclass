@@ -7,6 +7,20 @@ if(localStorage.getItem('swcsettings') == null) localStorage.setItem('swcsetting
 window.SwiftClassPage = document.getElementById('baseContent').innerHTML
 window.caSubMenu = 'Classes'
 
+function EightBitHexToDecimal(value){
+    valueList = [
+        '0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'
+    ]
+
+    let convert = [
+        valueList.indexOf(value.toUpperCase()[0]),
+        valueList.indexOf(value.toUpperCase()[1]),
+    ]
+
+    let value1 = convert[0] * 16
+    let value2 = convert[1]
+    return value1 + value2
+}
 
 async function quickWrap() {
 
@@ -79,7 +93,7 @@ const menu = new RadialMenu({
     size: 200,
     closeOnClick: true,
     menuItems: [
-        { id: 'Classes', title: 'CA' },
+        { id: 'Classes & Agendas', title: 'CA' },
         { id: 'Links', title: 'Links' },
         { id: 'Settings', title: 'Settings' },
         { id: 'SwiftClass', title: 'Home' },

@@ -53,6 +53,20 @@ function classGen(){
     let classPanes = []
 
     classes.forEach( (c, index) => {
+        let redvalue = EightBitHexToDecimal(c.color.slice(1,3))
+        let greenvalue = EightBitHexToDecimal(c.color.slice(3,5))
+        let bluevalue = EightBitHexToDecimal(c.color.slice(-2))
+        let average = ((redvalue + greenvalue + bluevalue) / 3)
+
+        let textColor = '#FFFFFF'
+
+        if(average > 127){
+            textColor = '#000000'
+        }else{
+            textColor = '#FFFFFF'
+        }
+        console.log(textColor)
+
         let pane = document.createElement('div')
         pane.classList.add('classPane')
         classPanes.push(pane)
@@ -60,27 +74,31 @@ function classGen(){
         pane.style.maxHeight = String(32) + '%'
         pane.style.maxWidth = String(35) + '%'
 
-        pane.style.backgroundColor = c.color + "5A"
+        pane.style.backgroundColor = c.color + "7F"
 
         let classHeader = document.createElement('h1')
         classHeader.classList.add('classHeader')
         classHeader.textContent = c.name
+        classHeader.style.color = textColor
         pane.appendChild(classHeader)
 
         pane.appendChild(document.createElement('br'))
 
         let teacher = document.createElement('h2')
         teacher.classList.add('classSubHeader')
+        teacher.style.color = textColor
         teacher.textContent = "Taught by " + c.teacher
         pane.appendChild(teacher)
 
         let hr = document.createElement('hr')
         hr.classList.add('breakerBar')
+        hr.style.color = textColor
         pane.appendChild(hr)
 
         let classLink = document.createElement('div')
         classLink.classList.add('classButton')
         classLink.textContent = 'Jump to Link'
+        classLink.style.color = textColor
         classLink.addEventListener('click', (event) => {
             window.open(c.link)
         })
@@ -90,6 +108,7 @@ function classGen(){
         let classSettings = document.createElement('div')
         classSettings.classList.add('classButton')
         classSettings.classList.add('contextMenuOpen')
+        classSettings.style.color = textColor
         classSettings.textContent = 'Settings'
         classSettings.addEventListener('click', (event) => {
             let grabbedSettings = getResultsFromContextMenu([
@@ -124,6 +143,7 @@ function classGen(){
         let classDelete = document.createElement('div')
         classDelete.classList.add('classButton')
         classDelete.textContent = 'Delete'
+        classDelete.style.color = textColor
         classDelete.addEventListener('click', (event) => {
             let confirmDelete = confirm("Are you sure you want to delete this class?")
             if(confirmDelete){

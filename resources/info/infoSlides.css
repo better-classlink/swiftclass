@@ -118,4 +118,18 @@
     min-width: fit-content;
     min-height: fit-content;
     cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.slidesCloseButton:hover {
+    transform: scale(1.1);
+    background-color: rgb(var(--c2));
+    color: rgb(var(--c1));
+    border-color: rgba(var(--c2));
+}
+
+.slidesCloseButton:active {
+    transform: scale(0.95);
+    background-color: rgb(var(--c2));
+    color: rgb(var(--c1));
 }

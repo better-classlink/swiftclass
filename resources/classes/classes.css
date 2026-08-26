@@ -109,7 +109,7 @@ h2 {
     user-select: none;
     cursor: pointer;
     transition: 0.25s ease;
-    font-size: 150%;
+    font-size: clamp(14px, 2vmin, 24px);
     border-radius: 5px;
 }
 
@@ -118,5 +118,6 @@ h2 {
 }
 
 .caSwap:active {
-    scale: 0.95;
+    background-color: rgb(var(--c3));
+    color: rgb(var(--c1));
 }
