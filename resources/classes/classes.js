@@ -52,6 +52,8 @@ function classGen(){
 
     let classPanes = []
 
+    let classPeriods = 
+
     classes.forEach( (c, index) => {
         let redvalue = EightBitHexToDecimal(c.color.slice(1,3))
         let greenvalue = EightBitHexToDecimal(c.color.slice(3,5))
@@ -60,7 +62,7 @@ function classGen(){
 
         let textColor = '#FFFFFF'
 
-        if(average > 127){
+        if(average > 180){
             textColor = '#000000'
         }else{
             textColor = '#FFFFFF'
@@ -162,37 +164,37 @@ function classGen(){
         document.getElementById('sub2').appendChild(pane)
     })
 
-    let addNewClassButton = document.createElement('div')
-    addNewClassButton.classList.add('classPane')
-    addNewClassButton.classList.add('addClass')
-    addNewClassButton.classList.add('contextMenuOpen')
-    addNewClassButton.textContent = 'Add new Class'
-    addNewClassButton.addEventListener('click', (event) => {
-        let newClass = getResultsFromContextMenu([
-                'name',
-                'teacher',
-                'link',
-                'color',
-                'block'
-            ],
-            'Class Creator',
-            ['', '', '', '#FFFFFF'], '1')
-        newClass.then( (newClass) => {
-            let jsonRead = localStorage.getItem('swcClasses')
-            jsonRead = JSON.parse(jsonRead)
-            jsonRead.push({
-                "name": newClass[0],
-                "teacher": newClass[1],
-                "link": newClass[2],
-                "color": newClass[3]
-            })
-            localStorage.setItem('swcClasses', JSON.stringify(jsonRead))
-            updateMenus()
-        })
-    })
+    // let addNewClassButton = document.createElement('div')
+    // addNewClassButton.classList.add('classPane')
+    // addNewClassButton.classList.add('addClass')
+    // addNewClassButton.classList.add('contextMenuOpen')
+    // addNewClassButton.textContent = 'Add new Class'
+    // addNewClassButton.addEventListener('click', (event) => {
+    //     let newClass = getResultsFromContextMenu([
+    //             'name',
+    //             'teacher',
+    //             'link',
+    //             'color',
+    //             'block'
+    //         ],
+    //         'Class Creator',
+    //         ['', '', '', '#FFFFFF'], '1')
+    //     newClass.then( (newClass) => {
+    //         let jsonRead = localStorage.getItem('swcClasses')
+    //         jsonRead = JSON.parse(jsonRead)
+    //         jsonRead.push({
+    //             "name": newClass[0],
+    //             "teacher": newClass[1],
+    //             "link": newClass[2],
+    //             "color": newClass[3]
+    //         })
+    //         localStorage.setItem('swcClasses', JSON.stringify(jsonRead))
+    //         updateMenus()
+    //     })
+    // })
 
-    document.getElementById('sub2').appendChild(document.createElement('br'))
-    document.getElementById('sub2').appendChild(addNewClassButton)
+    // document.getElementById('sub2').appendChild(document.createElement('br'))
+    // document.getElementById('sub2').appendChild(addNewClassButton)
 }
     else{
         // Agendas Page

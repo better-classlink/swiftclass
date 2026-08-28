@@ -159,22 +159,22 @@ class ContextMenu {
                     break;
                     case 'block':
                         let settings = JSON.parse(localStorage.getItem('swcsettings'))
-                        if(settings.at(settings.indexOf('Number of Scheduled Blocks') + 1) != 1){
+                        if(settings.at(settings.indexOf('Number of Scheduled Periods') + 1) != 1){
                         e.type = 'number'
-                        e.placeholder = 'Number'
+                        e.placeholder = '#'
                         if(typeof this.itemValues[index] == 'string') e.value = this.itemValues[index]; this.data[index] = e.value
                         e.classList.add('contextInput')
                         e.min = 1
-                        e.max = Number(extractSetting('Number of Scheduled Blocks'))
+                        e.max = Number(extractSetting('Number of Available Periods'))
                         e.id = 'blockInput'
                         e.style.width = 'fit-content'
                         e.addEventListener('input', (event) => {
                             this.data[index] = event.target.value
-                            if(event.target.value > Number(extractSetting('Number of Scheduled Blocks'))) event.target.value = event.target.value = Number(extractSetting('Number of Scheduled Blocks'))
+                            if(event.target.value > Number(extractSetting('Number of Available Periods'))) event.target.value = event.target.value = Number(extractSetting('Number of Available Periods '))
                             if(event.target.value < 1) event.target.value = 1
                         })
                         l.classList.add('contextTip')
-                        l.textContent = "Block"
+                        l.textContent = "Period #   "
                         contextMenu.appendChild(l)
                         contextMenu.appendChild(document.createElement('br'))
                         contextMenu.appendChild(e)
