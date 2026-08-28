@@ -1,5 +1,5 @@
 function classGen(){
-    baseContent.classList.add('classesGrid')
+    // baseContent.classList.add('classesGrid')
 
     let sub1 = document.createElement('div')
     let sub2 = document.createElement('div')
@@ -7,35 +7,12 @@ function classGen(){
     sub1.id = 'sub1'
     sub2.id = 'sub2'
 
-    baseContent.appendChild(sub1)
+    // baseContent.appendChild(sub1)
     baseContent.appendChild(sub2)
 
     //////////////////
 
-    let classesButton = document.createElement('div')
-    let agendasButton = document.createElement('div')
 
-    classesButton.classList.add('caSwap')
-    agendasButton.classList.add('caSwap')
-
-    classesButton.textContent = 'Classes'
-    agendasButton.textContent = 'Agendas'
-
-    sub1.appendChild(classesButton)
-    sub1.appendChild(agendasButton)
-
-    document.querySelectorAll('.caSwap').forEach((ele) => {
-        ele.addEventListener(
-            'click',
-            (event) => {
-                window.caSubMenu = event.currentTarget.textContent
-                document.getElementById('baseContent').innerHTML = ''
-                classGen()
-            }
-        )
-    })
-
-    if(window.caSubMenu == "Classes"){
     if(localStorage.getItem('swcClasses') == null){
         localStorage.setItem('swcClasses', JSON.stringify([
             {
@@ -164,39 +141,35 @@ function classGen(){
         document.getElementById('sub2').appendChild(pane)
     })
 
-    // let addNewClassButton = document.createElement('div')
-    // addNewClassButton.classList.add('classPane')
-    // addNewClassButton.classList.add('addClass')
-    // addNewClassButton.classList.add('contextMenuOpen')
-    // addNewClassButton.textContent = 'Add new Class'
-    // addNewClassButton.addEventListener('click', (event) => {
-    //     let newClass = getResultsFromContextMenu([
-    //             'name',
-    //             'teacher',
-    //             'link',
-    //             'color',
-    //             'block'
-    //         ],
-    //         'Class Creator',
-    //         ['', '', '', '#FFFFFF'], '1')
-    //     newClass.then( (newClass) => {
-    //         let jsonRead = localStorage.getItem('swcClasses')
-    //         jsonRead = JSON.parse(jsonRead)
-    //         jsonRead.push({
-    //             "name": newClass[0],
-    //             "teacher": newClass[1],
-    //             "link": newClass[2],
-    //             "color": newClass[3]
-    //         })
-    //         localStorage.setItem('swcClasses', JSON.stringify(jsonRead))
-    //         updateMenus()
-    //     })
-    // })
+    let addNewClassButton = document.createElement('div')
+    addNewClassButton.classList.add('classPane')
+    addNewClassButton.classList.add('addClass')
+    addNewClassButton.classList.add('contextMenuOpen')
+    addNewClassButton.textContent = 'Add new Class'
+    addNewClassButton.addEventListener('click', (event) => {
+        let newClass = getResultsFromContextMenu([
+                'name',
+                'teacher',
+                'link',
+                'color',
+                'block'
+            ],
+            'Class Creator',
+            ['', '', '', '#FFFFFF'], '1')
+        newClass.then( (newClass) => {
+            let jsonRead = localStorage.getItem('swcClasses')
+            jsonRead = JSON.parse(jsonRead)
+            jsonRead.push({
+                "name": newClass[0],
+                "teacher": newClass[1],
+                "link": newClass[2],
+                "color": newClass[3]
+            })
+            localStorage.setItem('swcClasses', JSON.stringify(jsonRead))
+            updateMenus()
+        })
+    })
 
-    // document.getElementById('sub2').appendChild(document.createElement('br'))
-    // document.getElementById('sub2').appendChild(addNewClassButton)
-}
-    else{
-        // Agendas Page
-    }
+    document.getElementById('sub2').appendChild(document.createElement('br'))
+    document.getElementById('sub2').appendChild(addNewClassButton)
 }

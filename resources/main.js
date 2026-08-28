@@ -93,7 +93,8 @@ const menu = new RadialMenu({
     size: 200,
     closeOnClick: true,
     menuItems: [
-        { id: 'Classes & Agendas', title: 'CA' },
+        { id: 'Classes', title: 'Classes' },
+        {id: 'Agendas', title: 'Agendas'},
         { id: 'Links', title: 'Links' },
         { id: 'Settings', title: 'Settings' },
         { id: 'SwiftClass', title: 'Home' },
@@ -280,7 +281,7 @@ async function updateMenus() {
         case 'Settings':
             settingsGen()
             break;
-        case 'Classes & Agendas':
+        case 'Classes':
             classGen()
             break;
         case 'Links':
