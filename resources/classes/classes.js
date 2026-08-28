@@ -172,7 +172,8 @@ function classGen(){
                 'name',
                 'teacher',
                 'link',
-                'color'
+                'color',
+                'block'
             ],
             'Class Creator',
             ['', '', '', '#FFFFFF'], '1')
