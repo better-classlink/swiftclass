@@ -4,6 +4,11 @@ if(localStorage.getItem('swcsettings') == null) localStorage.setItem('swcsetting
     '[]'
 )
 
+if(localStorage.getItem('swcClasses') == null) localStorage.setItem(
+    'swcClasses',
+    '[]'
+)
+
 window.SwiftClassPage = document.getElementById('baseContent').innerHTML
 window.caSubMenu = 'Classes'
 
@@ -205,6 +210,15 @@ window.addEventListener('keydown', function(e) {
 });
 
 async function updateMenus() {
+
+    window.classPeriods = extractSetting('Number of Available Periods')
+
+    for(let i = 0; i < window.classPeriods; i++){
+        let classes = JSON.parse(localStorage.getItem('swcClasses'))
+        if(classes[i] == null) classes[i] = {}
+        localStorage.setItem('swcClasses', JSON.stringify(classes))
+    }
+
     try {
         let visitedMenus = JSON.parse(localStorage.getItem('visitedMenus'))
 
