@@ -31,24 +31,27 @@ function classGen(){
 
     for(let i = 0; i < periods; i++){
         let classPane = document.createElement('div')
-        if(classes[i] = {}){
+        if(JSON.stringify(classes[i]) === '{}'){
             classPane.classList.add('classPane')
             classPane.classList.add('contextMenuOpen')
             classPane.classList.add('addClass')
-            classPane.style.backgroundColor = "#FFFFFF80"
+            classPane.style.backgroundColor = "#FFFFFFCC"
             sub2.appendChild(classPane)
 
             classAligner = document.createElement('div')
             classAligner.classList.add('classChild')
+            classAligner.classList.add('contextMenuOpen')
             classPane.appendChild(classAligner)
 
             let plusSign = document.createElement('pre')
             plusSign.classList.add('plusSign')
+            plusSign.classList.add('contextMenuOpen')
             plusSign.textContent = '+'
             classAligner.appendChild(plusSign)
 
             let sideText = document.createElement('span')
             sideText.classList.add('sideText')
+            sideText.classList.add('contextMenuOpen')
             sideText.textContent = "Add a class for Period " + String(i + 1)
             classPane.appendChild(sideText)
 
@@ -79,7 +82,12 @@ function classGen(){
                     })
                 })
         }else{
+            let classPane = document.createElement('div')
+            classPane.classList.add('classPane')
+            classPane.style.backgroundColor = classes[i].color + "CC"
+            classPane.textContent = 'test: ' + classes[i].name + ' teacher: ' + classes[i].teacher + ' link: ' + classes[i].link
 
+            sub2.appendChild(classPane)
         }
     }
 
