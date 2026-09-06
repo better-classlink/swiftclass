@@ -36,18 +36,18 @@ function classGen(){
         sub2.appendChild(track)
     }
 
-    for(let i = 0; i < periods; i++){
+    for(let i = 0; i < periods; i++) {
         let classPane = document.createElement('div')
-        if(JSON.stringify(classes[i]) === '{}'){
+        if (JSON.stringify(classes[i]) === '{}') {
             classPane.classList.add('classPane')
             classPane.classList.add('contextMenuOpen')
             classPane.classList.add('addClass')
-            classPane.style.backgroundColor = "#FFFFFF"
-            if(i < 4){
+            classPane.style.backgroundColor = "#FFFFFFCA"
+            if (i < 4) {
                 document.getElementById('track1').appendChild(classPane)
-            }else if(i < 8){
+            } else if (i < 8) {
                 document.getElementById('track2').appendChild(classPane)
-            }else{
+            } else {
                 document.getElementById('track3').appendChild(classPane)
             }
 
@@ -68,60 +68,80 @@ function classGen(){
             classPane.addEventListener('click', (event) => {
                 window.classToAdd = event.currentTarget.dataset.period - 1
 
-                    let newClass = getResultsFromContextMenu([
-                            'name',
-                            'teacher',
-                            'link',
-                            'color'
-                        ],
-                        'Class Creator',
-                        ['', '', '', '#FFFFFF'], '1')
-                    newClass.then( (newClass) => {
-                        let jsonRead = localStorage.getItem('swcClasses')
-                        console.log(window.classToAdd)
-                        jsonRead = JSON.parse(jsonRead)
-                        jsonRead[window.classToAdd] = {
-                            "name": newClass[0],
-                            "teacher": newClass[1],
-                            "link": newClass[2],
-                            "color": newClass[3]
-                        }
-                        localStorage.setItem('swcClasses', JSON.stringify(jsonRead))
-                        updateMenus()
-                    })
+                let newClass = getResultsFromContextMenu([
+                        'name',
+                        'teacher',
+                        'link',
+                        'color'
+                    ],
+                    'Class Creator',
+                    ['', '', '', '#FFFFFF'], '1')
+                newClass.then((newClass) => {
+                    let jsonRead = localStorage.getItem('swcClasses')
+                    console.log(window.classToAdd)
+                    jsonRead = JSON.parse(jsonRead)
+                    jsonRead[window.classToAdd] = {
+                        "name": newClass[0],
+                        "teacher": newClass[1],
+                        "link": newClass[2],
+                        "color": newClass[3]
+                    }
+                    localStorage.setItem('swcClasses', JSON.stringify(jsonRead))
+                    updateMenus()
                 })
-        }else{
+            })
+        } else {
             let classPane = document.createElement('div')
             classPane.classList.add('classPane')
-            classPane.style.backgroundColor = "#FFFFFF"
-            classPane.style.color = '#000000'
-            classPane.textContent = 'test: ' + classes[i].name + ' teacher: ' + classes[i].teacher + ' link: ' + classes[i].link
+            let c = classes[i]
+            classPane.style.backgroundColor = c.color + 'CA'
 
-            if(i < 4){
+            let redvalue = EightBitHexToDecimal(c.color.slice(1, 3))
+            let greenvalue = EightBitHexToDecimal(c.color.slice(3, 5))
+            let bluevalue = EightBitHexToDecimal(c.color.slice(-2))
+            let average = ((redvalue + greenvalue + bluevalue) / 3)
+
+            let textColor = '#FFFFFF'
+
+            if (average > 180) {
+                textColor = '#000000'
+            }
+            else {
+                textColor = '#FFFFFF'
+            }
+            console.log(textColor)
+
+            let classHeader = document.createElement('span')
+            classHeader.classList.add('classHeader')
+            classHeader.textContent = "Period " + String((i+1)) + ': ' + c.name
+            classHeader.style.color = textColor
+            classPane.appendChild(classHeader)
+
+            classPane.appendChild(document.createElement('br'))
+
+            let classTeacher = document.createElement('span')
+            classTeacher.classList.add('classSubHeader')
+            classTeacher.textContent = "Taught by " + c.teacher
+            classTeacher.style.color = textColor
+            classPane.appendChild(classTeacher)
+
+            // Actual Buttons
+
+            let subTrack = document.createElement('div')
+            subTrack.classList.add('subTrack')
+            classPane.appendChild(subTrack)
+
+            let buttonsTrack = document.createElement('div')
+            buttonsTrack.classList.add('buttonsTrack')
+            subTrack.appendChild(buttonsTrack)
+
+            if (i < 4) {
                 document.getElementById('track1').appendChild(classPane)
-            }else if(i < 8){
+            } else if (i < 8) {
                 document.getElementById('track2').appendChild(classPane)
-            }else{
+            } else {
                 document.getElementById('track3').appendChild(classPane)
             }
         }
     }
-
-    let classPanes = []
-    //
-    // classes.forEach( (c, index) => {
-    //     let redvalue = EightBitHexToDecimal(c.color.slice(1, 3))
-    //     let greenvalue = EightBitHexToDecimal(c.color.slice(3, 5))
-    //     let bluevalue = EightBitHexToDecimal(c.color.slice(-2))
-    //     let average = ((redvalue + greenvalue + bluevalue) / 3)
-    //
-    //     let textColor = '#FFFFFF'
-    //
-    //     if (average > 180) {
-    //         textColor = '#000000'
-    //     } else {
-    //         textColor = '#FFFFFF'
-    //     }
-    //     console.log(textColor)
-    // })
 }

@@ -25,7 +25,7 @@
     width: 22%;
     height: 80%;
     padding: 1%;
-    display: inline-flex;
+    display: inline-block;
     background-color: rgb(var(--c3));
     margin: 1%;
     border-radius: 5px;
@@ -33,12 +33,16 @@
     transform-origin: center;
     user-select: none;
     vertical-align: top;
+    overflow: hidden;
+    position: relative;
+    line-height: 1
 }
 
 .classPane.addClass {
     cursor: pointer;
     display: inline-flex;
     align-items: center;
+    line-height: 1.2;
 }
 
 .classPane:hover {
@@ -61,16 +65,50 @@
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 1%;
+    font-size: clamp(5px, 3vmin, 33px);
 }
 
 .classHeader {
-    color: rgb(var(--c3));
-    font-size: clamp(15px, 3vmin, 33px);
+    font-size: clamp(4px, 1cqi, 33px);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    display: inline-block;
+    font-weight: 600;
 }
 
 .classSubHeader {
-    color: rgb(var(--c3));
-    font-size: clamp(14px, 2vmin, 34px);
+    font-size: clamp(2px, 0.9cqi, 34px);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    display: inline-block;
+}
+
+.buttonsTrack {
+    width: 98%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 1%;
+    padding: 1%;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.subTrack {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
 h2 {

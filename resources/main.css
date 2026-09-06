@@ -160,7 +160,7 @@ div {
     transition: 0.3s ease;
     /* height: inherit; */
     border: 3px solid rgba(var(--c3), 0.33);
-    scrollbar-color: rgb(var(--c1)) rgb(var(--c3));
+    scrollbar-color: rgb(var(--c3)) rgb(var(--c1));
 }
 
 .forceClassesGrid {
@@ -183,7 +183,7 @@ div {
     width: 100%;
     background-color: rgba(var(--c3), 0.85);
     margin-bottom: 0.5%;
-    border-radius: 50% 1000% 1000% 50%;
+    border-radius: 3px;
 }
 
 .main {
