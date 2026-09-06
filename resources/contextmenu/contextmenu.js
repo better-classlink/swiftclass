@@ -63,7 +63,7 @@ class ContextMenu {
                     }
                     else e.placeholder = 'Type in the link here.'
 
-                    e.placeholder = 'Type in the associated link here.'
+                    e.placeholder = 'Type in the classes\'s webpage here.'
                     if(typeof this.itemValues[index] == 'string') e.value = this.itemValues[index]; this.data[index] = e.value
                     e.classList.add('contextInput')
                     e.classList.add('linkInput')

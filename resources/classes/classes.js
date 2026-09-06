@@ -135,6 +135,28 @@ function classGen(){
             buttonsTrack.classList.add('buttonsTrack')
             subTrack.appendChild(buttonsTrack)
 
+            let jumpToLinkButton = document.createElement('div')
+            jumpToLinkButton.classList.add('trackButton')
+            jumpToLinkButton.textContent = "Class Page"
+            buttonsTrack.appendChild(jumpToLinkButton)
+            jumpToLinkButton.addEventListener('click', (event) => {
+                window.open(c.link)
+            })
+
+            let editButton = document.createElement('div')
+            editButton.classList.add('trackButton')
+            editButton.textContent = "Edit Class"
+            buttonsTrack.appendChild(editButton)
+            editButton.addEventListener('click', (event) => {
+                let classToAdd = getResultsFromContextMenu([
+                    'name',
+                    'teacher',
+                    'link',
+                    'color'
+                ])
+
+            })
+
             if (i < 4) {
                 document.getElementById('track1').appendChild(classPane)
             } else if (i < 8) {
