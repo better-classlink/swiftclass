@@ -186,3 +186,14 @@ function resetTheme(){
     location.reload()
 }
 
+function checkAspectRatio(){
+        let width = window.innerWidth
+        let height = window.innerHeight
+        if(width/height < 0.65){
+            document.getElementById('aspectRatioBlocker').style.zIndex = '9999'
+        }else{
+            document.getElementById('aspectRatioBlocker').style.zIndex = '-1'
+        }
+}
+
+setInterval(checkAspectRatio, 500)

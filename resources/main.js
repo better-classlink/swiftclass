@@ -209,6 +209,16 @@ window.addEventListener('keydown', function(e) {
   }
 });
 
+let aspectRatioBlocker = document.createElement('div')
+aspectRatioBlocker.classList.add('aspectRatioBlocker')
+aspectRatioBlocker.id = 'aspectRatioBlocker'
+document.body.appendChild(aspectRatioBlocker)
+
+let blockerText = document.createElement('span')
+blockerText.textContent = 'Please make sure you are using SwiftClass on a 16:9 (widescreen) window. It won\'t properly work otherwise!'
+blockerText.classList.add('blockerText')
+aspectRatioBlocker.appendChild(blockerText)
+
 async function updateMenus() {
 
     window.classPeriods = extractSetting('Number of Available Periods')
