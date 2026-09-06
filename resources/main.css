@@ -15,7 +15,7 @@ h1 {
 }
 
 strong {
-    font-weight: 500;
+    font-weight: bold;
 }
 
 body {
@@ -160,6 +160,7 @@ div {
     transition: 0.3s ease;
     /* height: inherit; */
     border: 3px solid rgba(var(--c3), 0.33);
+    scrollbar-color: rgb(var(--c1)) rgb(var(--c3));
 }
 
 .forceClassesGrid {
@@ -273,7 +274,7 @@ div {
     color: rgb(var(--c1));
     background-color: rgb(var(--c2));
     cursor: pointer;
-    text-decoration: underline;
+    /* text-decoration: underline; */
     transform: scale(1.1);
 }
 

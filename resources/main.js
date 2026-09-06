@@ -277,8 +277,6 @@ async function updateMenus() {
 
         document.getElementById('baseContent').innerHTML = ''
 
-        // Central Switch Case
-
         if (baseContent.classList.contains('classesGrid')) {
             baseContent.classList.remove('classesGrid')
         }
@@ -287,6 +285,7 @@ async function updateMenus() {
     }
 
     console.log("Updating menus ", window.currentMenu)
+    baseContent.style.overflowY = 'none'
 
     switch (window.currentMenu) {
         case 'SwiftClass':

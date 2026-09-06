@@ -29,28 +29,36 @@ function classGen(){
 
     let periods = Number(extractSetting('Number of Available Periods'))
 
+    for(i=0; i<3; i++){
+        let track = document.createElement('div')
+        track.classList.add("classTrack")
+        track.id = 'track' + String(i+1)
+        sub2.appendChild(track)
+    }
+
     for(let i = 0; i < periods; i++){
         let classPane = document.createElement('div')
         if(JSON.stringify(classes[i]) === '{}'){
             classPane.classList.add('classPane')
             classPane.classList.add('contextMenuOpen')
             classPane.classList.add('addClass')
-            classPane.style.backgroundColor = "#FFFFFFCC"
-            sub2.appendChild(classPane)
+            classPane.style.backgroundColor = "#FFFFFF"
+            if(i < 4){
+                document.getElementById('track1').appendChild(classPane)
+            }else if(i < 8){
+                document.getElementById('track2').appendChild(classPane)
+            }else{
+                document.getElementById('track3').appendChild(classPane)
+            }
 
-            classAligner = document.createElement('div')
-            classAligner.classList.add('classChild')
-            classAligner.classList.add('contextMenuOpen')
-            classPane.appendChild(classAligner)
-
-            let plusSign = document.createElement('pre')
-            plusSign.classList.add('plusSign')
+            let plusSign = document.createElement('span')
+            plusSign.classList.add('classPlusSign')
             plusSign.classList.add('contextMenuOpen')
-            plusSign.textContent = '+'
-            classAligner.appendChild(plusSign)
+            plusSign.textContent = "+"
+            classPane.appendChild(plusSign)
 
             let sideText = document.createElement('span')
-            sideText.classList.add('sideText')
+            sideText.classList.add('addClassText')
             sideText.classList.add('contextMenuOpen')
             sideText.textContent = "Add a class for Period " + String(i + 1)
             classPane.appendChild(sideText)
@@ -58,7 +66,7 @@ function classGen(){
             classPane.dataset.period = i + 1
 
             classPane.addEventListener('click', (event) => {
-                window.classToAdd = event.currentTarget.dataset.period
+                window.classToAdd = event.currentTarget.dataset.period - 1
 
                     let newClass = getResultsFromContextMenu([
                             'name',
@@ -70,13 +78,14 @@ function classGen(){
                         ['', '', '', '#FFFFFF'], '1')
                     newClass.then( (newClass) => {
                         let jsonRead = localStorage.getItem('swcClasses')
+                        console.log(window.classToAdd)
                         jsonRead = JSON.parse(jsonRead)
-                        jsonRead.push({
+                        jsonRead[window.classToAdd] = {
                             "name": newClass[0],
                             "teacher": newClass[1],
                             "link": newClass[2],
                             "color": newClass[3]
-                        })
+                        }
                         localStorage.setItem('swcClasses', JSON.stringify(jsonRead))
                         updateMenus()
                     })
@@ -84,10 +93,17 @@ function classGen(){
         }else{
             let classPane = document.createElement('div')
             classPane.classList.add('classPane')
-            classPane.style.backgroundColor = classes[i].color + "CC"
+            classPane.style.backgroundColor = "#FFFFFF"
+            classPane.style.color = '#000000'
             classPane.textContent = 'test: ' + classes[i].name + ' teacher: ' + classes[i].teacher + ' link: ' + classes[i].link
 
-            sub2.appendChild(classPane)
+            if(i < 4){
+                document.getElementById('track1').appendChild(classPane)
+            }else if(i < 8){
+                document.getElementById('track2').appendChild(classPane)
+            }else{
+                document.getElementById('track3').appendChild(classPane)
+            }
         }
     }
 

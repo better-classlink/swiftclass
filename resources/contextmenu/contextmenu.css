@@ -18,8 +18,7 @@
 
 .contextButtonTweak:hover {
     background-color: rgb(var(--c3));
-    text-decoration: underline; !important;
-    color: rgb(var(--c2)); !important;
+    color: rgb(var(--c2)) !important;
     transform: scale(1.02);
 }
 
@@ -84,7 +83,6 @@
 .contextButton:hover {
     background-color: rgb(var(--c2));
     border-color: rgb(var(--c3));
-    text-decoration: underline;
     color: rgb(var(--c1));
     transform: scale(1.1);
 }
@@ -103,8 +101,8 @@
 }
 
 .contextColorInput {
-    width: 40%; !important;
-    padding: 0px; !important;
+    width: 40% !important;
+    padding: 0px !important;
     border: 3px solid rgb(var(--c1));
     cursor: pointer;
 }

@@ -359,19 +359,6 @@ async function settingsGen(){
 
                 }
 
-                try {
-
-                    let test = await fetch("./Resources/info/json/" + window.currentMenu + "/slides.json").then(
-                        () => {
-                            let testOther = test.json()
-                        }
-                    )
-
-                } catch (e) {
-                    console.warn(e)
-
-                }
-
                 let valueType = null
 
                 let settingsLoad = localStorage.getItem('swcsettings')
@@ -409,5 +396,6 @@ async function settingsGen(){
         location.reload()
     })
     document.getElementById('baseContent').appendChild(reloadButton)
+    document.getElementById('baseContent').style.overflowY = 'auto'
 
 }

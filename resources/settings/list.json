@@ -5,8 +5,8 @@
         "type": "slider",
         "description": "Sets the number of available class periods that can be selected. (useful for organization)",
         "minval": "1",
-        "maxval": "15",
-        "value": "1"
+        "maxval": "12",
+        "value": "8"
     },
     {
         "header": "Appearance and Visuals",

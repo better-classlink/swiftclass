@@ -56,18 +56,20 @@
     padding-top: 0.5%;
     padding-bottom: 0.5%;
     height: fit-content;
-    background-color: rgba(var(--c1), 0.7);
-    border: 4px solid rgb(var(--c3));
+    background-color: rgba(var(--c3));
+    /* border: 4px solid rgb(var(--c1)); */
     margin-bottom: 2%;
     border-radius: 5px;
     overflow-x: auto;
     overflow-y: hidden;
+    position: sticky;
+    top: 0;
 }
 
 
 .settingsHeader {
-    background-color: rgb(var(--c3));
-    color: rgb(var(--c1));
+    background-color: rgb(var(--c1));
+    color: rgb(var(--c3));
     height: 80%;
     width: fit-content;
     padding: 1%;
@@ -79,10 +81,11 @@
 }
 
 .settingsHeader:hover {
-    background-color: rgb(var(--c3));
+    background-color: rgb(var(--c2));
+    color: rgb(var(--c1));
     cursor: pointer;
     transform: scale(1.1);
-    text-decoration: underline;
+    /* text-decoration: underline; */
 }
 
 .settingsHeader:active {
@@ -123,10 +126,10 @@
 }
 
 .reloadButton {
-    background-color: rgb(var(--c1));
-    color: rgb(var(--c3));
+    background-color: rgb(var(--c3));
+    color: rgb(var(--c1));
     font-weight: 500;
-    border: 2px solid rgb(var(--c2));
+    border: 2px solid rgb(var(--c3));
     width: fit-content;
     height: fit-content;
     padding: 1%;

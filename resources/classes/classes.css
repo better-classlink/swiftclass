@@ -17,25 +17,28 @@
     background-color: rgba(var(--c3), 0.2);
     border-radius: 4px;
     height: 100%;
+    display: grid;
+    grid-template-rows: 33.333% 33.3333% 33.333%;    
 }
 
 .classPane {
     width: 22%;
-    height: 20%;
-    min-width: fit-content;
-    min-height: fit-content;
+    height: 80%;
     padding: 1%;
-    display: inline-block;
+    display: inline-flex;
     background-color: rgb(var(--c3));
     margin: 1%;
     border-radius: 5px;
     transition: 0.25s ease;
     transform-origin: center;
     user-select: none;
+    vertical-align: top;
 }
 
 .classPane.addClass {
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
 }
 
 .classPane:hover {
@@ -46,22 +49,18 @@
     scale: 0.95;
 }
 
-.classChild {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+.classPlusSign {
+    color: rgb(var(--c1));
+    font-size: 5cqi;
+    height: fit-content;
+    margin-right: 6%;
 }
 
-.plusSign {
-    font-size: clamp(14px, 6vmin, 34px);
+.addClassText {
     color: rgb(var(--c1));
-}
-
-.sideText {
-    color: rgb(var(--c1));
-    font-size: clamp(12px, 2vmin, 24px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 1%;
 }
 
 .classHeader {
