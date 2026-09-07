@@ -94,7 +94,7 @@ function classGen(){
             let classPane = document.createElement('div')
             classPane.classList.add('classPane')
             let c = classes[i]
-            classPane.style.backgroundColor = c.color + 'CA'
+            classPane.style.backgroundColor = c.color + 'AA'
 
             let redvalue = EightBitHexToDecimal(c.color.slice(1, 3))
             let greenvalue = EightBitHexToDecimal(c.color.slice(3, 5))
@@ -111,13 +111,11 @@ function classGen(){
             }
             console.log(textColor)
 
-            let classHeader = document.createElement('span')
+            let classHeader = document.createElement('div')
             classHeader.classList.add('classHeader')
             classHeader.textContent = "Period " + String((i+1)) + ': ' + c.name
             classHeader.style.color = textColor
             classPane.appendChild(classHeader)
-
-            classPane.appendChild(document.createElement('br'))
 
             let classTeacher = document.createElement('span')
             classTeacher.classList.add('classSubHeader')
@@ -127,7 +125,7 @@ function classGen(){
 
             // Actual Buttons
 
-            let subTrack = document.createElement('div')
+            let subTrack = document.createElement('span')
             subTrack.classList.add('subTrack')
             classPane.appendChild(subTrack)
 
@@ -145,6 +143,7 @@ function classGen(){
 
             let editButton = document.createElement('div')
             editButton.classList.add('trackButton')
+            editButton.classList.add('contextMenuOpen')
             editButton.textContent = "Edit Class"
             buttonsTrack.appendChild(editButton)
             editButton.addEventListener('click', (event) => {
@@ -153,8 +152,38 @@ function classGen(){
                     'teacher',
                     'link',
                     'color'
-                ])
+                ],
+                    'Edit Class',
+                    [
+                        c.name,
+                        c.teacher,
+                        c.link,
+                        c.color
+                    ]).then((newClass) => {
+                        let jsonRead = JSON.parse(localStorage.getItem('swcClasses'))
 
+                        jsonRead[i] = {
+                            "name": newClass[0],
+                            "teacher": newClass[1],
+                            "link": newClass[2],
+                            "color": newClass[3]
+                        }
+
+                        localStorage.setItem('swcClasses', JSON.stringify(jsonRead))
+                        updateMenus()
+                })
+            })
+
+            let deleteButton = document.createElement('div')
+            deleteButton.classList.add('trackButton')
+            deleteButton.textContent = "Delete Class"
+            buttonsTrack.appendChild(deleteButton)
+            deleteButton.addEventListener('click', (event) => {
+                if(!confirm("Are you sure you want to delete this class?")) return
+                let jsonRead = JSON.parse(localStorage.getItem('swcClasses'))
+                jsonRead[i] = {}
+                localStorage.setItem('swcClasses', JSON.stringify(jsonRead))
+                updateMenus()
             })
 
             if (i < 4) {

@@ -212,6 +212,8 @@ window.addEventListener('keydown', function(e) {
 let aspectRatioBlocker = document.createElement('div')
 aspectRatioBlocker.classList.add('aspectRatioBlocker')
 aspectRatioBlocker.id = 'aspectRatioBlocker'
+aspectRatioBlocker.style.display = 'none'
+aspectRatioBlocker.style.zIndex = '9999'
 document.body.appendChild(aspectRatioBlocker)
 
 let blockerText = document.createElement('span')

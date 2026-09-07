@@ -9,6 +9,22 @@ function hexCodeToRGB(hexCode) {
     return `${r}, ${g}, ${b}`
 }
 
+function checkAspectRatio(){
+    let width = window.innerWidth
+    let height = window.innerHeight
+    if(width/height < 0.65){
+        if(document.getElementById('aspectRatioBlocker') == null) return
+        document.getElementById('aspectRatioBlocker').style.display = 'flex'
+    }else{
+        if(document.getElementById('aspectRatioBlocker') == null) return
+        document.getElementById('aspectRatioBlocker').style.display = 'none'
+    }
+}
+
+checkAspectRatio()
+
+setInterval(checkAspectRatio, 500)
+
 function extractSetting(settingName) {
     let settingsLoad = localStorage.getItem('swcsettings')
     settingsLoad = JSON.parse(settingsLoad)
@@ -185,15 +201,3 @@ function resetTheme(){
     localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
     location.reload()
 }
-
-function checkAspectRatio(){
-        let width = window.innerWidth
-        let height = window.innerHeight
-        if(width/height < 0.65){
-            document.getElementById('aspectRatioBlocker').style.zIndex = '9999'
-        }else{
-            document.getElementById('aspectRatioBlocker').style.zIndex = '-1'
-        }
-}
-
-setInterval(checkAspectRatio, 500)

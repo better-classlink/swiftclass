@@ -69,13 +69,15 @@
 }
 
 .classHeader {
-    font-size: clamp(4px, 1cqi, 33px);
+    font-size: clamp(4px, 1.3cqi, 33px);
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     width: 100%;
     display: inline-block;
     font-weight: 600;
+    display: flex;
+    margin-bottom: 1%;
 }
 
 .classSubHeader {
@@ -84,7 +86,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     width: 100%;
-    display: inline-block;
+    display: flex;
 }
 
 .buttonsTrack {
@@ -126,11 +128,14 @@ h2 {
     background-color: rgba(0, 0, 0, 0.2);
     color: #FFFFFF;
     border-radius: 5px;
-    font-size: clamp(10px, 2vmin, 24px);
+    font-size: clamp(3px, 1cqi, 15px);
     display: flex;
     justify-content: center;
     align-items: center;
     transition: 0.25s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .trackButton:hover {
