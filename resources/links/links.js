@@ -29,5 +29,17 @@ function linksGen() {
 
     let classHeadersArray = []
 
+    let classSectorHeader = document.createElement('span')
+    classSectorHeader.textContent = 'Class Links'
+    classSectorHeader.classList.add('classSectorHeader')
+    headersTab.appendChild(classSectorHeader)
+    headersTab.appendChild(document.createElement('br'))
 
+    classHeaders.forEach(element => {
+        classHeadersArray.push([element.name, element.color])
+    })
+
+    let tempScroller = document.createElement('div')
+    tempScroller.style.height = '150%'
+    headersTab.appendChild(tempScroller)
 }
