@@ -222,9 +222,7 @@ blockerText.textContent = 'Please make sure you are using SwiftClass on a 16:9 (
 blockerText.classList.add('blockerText')
 aspectRatioBlocker.appendChild(blockerText)
 
-async function updateMenus() {
-
-    if(baseContent.classList.contains('linksGrid')) baseContent.classList.remove('linksGrid')
+async function updateMenus(...args) {
 
     window.classPeriods = extractSetting('Number of Available Periods')
 
@@ -292,22 +290,32 @@ async function updateMenus() {
         console.warn(e)
     }
 
+    if(baseContent.classList.contains('linksGrid')) baseContent.classList.remove('linksGrid')
+
     console.log("Updating menus ", window.currentMenu)
     baseContent.style.overflowY = 'none'
-
-    switch (window.currentMenu) {
-        case 'SwiftClass':
-            homeGen()
-            break;
-        case 'Settings':
-            settingsGen()
-            break;
-        case 'Classes':
-            classGen()
-            break;
-        case 'Links':
-            linksGen()
-            break;
+    if(args[0] == undefined) {
+        switch (window.currentMenu) {
+            case 'SwiftClass':
+                homeGen()
+                break;
+            case 'Settings':
+                settingsGen()
+                break;
+            case 'Classes':
+                classGen()
+                break;
+            case 'Links':
+                linksGen()
+                break;
+        }
+    }
+    else{
+       if(args[0] == 'forcelinks'){
+           window.currentMenu = 'Links'
+           linksGen()
+           typeMenuName(true)
+       }
     }
 
     baseContent.classList.remove('smallProp')
@@ -373,4 +381,4 @@ setInterval(() => {
     // document.title = 'SwiftClass - ' + completeTime
 }, 100);
 
-updateMenus()
+updateMenus('forcelinks')

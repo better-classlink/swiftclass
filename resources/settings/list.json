@@ -6,7 +6,7 @@
         "description": "Sets the number of available class periods that can be selected. (useful for organization)",
         "minval": "1",
         "maxval": "12",
-        "value": "8"
+        "value": "7"
     },
     {
         "header": "Appearance and Visuals",

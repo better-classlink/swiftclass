@@ -17,19 +17,39 @@
 .classSectorHeader {
     width: 100%;
     padding: 1%;
-    font-size: clamp(2px, 1.3cqi, 33px);
+    padding-left: 3%;
+    font-size: clamp(2px, 1.6cqi, 33px);
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     font-weight: 600;
     color: rgb(var(--c3));
     display: flex;
-    direction: ltr;
-    padding-left: 5%;
 }
 
 .headersTab {
     overflow-x: hidden;
     overflow-y: auto;
-    direction: rtl;
+}
+
+.linksHeader {
+    font-size: clamp(7px, 2vmin, 24px);
+    font-weight: 400;
+    color: rgb(var(--c3));
+    padding: 2%;
+    border-radius: 8px;
+    margin: 2%;
+    margin-left: 1%;
+    width: 80%;
+    cursor: pointer;
+    transition: 0.25s ease;
+    transform-origin: left;
+}
+
+.linksHeader.usable:hover {
+    scale: 1.05;
+}
+
+.linksHeader.usable:active {
+    scale: 0.95;
 }

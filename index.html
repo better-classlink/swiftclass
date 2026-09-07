@@ -61,30 +61,29 @@
 <body>
 <div id="container" style="position: absolute;"></div>
 <div class="content" id="content">
-    <div class="headerContainer">
-        <section>
+    <section class="headerContainer">
+        <section style="display: grid">
         <span class="topHeader header" id="topHeader">...</span>
-            <br>
         <span class="timeTicker" id="timeTicker">...</span>
         </section>
-    </div>
-    <div class="main background" id="main">
-        <div class="newsTicker baseContent" id="baseContent">
+    </section>
+    <section class="main background" id="main">
+        <main class="newsTicker baseContent" id="baseContent">
             <h1 class="newsHeader" id="newsHeader">
 
             </h1>
             <div class="newsText" id="newsTickerText">
             </div>
-        </div>
-    </div>
+        </main>
+    </section>
 
-    <div class="footer flexCenter" id="footer">
+    <section class="footer flexCenter" id="footer">
 
         <div class="footerButtonB scriptOverride footerOverride" onclick="showInfoSlides()" tabindex="0">
             About this Page
         </div>
 
-        <div class="footerAligner">
+        <nav class="footerAligner">
 
             <div class="footerButton" tabindex="1">
                 Home
@@ -106,7 +105,7 @@
                 Agendas
             </div>
 
-        </div>
+        </nav>
 
         <div class="footerButtonB scriptOverride footerOverride" onclick="resetTheme()">
             <span class="footerButtonText textOverride" tabindex="6">
@@ -114,7 +113,7 @@
             </span>
         </div>
 
-    </div>
+    </section>
 </div>
 </body>
 </html>
