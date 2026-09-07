@@ -9,14 +9,18 @@ function hexCodeToRGB(hexCode) {
     return `${r}, ${g}, ${b}`
 }
 
-function checkAspectRatio(){
+async function checkAspectRatio(){
     let width = window.innerWidth
     let height = window.innerHeight
     if(width/height < 0.65){
         if(document.getElementById('aspectRatioBlocker') == null) return
         document.getElementById('aspectRatioBlocker').style.display = 'flex'
+        await wait(300)
+        document.getElementById('aspectRatioBlocker').classList.remove('shrink')
     }else{
         if(document.getElementById('aspectRatioBlocker') == null) return
+        document.getElementById('aspectRatioBlocker').classList.add('shrink')
+        await wait(300)
         document.getElementById('aspectRatioBlocker').style.display = 'none'
     }
 }

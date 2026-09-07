@@ -211,6 +211,7 @@ window.addEventListener('keydown', function(e) {
 
 let aspectRatioBlocker = document.createElement('div')
 aspectRatioBlocker.classList.add('aspectRatioBlocker')
+aspectRatioBlocker.classList.add('shrink')
 aspectRatioBlocker.id = 'aspectRatioBlocker'
 aspectRatioBlocker.style.display = 'none'
 aspectRatioBlocker.style.zIndex = '9999'
@@ -222,6 +223,8 @@ blockerText.classList.add('blockerText')
 aspectRatioBlocker.appendChild(blockerText)
 
 async function updateMenus() {
+
+    if(baseContent.classList.contains('linksGrid')) baseContent.classList.remove('linksGrid')
 
     window.classPeriods = extractSetting('Number of Available Periods')
 
@@ -280,13 +283,6 @@ async function updateMenus() {
 
         await wait(300)
 
-        if (baseContent.classList.contains('forceClassesGrid')) {
-            baseContent.classList.remove('forceClassesGrid')
-        } else if (baseContent.classList.contains('forceLinksGrid')) {
-            baseContent.classList.remove('forceLinksGrid')
-        }
-
-
         document.getElementById('baseContent').innerHTML = ''
 
         if (baseContent.classList.contains('classesGrid')) {
@@ -310,7 +306,7 @@ async function updateMenus() {
             classGen()
             break;
         case 'Links':
-            baseContent.textContent = "nothing here yet. return in like a month"
+            linksGen()
             break;
     }
 
