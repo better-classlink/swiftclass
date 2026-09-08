@@ -1,4 +1,31 @@
 function linksGen() {
+
+    let linksJSON = JSON.parse(localStorage.getItem('swcLinks'))
+    let classHeaders = JSON.parse(localStorage.getItem('swcClasses'))
+
+
+    if(localStorage.getItem('swcLinks') == null){
+        localStorage.setItem('swcLinks', JSON.stringify([
+            [],
+            []
+        ]))
+    }
+
+    linksJSON = JSON.parse(localStorage.getItem('swcLinks'))
+
+    for(i=0; i < Number(extractSetting("Number of Available Periods"));i++){
+        if(linksJSON[0][i*2] == undefined){
+            linksJSON[0].push([
+                i+1,
+                []
+            ])
+        }
+    }
+
+    localStorage.setItem('swcLinks', JSON.stringify(linksJSON))
+
+    linksJSON = JSON.parse(localStorage.getItem('swcLinks'))
+
     let baseContent = document.getElementById('baseContent')
 
     baseContent.classList.add('linksGrid')
@@ -23,11 +50,6 @@ function linksGen() {
     sectorB.appendChild(linksTab)
 
     // such a long setup. now I can do the juicy stuff
-
-    let linksJSON = JSON.parse(localStorage.getItem('swcLinks'))
-    let classHeaders = JSON.parse(localStorage.getItem('swcClasses'))
-
-    let classHeadersArray = []
 
     let classSectorHeader = document.createElement('span')
     classSectorHeader.textContent = 'Class Sections'
@@ -79,6 +101,59 @@ function linksGen() {
     lineBreak2.style.marginLeft = '1%'
     lineBreak2.style.marginRight = '2%'
     lineBreak2.style.width = '96%'
+    headersTab.appendChild(lineBreak2)
+
+    linksJSON[1].forEach((section) => {
+        let header = section[0]
+        let links = section[1]
+        console.log(header)
+
+        let e = document.createElement('div')
+        e.classList.add('linksHeader')
+        e.classList.add('traditionalLinkHeader')
+        e.textContent = header
+        headersTab.appendChild(e)
+
+        e.addEventListener('click', () => {
+            // do stuff once link loader is online
+            console.log('header clicked')
+        })
+
+        let removalButton = document.createElement('div')
+        removalButton.classList.add('removalButton')
+        removalButton.classList.add('contextMenuOpen')
+        removalButton.textContent = "X"
+        e.appendChild(removalButton)
+        removalButton.addEventListener('click', () => {
+            if(!confirm("Are you sure you want to remove this section?")) return
+            let jsonRead = JSON.parse(localStorage.getItem('swcLinks'))
+            jsonRead[1].forEach((element, index) => {
+                if(element[0] == header){
+                    jsonRead[1].splice(index, 1)
+                    localStorage.setItem('swcLinks', JSON.stringify(jsonRead))
+                }
+            })
+            updateMenus()
+        })
+
+    })
+
+    let addHeaderButton = document.createElement('div')
+    addHeaderButton.classList.add('addHeaderButton')
+    addHeaderButton.classList.add('contextMenuOpen')
+    addHeaderButton.textContent = "Add Section"
+    headersTab.appendChild(addHeaderButton)
+    addHeaderButton.addEventListener('click', () => {
+        let newHeader = getResultsFromContextMenu(["name"], "Add Section", [])
+
+        newHeader.then((newHeader) => {
+            let jsonRead = JSON.parse(localStorage.getItem('swcLinks'))
+            jsonRead[1].push([newHeader[0], []])
+            localStorage.setItem('swcLinks', JSON.stringify(jsonRead))
+            updateMenus()
+        })
+
+    })
 
     let tempScroller = document.createElement('div')
     tempScroller.style.height = '150%'

@@ -17,7 +17,6 @@
 .classSectorHeader {
     width: 100%;
     padding: 1%;
-    padding-left: 3%;
     font-size: clamp(2px, 1.6cqi, 33px);
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -33,6 +32,7 @@
 }
 
 .linksHeader {
+    overflow: hidden;
     font-size: clamp(7px, 2vmin, 24px);
     font-weight: 400;
     color: rgb(var(--c3));
@@ -40,10 +40,11 @@
     border-radius: 8px;
     margin: 2%;
     margin-left: 1%;
-    width: 80%;
+    width: 85%;
     cursor: pointer;
     transition: 0.25s ease;
     transform-origin: left;
+    position: relative;
 }
 
 .linksHeader.usable:hover {
@@ -51,5 +52,68 @@
 }
 
 .linksHeader.usable:active {
+    filter: brightness(1.4);
+}
+
+.traditionalLinkHeader {
+    background-color: rgba(var(--c1), 0.2);
+    color: rgb(var(--c3));
+}
+
+.traditionalLinkHeader:hover {
+    background-color: rgba(var(--c2), 0.4);
+    scale: 1.05;
+}
+
+.traditionalLinkHeader:active {
+    background-color: rgba(var(--c2), 0.6);
+    filter: brightness(1.4);
+}
+
+.removalButton {
+    background-color: rgba(var(--c1), 0.4);
+    color: rgb(var(--c3));
+    border-radius: 5px;
+    display: inline-block;
+    padding: 0.5%;
+    font-size: clamp(12px, 2vmin, 32px);
+    width: 0.4vmin;
+    height: 0.4vmin;
+    min-width: fit-content;
+    min-height: fit-content;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+}
+
+.removalButton:hover {
+    background-color: rgba(var(--c2), 0.6);
+}
+
+.addHeaderButton {
+    overflow: hidden;
+    font-size: clamp(7px, 2vmin, 24px);
+    font-weight: 400;
+    color: rgb(var(--c3));
+    padding: 2%;
+    border-radius: 8px;
+    margin: 2%;
+    margin-left: 1%;
+    width: fit-content;
+    cursor: pointer;
+    transition: 0.25s ease;
+    transform-origin: left;
+    position: relative;
+    background-color: rgba(var(--c1), 0.2);
+}
+
+.addHeaderButton:hover {
+    background-color: rgba(var(--c2), 0.4);
+    scale: 1.05;
+}
+
+.addHeaderButton:active {
+    background-color: rgba(var(--c2), 0.6);
     scale: 0.95;
 }
