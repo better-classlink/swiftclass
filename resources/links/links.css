@@ -40,7 +40,7 @@
     border-radius: 8px;
     margin: 2%;
     margin-left: 1%;
-    width: 85%;
+    width: fit-content;
     cursor: pointer;
     transition: 0.25s ease;
     transform-origin: left;
@@ -56,7 +56,7 @@
 }
 
 .traditionalLinkHeader {
-    background-color: rgba(var(--c1), 0.2);
+    background-color: rgba(var(--c2), 0.2);
     color: rgb(var(--c3));
 }
 
@@ -81,9 +81,7 @@
     height: 0.4vmin;
     min-width: fit-content;
     min-height: fit-content;
-    position: absolute;
-    right: 0;
-    top: 0;
+    margin-left: 3%;
     cursor: pointer;
 }
 
@@ -105,7 +103,7 @@
     transition: 0.25s ease;
     transform-origin: left;
     position: relative;
-    background-color: rgba(var(--c1), 0.2);
+    background-color: rgba(var(--c2), 0.2);
 }
 
 .addHeaderButton:hover {
@@ -116,4 +114,33 @@
 .addHeaderButton:active {
     background-color: rgba(var(--c2), 0.6);
     scale: 0.95;
+}
+
+.sectionBigHeader {
+    font-size: clamp(12px, 2vw, 60px);
+    margin: 0px;
+    margin-left: 0.5%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 99%;
+}
+
+.linkClickable {
+    cursor: pointer;
+    transition: 0.25s ease;
+    background-color: rgba(var(--c2), 0.2);
+    width: fit-content;
+    display: inline-block;
+    font-size: clamp(12px, 2.25vmin, 32px);
+    margin: 0.2%;
+    border-radius: 5px;
+    padding: 0.2%;
+}
+
+.controlTrack {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1%;
 }

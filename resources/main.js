@@ -381,4 +381,4 @@ setInterval(() => {
     // document.title = 'SwiftClass - ' + completeTime
 }, 100);
 
-updateMenus('forcelinks')
+updateMenus()

@@ -109,6 +109,7 @@
     margin: 1%;
     background-color: rgba(var(--c1), 0.96);
     border: 2px solid rgba(var(--c1), 0.96);
+    color: rgb(var(--c3));
     border-radius: 4px;
     padding: 0.5em;
     font-size: clamp(12px, 2vmin, 32px);

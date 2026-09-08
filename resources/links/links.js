@@ -49,6 +49,12 @@ function linksGen() {
     linksTab.classList.add('linkPart')
     sectorB.appendChild(linksTab)
 
+    let sectionBigHeader = document.createElement('span')
+    sectionBigHeader.textContent = 'Use the tab on the left to open a section.'
+    sectionBigHeader.id = 'sectionBigHeader'
+    sectionBigHeader.classList.add('sectionBigHeader')
+    linksTab.appendChild(sectionBigHeader)
+
     // such a long setup. now I can do the juicy stuff
 
     let classSectorHeader = document.createElement('span')
@@ -75,6 +81,7 @@ function linksGen() {
             e.style.cursor = 'not-allowed'
         } else {
             e.style.backgroundColor = element.color + 'AA'
+            e.dataset.period = i
 
         }
 
@@ -83,8 +90,30 @@ function linksGen() {
         } else {
             e.textContent = element.name
             e.classList.add('usable')
-            e.addEventListener('click', () => {
-                // do stuff once link loader is online
+            e.addEventListener('click', (event) => {
+                document.getElementById('sectionBigHeader').textContent = 'Links used in ' + element.name + ":"
+
+                window.sectionType = 'class'
+
+                let classLinks = linksJSON[0][event.currentTarget.dataset.period]
+                if(typeof classLinks[0] == "number") classLinks.splice(0, 1)
+                console.log(classLinks[0])
+
+                while(linksTab.firstChild !==  linksTab.lastChild){
+                    linksTab.removeChild(linksTab.lastChild)
+                }
+
+                linksTab.appendChild(document.createElement('br'))
+
+                classLinks[0].forEach((link) => {
+                    let linkClickable = document.createElement('div')
+                    linkClickable.classList.add('linkClickable')
+                    linkClickable.textContent = link.name
+                    linkClickable.addEventListener('click', (event) => {
+                        window.open(link.link)
+                    })
+                    linksTab.appendChild(linkClickable)
+                })
             })
         }
 
@@ -119,12 +148,17 @@ function linksGen() {
             console.log('header clicked')
         })
 
+        let controlTrack = document.createElement('div')
+        controlTrack.classList.add('controlTrack')
+        e.appendChild(controlTrack)
+
         let removalButton = document.createElement('div')
         removalButton.classList.add('removalButton')
         removalButton.classList.add('contextMenuOpen')
-        removalButton.textContent = "X"
-        e.appendChild(removalButton)
-        removalButton.addEventListener('click', () => {
+        removalButton.innerHTML = '<i class=\"fa-solid fa-x\"></i>'
+        controlTrack.appendChild(removalButton)
+        removalButton.addEventListener('click', (event) => {
+            event.stopPropagation()
             if(!confirm("Are you sure you want to remove this section?")) return
             let jsonRead = JSON.parse(localStorage.getItem('swcLinks'))
             jsonRead[1].forEach((element, index) => {
@@ -136,6 +170,24 @@ function linksGen() {
             updateMenus()
         })
 
+        let editButton = document.createElement('div')
+        editButton.classList.add('removalButton')
+        editButton.classList.add('contextMenuOpen')
+        editButton.innerHTML = '<i class="fa-solid fa-pencil contextMenuOpen"></i>'
+        controlTrack.appendChild(editButton)
+        editButton.addEventListener('click', () => {
+            let newHeader = getResultsFromContextMenu(["name"], "Edit Section", [header])
+            newHeader.then((newHeader) => {
+                let jsonRead = JSON.parse(localStorage.getItem('swcLinks'))
+                jsonRead[1].forEach((element, index) => {
+                    if(element[0] == header){
+                        jsonRead[1][index][0] = newHeader[0]
+                        localStorage.setItem('swcLinks', JSON.stringify(jsonRead))
+                    }
+                })
+                updateMenus()
+            })
+        })
     })
 
     let addHeaderButton = document.createElement('div')
@@ -143,7 +195,7 @@ function linksGen() {
     addHeaderButton.classList.add('contextMenuOpen')
     addHeaderButton.textContent = "Add Section"
     headersTab.appendChild(addHeaderButton)
-    addHeaderButton.addEventListener('click', () => {
+    addHeaderButton.addEventListener('click', (event) => {
         let newHeader = getResultsFromContextMenu(["name"], "Add Section", [])
 
         newHeader.then((newHeader) => {
@@ -152,10 +204,5 @@ function linksGen() {
             localStorage.setItem('swcLinks', JSON.stringify(jsonRead))
             updateMenus()
         })
-
     })
-
-    let tempScroller = document.createElement('div')
-    tempScroller.style.height = '150%'
-    headersTab.appendChild(tempScroller)
 }
